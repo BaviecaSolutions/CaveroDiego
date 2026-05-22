@@ -1,0 +1,1062 @@
+---
+layout: layouts/standard.njk
+title: "CAVERO DIEGO"
+section: home
+pageStyle: |
+  /* Nav background comes from global.css */
+
+  /* ─── Page loader ───────────────────────────────────────────── */
+  #loader {
+    position: fixed; inset: 0;
+    background: var(--ink);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 9000;
+    transition: opacity .8s ease, visibility .8s ease;
+  }
+  #loader.hidden { opacity: 0; visibility: hidden; }
+  .loader-logo {
+    width: 64px; height: 64px;
+    animation: spinLogo 1.2s linear infinite;
+    filter: invert(1);
+  }
+  @keyframes spinLogo {
+    to { transform: rotate(360deg); }
+  }
+
+  /* ─── Hero ──────────────────────────────────────────────────── */
+  #hero {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 8vw 8vh;
+    overflow: hidden;
+    position: relative;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 6rem 2vw 2vw;
+    border-radius: 4px;
+    overflow: visible;
+    z-index: 0;
+    background-color: var(--ink);
+  }
+  .hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    border-radius: 4px;
+  }
+  .hero-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 4px;
+    background: rgba(74, 84, 56, 0.45);
+  }
+  #hero > *:not(.hero-bg) {
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-title {
+    position: absolute;
+    bottom: -.15em;
+    right: -.01em;
+    z-index: 2;
+    font-family: 'Boska', serif;
+    font-size: clamp(5rem, 14.5vw, 17rem);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -.03em;
+    color: var(--cream);
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .hero-title .line {
+    display: block;
+    transform: translateY(110%);
+    animation: slideUp .9s cubic-bezier(.16,1,.3,1) forwards;
+  }
+  @keyframes slideUp { to { transform: translateY(0); } }
+
+  .hero-accent {
+    display: inline-block;
+    width: 8px; height: 8px;
+    background: var(--blue);
+    border-radius: 50%;
+    vertical-align: super;
+    margin-left: .15em;
+  }
+
+  .hero-bottom {
+    margin-top: 3.6rem;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 4vw;
+    transform: translateY(20px);
+    opacity: 0;
+    animation: fadeUp .8s .5s ease forwards;
+  }
+  .hero-sub {
+    max-width: 32ch;
+    color: var(--stone);
+    font-size: .88rem;
+    line-height: 1.7;
+  }
+  .hero-cta {
+    display: flex; align-items: center; gap: 2rem;
+    flex-shrink: 0;
+  }
+  @keyframes fadeUp { to { transform: translateY(0); opacity: 1; } }
+
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: .8rem;
+    background: var(--ink);
+    color: var(--cream);
+    font-family: 'Satoshi', sans-serif;
+    font-size: .7rem;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1.05rem 2.4rem;
+    border: 1px solid var(--ink);
+    transition: background .3s, color .3s;
+  }
+  .btn-primary:hover { background: var(--blue); border-color: var(--blue); }
+
+  .btn-ghost {
+    font-size: .7rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--stone);
+    text-decoration: none;
+    display: flex; align-items: center; gap: .5rem;
+    transition: color .3s;
+  }
+  .btn-ghost svg { transition: transform .3s; }
+  .btn-ghost:hover { color: var(--ink); }
+  .btn-ghost:hover svg { transform: translateX(4px); }
+
+  .hero-scroll-hint {
+    position: absolute; bottom: 2.8rem; right: 8vw;
+    display: flex; flex-direction: column; align-items: center; gap: .6rem;
+    z-index: 10;
+  }
+  .hero-scroll-hint span {
+    font-size: .6rem; letter-spacing: .25em;
+    text-transform: uppercase; color: var(--stone);
+    writing-mode: vertical-rl;
+  }
+  .hero-scroll-line {
+    width: 1px; height: 48px;
+    background: var(--stone);
+    transform-origin: top;
+    animation: growLine 1.2s 1s ease forwards;
+    transform: scaleY(0);
+  }
+  @keyframes growLine { to { transform: scaleY(1); } }
+
+  /* ─── Marquee strip ─────────────────────────────────────────── */
+  .marquee-strip {
+    border-top: 1px solid var(--ink-10);
+    border-bottom: 1px solid var(--ink-10);
+    overflow: hidden;
+    padding: 1.1rem 0;
+    background: var(--cream);
+  }
+  .marquee-inner {
+    display: flex; white-space: nowrap;
+    animation: marquee 28s linear infinite;
+  }
+  .marquee-inner span {
+    font-family: 'Boska', serif;
+    font-size: clamp(.9rem, 2vw, 1.4rem);
+    letter-spacing: .14em;
+    color: var(--ink);
+    padding: 0 3rem;
+  }
+  .marquee-inner .dot { color: var(--blue); padding: 0; }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ─── Territorio ─────────────────────────────────────────────── */
+  #territorio {
+    padding: 14vh 8vw 0;
+  }
+  .territorio-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 2vw;
+    align-items: end;
+  }
+  .territorio-img {
+    aspect-ratio: 4/5;
+    border-radius: 2px;
+    position: relative;
+    overflow: hidden;
+  }
+  .territorio-img::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url('/assets/img/monolito.png') center/cover no-repeat;
+  }
+  .territorio-img-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(74,84,56,0.52);
+  }
+  .territorio-aside {
+    padding-bottom: 4vh;
+    display: flex; flex-direction: column; gap: 2.4rem;
+  }
+  .territorio-aside .section-label { margin-bottom: .6rem; }
+  .territorio-aside h2 {
+    font-family: 'Boska', serif;
+    font-size: clamp(2rem, 4vw, 3.8rem);
+    font-weight: 400;
+    line-height: 1.08;
+    letter-spacing: -.01em;
+  }
+  .territorio-aside p {
+    font-size: .86rem;
+    color: var(--stone);
+    line-height: 1.9;
+    max-width: 36ch;
+  }
+
+  /* ─── Manifiesto ─────────────────────────────────────────────── */
+  #manifiesto {
+    padding: 18vh 8vw;
+    border-top: 1px solid var(--ink-10);
+    max-width: 1100px;
+  }
+  .manifiesto-label {
+    display: block;
+    margin-bottom: 3rem;
+  }
+  .manifiesto-body {
+    font-family: 'Boska', serif;
+    font-size: clamp(1.8rem, 3.8vw, 4rem);
+    font-weight: 400;
+    line-height: 1.18;
+    letter-spacing: -.01em;
+    color: var(--ink);
+  }
+  .manifiesto-body em {
+    font-style: italic;
+    color: var(--stone);
+  }
+
+  /* ─── Divider quote ──────────────────────────────────────────── */
+  .divider-quote {
+    padding: 12vh 8vw;
+    display: flex;
+    align-items: center;
+    gap: 4vw;
+  }
+  .divider-quote::before,
+  .divider-quote::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--ink-10);
+  }
+  .divider-quote img {
+    height: clamp(4rem, 10vw, 9rem);
+    opacity: .12;
+  }
+
+  /* ─── Materiales ─────────────────────────────────────────────── */
+  #materiales {
+    padding: 0 8vw 14vh;
+  }
+  .materiales-header {
+    padding: 10vh 0 6vh;
+    display: flex; justify-content: space-between; align-items: flex-end;
+  }
+  .materiales-header h2 {
+    font-family: 'Boska', serif;
+    font-size: clamp(2rem, 4.5vw, 4.2rem);
+    font-weight: 400;
+    line-height: 1;
+  }
+  .materiales-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2vw;
+  }
+  .mat-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .mat-cell:hover .mat-cell-img { opacity: .85; }
+  .mat-cell .mat-cell-img { transition: opacity .3s; }
+  .mat-cell-img {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: #2a3229;
+    border-radius: 2px;
+    position: relative;
+  }
+  .mat-cell-img::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(74,84,56,0.45);
+    border-radius: 2px;
+  }
+  .mat-cell-label { display: flex; flex-direction: column; gap: .4rem; }
+  .mat-cell-label span {
+    font-size: .58rem;
+    letter-spacing: .28em;
+    text-transform: uppercase;
+    color: var(--stone);
+  }
+  .mat-cell-label h3 {
+    font-family: 'Boska', serif;
+    font-size: clamp(1.4rem, 2.5vw, 2.2rem);
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.1;
+  }
+  .mat-cell-label p {
+    font-size: .8rem;
+    color: var(--stone);
+    line-height: 1.7;
+    max-width: 38ch;
+    margin-top: .4rem;
+  }
+  .mat-pronto {
+    display: inline-block;
+    margin-top: .8rem;
+    font-size: .58rem;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--blue);
+  }
+
+  /* ─── Origen ─────────────────────────────────────────────────── */
+  #origen {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 55vh;
+    border-top: 1px solid var(--ink-10);
+  }
+  .origen-img {
+    background: #3d4a3c;
+    max-height: 65vh;
+    overflow: hidden;
+  }
+  .origen-img img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .origen-content {
+    padding: 10vh 7vw;
+    display: flex; flex-direction: column; justify-content: center; gap: 2.4rem;
+    background: var(--ink);
+    color: var(--cream);
+  }
+  .origen-content .section-label { color: rgba(232,229,220,.35); }
+  .origen-title {
+    font-family: 'Boska', serif;
+    font-size: clamp(2rem, 3.5vw, 3.4rem);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -.01em;
+  }
+  .origen-body {
+    font-size: .86rem;
+    color: rgba(232,229,220,.55);
+    line-height: 1.9;
+    max-width: 38ch;
+  }
+
+  /* ─── Lista de espera ────────────────────────────────────────── */
+  #espera {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 16vh 8vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8vw;
+    align-items: center;
+    border-top: 1px solid rgba(232,229,220,.06);
+  }
+  .espera-title {
+    font-family: 'Boska', serif;
+    font-size: clamp(2.2rem, 4.5vw, 4.8rem);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -.01em;
+  }
+  .espera-title em { font-style: italic; color: var(--stone); }
+  .espera-sub {
+    margin-top: 1.6rem;
+    font-size: .82rem;
+    color: rgba(232,229,220,.4);
+    line-height: 1.8;
+    max-width: 36ch;
+  }
+  .espera-form {
+    display: flex; flex-direction: column; gap: 1.2rem;
+  }
+  .form-input {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(232,229,220,.2);
+    padding: 1.1rem 0;
+    font-family: 'Satoshi', sans-serif;
+    font-size: .8rem;
+    letter-spacing: .06em;
+    color: var(--cream);
+    outline: none;
+    transition: border-color .3s;
+    width: 100%;
+  }
+  .form-input::placeholder { color: rgba(232,229,220,.28); }
+  .form-input:focus { border-color: var(--blue); }
+  .form-submit {
+    align-self: flex-start;
+    display: inline-flex; align-items: center; gap: .8rem;
+    background: var(--blue);
+    color: #fff;
+    font-family: 'Satoshi', sans-serif;
+    font-size: .7rem;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    border: none;
+    padding: 1.1rem 2.6rem;
+    cursor: none;
+    transition: opacity .3s;
+    margin-top: .4rem;
+  }
+  .form-submit:hover { opacity: .85; }
+
+  /* ─── Cuaderno preview ───────────────────────────────────────── */
+  #cuaderno-preview {
+    padding: 14vh 8vw;
+    border-top: 1px solid var(--ink-10);
+  }
+  .cuaderno-preview-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 6vh;
+  }
+  .cuaderno-preview-header h2 {
+    font-family: 'Boska', serif;
+    font-size: clamp(2rem, 4.5vw, 4.2rem);
+    font-weight: 400; line-height: 1;
+  }
+  .cuaderno-preview-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 1.5px;
+    border: 1px solid var(--ink-10);
+  }
+  .cp-card {
+    text-decoration: none; color: var(--ink);
+    display: flex; flex-direction: column;
+    transition: background .3s;
+  }
+  .cp-card:hover { background: var(--ink-4); }
+  .cp-card-img {
+    aspect-ratio: 3/2;
+    background: #4a5438;
+  }
+  .cp-card.tall .cp-card-img { aspect-ratio: auto; flex: 1; min-height: 200px; }
+  .cp-card { border-right: 1px solid var(--ink-10); }
+  .cp-card-body { padding: 1.8rem 2rem 2rem; display: flex; flex-direction: column; gap: .6rem; }
+  .cp-cat {
+    font-size: .56rem; letter-spacing: .28em;
+    text-transform: uppercase; color: var(--blue);
+  }
+  .cp-titulo {
+    font-family: 'Boska', serif;
+    font-size: clamp(1rem, 1.8vw, 1.5rem);
+    font-weight: 400; line-height: 1.15;
+  }
+  .cp-leer {
+    margin-top: .6rem;
+    font-size: .58rem; letter-spacing: .2em;
+    text-transform: uppercase; color: var(--stone);
+    display: flex; align-items: center; gap: .4rem;
+    transition: color .3s;
+  }
+  .cp-card:hover .cp-leer { color: var(--ink); }
+  .cp-leer svg { transition: transform .3s; }
+  .cp-card:hover .cp-leer svg { transform: translateX(4px); }
+  .cuaderno-preview-cta {
+    margin-top: 4vh;
+    display: flex; justify-content: flex-end;
+  }
+
+  /* ─── Desktop-only: hide mobile elements ────────────────────── */
+  .hero-mobile-wordmark,
+  .hero-mobile-nav,
+  .hero-mobile-image,
+  .hero-mobile-intro,
+  .hero-mobile-cube {
+    display: none;
+  }
+
+  /* ─── Responsive ─────────────────────────────────────────────── */
+  @media (min-width: 561px) {
+    /* Desktop: mostrar texto completo, ocultar versión móvil */
+    .text-mobile-only {
+      display: none;
+    }
+    .text-desktop-only {
+      display: inline;
+    }
+  }
+
+  @media (max-width: 900px) {
+    #hero { padding: 0 6vw 7vh; }
+    .hero-bg { inset: 5rem 2vw 12vh; }
+    .hero-title { font-size: clamp(4rem, 12vw, 9rem); white-space: normal; }
+    .territorio-grid { grid-template-columns: 1fr; }
+    #territorio { padding: 8vh 6vw 0; }
+    .materiales-grid { grid-template-columns: 1fr 1fr; }
+    .mat-cell.tall { grid-row: span 1; }
+    #origen { grid-template-columns: 1fr; }
+    .origen-img { min-height: 32vh; }
+    #espera { grid-template-columns: 1fr; }
+    .cuaderno-preview-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 560px) {
+    /* Hide global nav — mobile hero has its own nav bar */
+    nav#nav { display: none !important; }
+
+    /* Mobile hero redesign */
+    #hero {
+      min-height: auto;
+      padding: 0;
+      justify-content: flex-start;
+    }
+    .hero-bg { display: none; } /* Hide desktop bg */
+    .hero-title { display: none; } /* Hide desktop title */
+    .hero-bottom { display: none; } /* Hide desktop bottom */
+
+    /* Mobile title at top — ENORME */
+    .hero-mobile-wordmark {
+      display: block;
+      font-family: 'Boska', serif;
+      font-size: clamp(5.5rem, 18vw, 8rem);
+      font-weight: 400;
+      letter-spacing: -.04em;
+      line-height: .88;
+      color: var(--ink);
+      text-align: center;
+      padding: 4vh 2vw 2vh;
+      text-transform: uppercase;
+      word-wrap: break-word;
+      hyphens: manual;
+    }
+
+    /* Mobile nav bar (replica of nav but static) */
+    .hero-mobile-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 6vw;
+      border-bottom: 1px solid var(--ink-10);
+      background: var(--cream);
+    }
+    .hero-mobile-nav .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+    }
+
+    /* Mobile hero image — hidden */
+    .hero-mobile-image {
+      display: none;
+    }
+
+    /* Mobile intro text — hidden */
+    .hero-mobile-intro {
+      display: none;
+    }
+    .hero-mobile-intro p {
+      font-size: .82rem;
+      line-height: 1.75;
+      color: var(--stone);
+      max-width: 32ch;
+      margin: 0 auto;
+    }
+
+    /* Mobile 3D cube with logo */
+    .hero-mobile-cube {
+      display: block;
+      width: 100%;
+      height: 40vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      perspective: 1000px;
+      padding: 4vh 0;
+    }
+    .cube-container {
+      width: clamp(8rem, 28vw, 12rem);
+      height: clamp(8rem, 28vw, 12rem);
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.1s ease-out;
+      cursor: grab;
+      touch-action: none;
+    }
+    .cube-container:active { cursor: grabbing; }
+    .cube-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(42,50,41,.04);
+      border: 1px solid rgba(42,50,41,.12);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    .cube-face img {
+      width: 55%;
+      height: auto;
+      opacity: .75;
+      filter: grayscale(0.2);
+    }
+    .cube-face.front  { transform: rotateY(0deg) translateZ(calc(clamp(8rem, 28vw, 12rem) / 2)); }
+    .cube-face.back   { transform: rotateY(180deg) translateZ(calc(clamp(8rem, 28vw, 12rem) / 2)); }
+    .cube-face.right  { transform: rotateY(90deg) translateZ(calc(clamp(8rem, 28vw, 12rem) / 2)); }
+    .cube-face.left   { transform: rotateY(-90deg) translateZ(calc(clamp(8rem, 28vw, 12rem) / 2)); }
+    .cube-face.top    { transform: rotateX(90deg) translateZ(calc(clamp(8rem, 28vw, 12rem) / 2)); }
+    .cube-face.bottom { transform: rotateX(-90deg) translateZ(calc(clamp(8rem, 28vw, 12rem) / 2)); }
+
+    .materiales-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5vw;
+    }
+    .mat-cell-label h3 {
+      font-size: clamp(1rem, 3.5vw, 1.4rem);
+    }
+    .mat-cell-label p {
+      font-size: .72rem;
+      line-height: 1.5;
+    }
+    .mat-cell-label span {
+      font-size: .52rem;
+    }
+    .mat-pronto {
+      font-size: .52rem;
+      margin-top: .5rem;
+    }
+    #manifiesto { padding: 12vh 6vw; }
+    .cuaderno-preview-grid { grid-template-columns: 1fr; }
+
+    /* ─── Colores de fondo contrastados para Territorio y Manifiesto ──── */
+    #territorio {
+      padding: 10vh 6vw;
+      background: linear-gradient(180deg, var(--cream) 0%, rgba(42,50,41,.08) 100%);
+    }
+
+    #manifiesto {
+      padding: 10vh 6vw 12vh;
+      background: linear-gradient(180deg, rgba(42,50,41,.12) 0%, rgba(42,50,41,.05) 50%, var(--cream) 100%);
+    }
+
+    /* Reducir texto en móvil - versión corta */
+    .text-desktop-only {
+      display: none;
+    }
+    .text-mobile-only {
+      display: block;
+    }
+
+    .manifiesto-body {
+      font-size: clamp(1.4rem, 5vw, 2.2rem);
+    }
+    .origen-img {
+      min-height: 24vh;
+      max-height: 30vh;
+    }
+
+    /* Territorio mobile: keep desktop structure, reduce image */
+    .territorio-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 3vh;
+    }
+    .territorio-img {
+      aspect-ratio: 16/9;
+      order: 2;
+      max-height: 32vh;
+    }
+    .territorio-aside {
+      order: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 1.4rem;
+    }
+    .territorio-aside h2 {
+      font-size: clamp(1.8rem, 6vw, 2.6rem);
+    }
+  }
+pageScript: |
+  /* ── i18n ───────────────────────────────────────────────────────── */
+  const translations = {
+    es: {
+      'nav.origen':       'Inicio',
+      'nav.productos':    'Productos',
+      'nav.viajes':       'Cuaderno de viaje',
+      'marquee.castilla': 'Castilla',
+      'marquee.hecho':    'Hecho a mano',
+      'marquee.materia':  'Materia natural',
+      'marquee.origen':   'Origen',
+      'marquee.criterio': 'Criterio',
+      'territorio.label': 'El origen',
+      'territorio.titulo':'La tierra como punto de partida',
+      'territorio.texto': 'Castilla no es un decorado. Es la razón por la que cada cosa que hacemos huele, pesa y se siente como se siente. Un territorio de luz dura y silencios largos que deja huella en todo lo que nace de él.',
+      'manifiesto.label': 'Manifiesto',
+      'manifiesto.texto': 'Cavero Diego representa una forma contemporánea de entender lo nuestro desde la sobriedad, la cultura y la precisión. Es orgullo castellano reinterpretado sin nostalgia; una marca que nace de la raíz, pero se expresa con <em>lenguaje internacional.</em>',
+      'materiales.titulo':'Lo que nace aquí',
+      'materiales.sub':   'Materia · Proceso · Objeto',
+      'nav.cuaderno':          'Campo',
+      'nav.empresas':          'Empresas',
+      'origen.label':          'El proceso',
+      'origen.titulo':         'De la materia<br>al <em>objeto.</em>',
+      'origen.texto':          'Cada pieza pasa por las mismas manos desde el principio. No hay intermediarios en el proceso; solo decisiones tomadas con criterio y tiempo.',
+      'espera.titulo':         'Lo primero<br>en <em>saberlo.</em>',
+      'espera.input':          'Tu correo',
+      'espera.btn':            'Entrar',
+      'prod1.cat':             'Artesanía · Cera de abeja',
+      'prod1.nombre':          'Bloque Cero\nMatriz Térmica',
+      'prod1.desc':            'Objeto escultórico de contención térmica. Cemento arquitectónico moldeado en frío, cera de soja, mecha de balsa.',
+      'prod1.pronto':          'Próximamente',
+      'prod2.cat':             'Cuidado · Territorio',
+      'prod2.nombre':          'Sustrato 01\nVitis Vinifera',
+      'prod2.desc':            'Extracción mecánica del paisaje. Polvo micronizado de semilla de vid, aceite de pepita de primera presión.',
+      'prod2.pronto':          'Próximamente',
+      'footer.col1':           'Cuaderno de campo',
+      'footer.col2':           'Cuaderno de viaje',
+      'footer.post1.cat':      'Reflexión',
+      'footer.post1.titulo':   'Por qué hacemos esto aquí',
+      'footer.post1.excerpt':  'Podríamos haber elegido otra estética, otro territorio. Elegimos Castilla. Esta es la explicación honesta de por qué.',
+      'footer.post2.cat':      'Próximamente',
+      'footer.post2.titulo':   'El primer viaje está por escribirse',
+      'footer.post2.excerpt':  'Lugares que nos forman, texturas que tomamos prestadas, formas que vuelven con nosotros en el equipaje.',
+      'footer.strip':          'Círculo Cavero — Únete',
+      'cc.eyebrow':            'Círculo Cavero',
+      'cc.titulo':             'En primera<br>fila.',
+      'cc.desc':               'Sin ruido, sin prisa. Cuando haya algo que contar — un lanzamiento, una pieza, un momento — tú serás el primero.',
+      'cc.nombre':             'Tu nombre',
+      'cc.email':              'Correo electrónico',
+      'cc.btn':                'Entrar al círculo',
+      'cc.legal':              'Sin spam. Puedes darte de baja cuando quieras.<br>© 2025 Cavero Diego',
+      'cc.cerrar':             '✕ Cerrar',
+    },
+    en: {
+      'nav.origen':            'Home',
+      'nav.productos':         'Products',
+      'nav.viajes':            'Travel Journal',
+      'marquee.castilla':      'Castile',
+      'marquee.hecho':         'Handmade',
+      'marquee.materia':       'Natural matter',
+      'marquee.origen':        'Origin',
+      'marquee.criterio':      'Criterion',
+      'territorio.label':      'The origin',
+      'territorio.titulo':     'Land as a starting point',
+      'territorio.texto':      'Castile is not a backdrop. It is the reason everything we make smells, weighs and feels the way it does. A territory of hard light and long silences that leaves its mark on everything born from it.',
+      'manifiesto.label':      'Manifesto',
+      'manifiesto.texto':      'Cavero Diego represents a contemporary way of understanding what is ours — through sobriety, culture and precision. It is Castilian pride reinterpreted without nostalgia; a brand rooted in the land, expressed with an <em>international voice.</em>',
+      'materiales.titulo':     'What is born here',
+      'materiales.sub':        'Matter · Process · Object',
+      'nav.cuaderno':          'Notebook',
+      'nav.empresas':          'Business',
+      'origen.label':          'The process',
+      'origen.titulo':         'From matter<br>to <em>object.</em>',
+      'origen.texto':          'Every piece passes through the same hands from the start. No intermediaries in the process — only decisions made with care and time.',
+      'espera.titulo':         'First to<br><em>know it.</em>',
+      'espera.input':          'Your email',
+      'espera.btn':            'Join',
+      'prod1.cat':             'Craft · Beeswax',
+      'prod1.nombre':          'Bloque Cero\nThermal Matrix',
+      'prod1.desc':            'Sculptural thermal containment object. Cold-moulded architectural cement, soy wax, balsa wick.',
+      'prod1.pronto':          'Coming soon',
+      'prod2.cat':             'Care · Territory',
+      'prod2.nombre':          'Sustrato 01\nVitis Vinifera',
+      'prod2.desc':            'Mechanical extraction of the landscape. Micronised grapeseed powder, first-press seed oil.',
+      'prod2.pronto':          'Coming soon',
+      'footer.col1':           'Field notebook',
+      'footer.col2':           'Travel journal',
+      'footer.post1.cat':      'Reflection',
+      'footer.post1.titulo':   'Why we make things here',
+      'footer.post1.excerpt':  'We could have chosen a different aesthetic, a different territory. We chose Castile. This is the honest explanation of why.',
+      'footer.post2.cat':      'Coming soon',
+      'footer.post2.titulo':   'The first journey is yet to be written',
+      'footer.post2.excerpt':  'Places that shape us, textures we borrow, forms that come back with us in our luggage.',
+      'footer.strip':          'Círculo Cavero — Join',
+      'cc.eyebrow':            'Círculo Cavero',
+      'cc.titulo':             'Front<br>row.',
+      'cc.desc':               'No noise, no rush. When there is something worth sharing — a launch, a piece, a moment — you will be the first to know.',
+      'cc.nombre':             'Your name',
+      'cc.email':              'Email address',
+      'cc.btn':                'Join the circle',
+      'cc.legal':              'No spam. Unsubscribe anytime.<br>© 2025 Cavero Diego',
+      'cc.cerrar':             '✕ Close',
+    }
+  };
+
+  let currentLang = 'es';
+
+  function applyLang(lang) {
+    const t = translations[lang];
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.dataset.i18n;
+      if (t[key] !== undefined) el.textContent = t[key];
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach(el => {
+      const key = el.dataset.i18nHtml;
+      if (t[key] !== undefined) el.innerHTML = t[key];
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+      const key = el.dataset.i18nPlaceholder;
+      if (t[key] !== undefined) el.placeholder = t[key];
+    });
+  }
+
+  /* Lang button (nav + mobile hero) */
+  function toggleLang() {
+    currentLang = currentLang === 'es' ? 'en' : 'es';
+    const label = currentLang.toUpperCase();
+    const navLabel = document.getElementById('langLabel');
+    const heroLabel = document.getElementById('heroLangLabel');
+    if (navLabel) navLabel.textContent = label;
+    if (heroLabel) heroLabel.textContent = label;
+    applyLang(currentLang);
+  }
+
+  const langBtn = document.getElementById('langBtn');
+  const heroLangBtn = document.getElementById('heroLangBtn');
+  if (langBtn) langBtn.addEventListener('click', toggleLang);
+  if (heroLangBtn) heroLangBtn.addEventListener('click', toggleLang);
+
+  /* ── Loader ─────────────────────────────────────────────────────── */
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.getElementById('loader').classList.add('hidden');
+    }, 1000);
+  });
+
+  /* ── 3D cube drag interaction (mobile only) ─────────────────────── */
+  const cubeContainer = document.querySelector('.cube-container');
+  if (cubeContainer && window.innerWidth <= 560) {
+    let rotX = 20, rotY = 20;
+    let isDragging = false;
+    let startX, startY;
+
+    function updateCube() {
+      cubeContainer.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+    }
+
+    cubeContainer.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      startX = e.clientX;
+      startY = e.clientY;
+    });
+
+    cubeContainer.addEventListener('touchstart', (e) => {
+      isDragging = true;
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+    });
+
+    const onMove = (clientX, clientY) => {
+      if (!isDragging) return;
+      const deltaX = clientX - startX;
+      const deltaY = clientY - startY;
+      rotY += deltaX * 0.5;
+      rotX -= deltaY * 0.5;
+      startX = clientX;
+      startY = clientY;
+      updateCube();
+    };
+
+    document.addEventListener('mousemove', (e) => onMove(e.clientX, e.clientY));
+    document.addEventListener('touchmove', (e) => {
+      if (isDragging) {
+        e.preventDefault();
+        onMove(e.touches[0].clientX, e.touches[0].clientY);
+      }
+    }, { passive: false });
+
+    const onEnd = () => { isDragging = false; };
+    document.addEventListener('mouseup', onEnd);
+    document.addEventListener('touchend', onEnd);
+
+    updateCube();
+  }
+---
+
+<!-- Loader -->
+<div id="loader">
+  <img src="/assets/img/cv_logo.png" class="loader-logo" alt="Cargando">
+</div>
+
+<!-- ─── HERO ─────────────────────────────────────────────────────── -->
+<section id="hero">
+  <!-- Desktop hero -->
+  <div class="hero-bg">
+    <img src="/assets/img/hero2.png" alt="" aria-hidden="true">
+    <h1 class="hero-title">
+      <span class="line">CAVERO DIEGO</span>
+    </h1>
+  </div>
+
+  <!-- Mobile hero -->
+  <!-- 1. Header first -->
+  <div class="hero-mobile-nav">
+    <button class="nav-hamburger" onclick="document.getElementById('navHamburger').click()" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-right">
+      <button class="nav-cart-btn" onclick="if(window._openCart) window._openCart()" aria-label="Carrito">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+          <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 0 1-8 0"/>
+        </svg>
+        <span class="nav-cart-count">0</span>
+      </button>
+      <button class="nav-lang-btn" id="heroLangBtn" aria-label="Cambiar idioma">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+        </svg>
+        <span id="heroLangLabel">ES</span>
+      </button>
+      <button class="nav-logo-btn" onclick="document.getElementById('navLogoBtn').click()" aria-label="Cavero Diego">
+        <img src="/assets/img/cv_logo.png" alt="CD" />
+      </button>
+    </div>
+  </div>
+
+  <!-- 2. Wordmark second -->
+  <h1 class="hero-mobile-wordmark">CAVERO<br>DIEGO</h1>
+
+  <!-- 3. Cube third -->
+  <div class="hero-mobile-cube">
+    <div class="cube-container">
+      <div class="cube-face front"><img src="/assets/img/cv_logo.png" alt="CD"></div>
+      <div class="cube-face back"><img src="/assets/img/cv_logo.png" alt="CD"></div>
+      <div class="cube-face right"><img src="/assets/img/cv_logo.png" alt="CD"></div>
+      <div class="cube-face left"><img src="/assets/img/cv_logo.png" alt="CD"></div>
+      <div class="cube-face top"><img src="/assets/img/cv_logo.png" alt="CD"></div>
+      <div class="cube-face bottom"><img src="/assets/img/cv_logo.png" alt="CD"></div>
+    </div>
+  </div>
+
+  <!-- Mobile image (will be hidden) -->
+  <div class="hero-mobile-image">
+    <img src="/assets/img/hero2.png" alt="Cavero Diego">
+  </div>
+
+  <div class="hero-mobile-intro">
+    <p>
+      Artesanía castellana de materia vegetal.<br>
+      Productos formulados con criterio territorial.
+    </p>
+  </div>
+</section>
+
+<!-- ─── MARQUEE ──────────────────────────────────────────────────── -->
+<div class="marquee-strip">
+  <div class="marquee-inner">
+    <span data-i18n="marquee.castilla">Castilla</span><span class="dot">·</span>
+    <span>Cavero Diego</span><span class="dot">·</span>
+    <span data-i18n="marquee.hecho">Hecho a mano</span><span class="dot">·</span>
+    <span data-i18n="marquee.materia">Materia natural</span><span class="dot">·</span>
+    <span data-i18n="marquee.origen">Origen</span><span class="dot">·</span>
+    <span data-i18n="marquee.criterio">Criterio</span><span class="dot">·</span>
+    <span data-i18n="marquee.castilla">Castilla</span><span class="dot">·</span>
+    <span>Cavero Diego</span><span class="dot">·</span>
+    <span data-i18n="marquee.hecho">Hecho a mano</span><span class="dot">·</span>
+    <span data-i18n="marquee.materia">Materia natural</span><span class="dot">·</span>
+    <span data-i18n="marquee.origen">Origen</span><span class="dot">·</span>
+    <span data-i18n="marquee.criterio">Criterio</span><span class="dot">·</span>
+  </div>
+</div>
+
+<!-- ─── TERRITORIO ───────────────────────────────────────────────── -->
+<section id="territorio">
+  <div class="territorio-grid">
+    <div class="territorio-img reveal">
+      <div class="territorio-img-overlay"></div>
+    </div>
+    <div class="territorio-aside reveal" style="transition-delay:.12s">
+      <span class="section-label" data-i18n="territorio.label">El origen</span>
+      <h2 data-i18n="territorio.titulo">La tierra como punto de partida</h2>
+      <p>
+        <span class="text-desktop-only" data-i18n="territorio.texto">Castilla no es un decorado. Es la razón por la que cada cosa
+        que hacemos huele, pesa y se siente como se siente.
+        Un territorio de luz dura y silencios largos que deja huella
+        en todo lo que nace de él.</span>
+        <span class="text-mobile-only">Un territorio de luz dura y silencios largos que deja huella en todo lo que nace de él.</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── MANIFIESTO ───────────────────────────────────────────────── -->
+<section id="manifiesto">
+  <span class="section-label manifiesto-label reveal" data-i18n="manifiesto.label">Manifiesto</span>
+  <p class="manifiesto-body reveal" style="transition-delay:.1s">
+    <span class="text-desktop-only" data-i18n-html="manifiesto.texto">Cavero Diego representa una forma contemporánea de entender
+    lo nuestro desde la sobriedad, la cultura y la precisión.
+    Es orgullo castellano reinterpretado sin nostalgia;
+    una marca que nace de la raíz, pero se expresa
+    con <em>lenguaje internacional.</em></span>
+    <span class="text-mobile-only">Orgullo castellano reinterpretado sin nostalgia. Una marca que nace de la raíz, pero se expresa con <em>lenguaje internacional.</em></span>
+  </p>
+</section>
+
+<!-- ─── FRASE ─────────────────────────────────────────────────────── -->
+<div class="divider-quote reveal">
+  <img src="/assets/img/cv_logo.png" alt="Cavero Diego" loading="lazy" />
+</div>
+
+<!-- ─── MATERIALES ───────────────────────────────────────────────── -->
+<section id="materiales">
+  <div class="materiales-header">
+    <h2 class="reveal" data-i18n="materiales.titulo">Lo que nace aquí</h2>
+    <span class="section-label reveal" style="transition-delay:.1s" data-i18n="materiales.sub">Materia · Proceso · Objeto</span>
+  </div>
+  <div class="materiales-grid">
+    <a class="mat-cell reveal" href="/productos/bloque-cero/">
+      <div class="mat-cell-img" style="background:#2a3229; background-image:url('/assets/img/vela.png'); background-size:cover; background-position:center;"></div>
+      <div class="mat-cell-label">
+        <span data-i18n="prod1.cat">Artesanía · Cera de abeja</span>
+        <h3 data-i18n="prod1.nombre">Bloque Cero<br>Matriz Térmica</h3>
+        <p data-i18n="prod1.desc">Objeto escultórico de contención térmica. Cemento arquitectónico moldeado en frío, cera de soja, mecha de balsa.</p>
+        <span class="mat-pronto" data-i18n="prod1.pronto">Próximamente</span>
+      </div>
+    </a>
+    <a class="mat-cell reveal" href="/productos/sustrato-01/" style="transition-delay:.1s">
+      <div class="mat-cell-img" style="background:#5c6b47; background-image:url('/assets/img/exfoliante.png'); background-size:cover; background-position:center;"></div>
+      <div class="mat-cell-label">
+        <span data-i18n="prod2.cat">Cuidado · Territorio</span>
+        <h3 data-i18n="prod2.nombre">Sustrato 01<br>Vitis Vinifera</h3>
+        <p data-i18n="prod2.desc">Extracción mecánica del paisaje. Polvo micronizado de semilla de vid, aceite de pepita de primera presión.</p>
+        <span class="mat-pronto" data-i18n="prod2.pronto">Próximamente</span>
+      </div>
+    </a>
+  </div>
+</section>

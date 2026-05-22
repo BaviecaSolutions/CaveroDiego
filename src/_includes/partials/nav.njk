@@ -1,0 +1,46 @@
+<nav id="nav">
+  <ul class="nav-links">
+    <li><a href="/" class="{{ 'active' if section == 'home' }}">Inicio</a></li>
+    <li><a href="/#materiales" class="{{ 'active' if section == 'productos' }}">Productos</a></li>
+    <li><a href="/cuaderno/" class="{{ 'active' if section == 'campo' }}">Campo</a></li>
+    <li><a href="/cuaderno-de-viaje/" class="{{ 'active' if section == 'viaje' }}">Viaje</a></li>
+    <li><a href="/empresas/" class="nav-empresas{{ ' active' if section == 'empresas' }}">Empresas</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="nav-hamburger" id="navHamburger" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
+    <button class="nav-cart-btn" id="cartNavBtn" aria-label="Carrito">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <path d="M16 10a4 4 0 0 1-8 0"/>
+      </svg>
+      <span class="nav-cart-count" id="cartCountBadge">0</span>
+    </button>
+    {% if langBtn != false %}
+    <button class="nav-lang-btn" id="langBtn" aria-label="Cambiar idioma">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+      </svg>
+      <span id="langLabel">ES</span>
+    </button>
+    {% endif %}
+    <button class="nav-logo-btn" id="navLogoBtn" aria-label="Cavero Diego">
+      <img src="/assets/img/cv_logo.png" alt="CD" />
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile menu overlay + panel -->
+<div class="nav-overlay" id="navOverlay"></div>
+<div class="nav-panel" id="navPanel">
+  <ul class="nav-panel-links">
+    <li><a href="/" class="{{ 'active' if section == 'home' }}">Inicio</a></li>
+    <li><a href="/#materiales" class="{{ 'active' if section == 'productos' }}">Productos</a></li>
+    <li><a href="/cuaderno/" class="{{ 'active' if section == 'campo' }}">Campo</a></li>
+    <li><a href="/cuaderno-de-viaje/" class="{{ 'active' if section == 'viaje' }}">Viaje</a></li>
+    <li><a href="/empresas/" class="{{ 'active' if section == 'empresas' }}">Empresas</a></li>
+  </ul>
+</div>

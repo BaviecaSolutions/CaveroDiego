@@ -1,0 +1,686 @@
+---
+layout: layouts/standard.njk
+title: "Mediterráneo — Cuaderno de viaje — Cavero Diego"
+description: "Cal, sal y piedra antigua. Un viaje a la orilla donde el territorio cambia de registro."
+section: viaje
+footerOmit: all
+langBtn: false
+pageStyle: |
+
+  /* ── Scoped palette (Mediterráneo) ───────────────────────────── */
+  .jrn-wrapper {
+    --jrn-bg:      #E8E5DC;
+    --jrn-ink:     #2A3229;
+    --jrn-accent:  #c4956a;
+    --jrn-mid:     #7a9eb5;
+    --jrn-neon:    #98D624;
+  }
+
+  /* ── Base ─────────────────────────────────────────────────────── */
+  html, body { background: #E8E5DC; }
+
+  /* ── Scroll container: tall enough for 5 panels ──────────────── */
+  .jrn-wrapper {
+    position: relative;
+    height: 600vh;
+  }
+
+  /* ── Fixed canvas ─────────────────────────────────────────────── */
+  .jrn-canvas {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    background: var(--jrn-bg);
+  }
+
+  /* ── Hide all panels initially ───────────────────────────────── */
+  .jrn-panel {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .jrn-panel.is-active { pointer-events: auto; }
+
+  /* ── Progress bar ─────────────────────────────────────────────── */
+  .jrn-progress-track {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: rgba(42,50,41,.1);
+    z-index: 200;
+  }
+  .jrn-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--jrn-neon, #98D624);
+    transition: width .08s linear;
+    will-change: width;
+  }
+
+  /* ── Top bar ──────────────────────────────────────────────────── */
+  .jrn-topbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 3vw;
+    z-index: 100;
+    pointer-events: none;
+  }
+  .jrn-topbar-back {
+    pointer-events: all;
+    display: inline-flex; align-items: center; gap: .5rem;
+    font-family: 'Satoshi', sans-serif;
+    font-size: .56rem; letter-spacing: .26em; text-transform: uppercase;
+    color: rgba(42,50,41,.4);
+    text-decoration: none;
+    transition: color .25s;
+  }
+  .jrn-topbar-back:hover { color: #2A3229; }
+  .jrn-topbar-back:hover svg { transform: translateX(-3px); }
+  .jrn-topbar-back svg { transition: transform .25s; }
+  .jrn-topbar-tag {
+    font-family: 'Satoshi', sans-serif;
+    font-size: .56rem; letter-spacing: .26em; text-transform: uppercase;
+    color: rgba(42,50,41,.22);
+  }
+
+  /* ── Panel counter ────────────────────────────────────────────── */
+  .jrn-counter {
+    position: fixed;
+    bottom: 1.8rem; right: 3vw;
+    font-family: 'Satoshi', sans-serif;
+    font-size: .52rem; letter-spacing: .22em; text-transform: uppercase;
+    color: rgba(42,50,41,.28);
+    z-index: 100;
+    transition: opacity .4s;
+  }
+
+  /* ════════════════════════════════════════════════════════════════
+     PANEL 1 · TITLE
+  ════════════════════════════════════════════════════════════════ */
+  .jrn-p1 {
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 8vw 12vh;
+  }
+  .jrn-p1-eyebrow {
+    font-family: 'Satoshi', sans-serif;
+    font-size: .58rem; letter-spacing: .32em; text-transform: uppercase;
+    color: rgba(42,50,41,.32);
+    margin-bottom: 2.4rem;
+    display: block;
+  }
+  .jrn-p1-title {
+    font-family: 'Boska', serif;
+    font-size: clamp(5rem, 12vw, 13rem);
+    font-weight: 400; font-style: italic;
+    line-height: .88; letter-spacing: -.03em;
+    color: #2A3229;
+  }
+  .jrn-p1-meta {
+    margin-top: 3.5rem;
+    display: flex; align-items: baseline; gap: 4vw;
+  }
+  .jrn-p1-coords {
+    font-family: 'Satoshi', sans-serif;
+    font-size: .56rem; letter-spacing: .24em; text-transform: uppercase;
+    color: rgba(42,50,41,.22);
+  }
+  .jrn-p1-desc {
+    font-family: 'Satoshi', sans-serif;
+    font-size: .85rem; line-height: 1.8;
+    color: rgba(42,50,41,.45);
+    max-width: 42ch;
+  }
+
+  /* ════════════════════════════════════════════════════════════════
+     PANEL 2 · IMAGE + TEXT
+  ════════════════════════════════════════════════════════════════ */
+  .jrn-p2 {
+    align-items: center;
+  }
+  .jrn-p2-img-wrap {
+    flex: 0 0 auto;
+    width: 42vw;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+  }
+  .jrn-p2-img-wrap img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    filter: saturate(.82);
+    display: block;
+  }
+  .jrn-p2-note {
+    position: absolute;
+    bottom: 2rem; left: 2rem;
+    font-family: 'Satoshi', sans-serif;
+    font-size: .5rem; letter-spacing: .2em; text-transform: uppercase;
+    color: rgba(232,229,220,.45);
+    line-height: 1.7;
+  }
+  .jrn-p2-text {
+    flex: 1;
+    padding: 0 6vw 0 5vw;
+    display: flex; flex-direction: column; gap: 2rem;
+  }
+  .jrn-p2-label {
+    font-family: 'Satoshi', sans-serif;
+    font-size: .56rem; letter-spacing: .3em; text-transform: uppercase;
+    color: rgba(42,50,41,.28);
+  }
+  .jrn-p2-body {
+    font-family: 'Satoshi', sans-serif;
+    font-size: .95rem; line-height: 1.85;
+    color: rgba(42,50,41,.62);
+    max-width: 38ch;
+  }
+  .jrn-p2-quote {
+    border-left: 2px solid var(--jrn-accent, #c4956a);
+    padding-left: 1.4rem;
+    font-family: 'Boska', serif;
+    font-size: clamp(1.2rem, 2vw, 1.7rem);
+    font-style: italic; line-height: 1.2;
+    color: #2A3229;
+  }
+
+  /* ════════════════════════════════════════════════════════════════
+     PANEL 3 · PANORAMIC + STAT
+  ════════════════════════════════════════════════════════════════ */
+  .jrn-p3 {
+    flex-direction: column;
+    justify-content: center;
+  }
+  .jrn-p3-img-wrap {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+  .jrn-p3-img-wrap img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    filter: saturate(.75) brightness(.82);
+    display: block;
+  }
+  .jrn-p3-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(42,50,41,.72) 0%,
+      rgba(42,50,41,.2) 60%,
+      transparent 100%
+    );
+  }
+  .jrn-p3-content {
+    position: relative; z-index: 1;
+    padding: 0 8vw;
+    display: flex; flex-direction: column; gap: 2rem;
+  }
+  .jrn-p3-stat {
+    font-family: 'Boska', serif;
+    font-size: clamp(5rem, 14vw, 14rem);
+    font-weight: 700; line-height: .88;
+    letter-spacing: -.04em;
+    color: rgba(232,229,220,.9);
+  }
+  .jrn-p3-stat-label {
+    font-family: 'Satoshi', sans-serif;
+    font-size: .56rem; letter-spacing: .28em; text-transform: uppercase;
+    color: rgba(232,229,220,.38);
+    max-width: 24ch; line-height: 1.7;
+  }
+  .jrn-p3-caption {
+    position: absolute;
+    bottom: 2rem; right: 3vw;
+    font-family: 'Satoshi', sans-serif;
+    font-size: .5rem; letter-spacing: .2em; text-transform: uppercase;
+    color: rgba(232,229,220,.32);
+    z-index: 1;
+  }
+
+  /* ════════════════════════════════════════════════════════════════
+     PANEL 4 · TEXT + COLOR BLOCK
+  ════════════════════════════════════════════════════════════════ */
+  .jrn-p4 {
+    align-items: stretch;
+  }
+  .jrn-p4-color {
+    flex: 0 0 auto;
+    width: 28vw;
+    background: #2A3229;
+    display: flex; flex-direction: column;
+    justify-content: flex-end;
+    padding: 3.5rem 2.8rem;
+    gap: 1.2rem;
+  }
+  .jrn-p4-color-label {
+    font-family: 'Satoshi', sans-serif;
+    font-size: .5rem; letter-spacing: .26em; text-transform: uppercase;
+    color: rgba(232,229,220,.25);
+  }
+  .jrn-p4-color-quote {
+    font-family: 'Boska', serif;
+    font-size: clamp(1.1rem, 1.8vw, 1.6rem);
+    font-style: italic; line-height: 1.25;
+    color: rgba(232,229,220,.78);
+  }
+  .jrn-p4-text {
+    flex: 1;
+    display: flex; flex-direction: column;
+    justify-content: center;
+    padding: 0 6vw 0 5vw;
+    gap: 2rem;
+  }
+  .jrn-p4-heading {
+    font-family: 'Boska', serif;
+    font-size: clamp(1.6rem, 3vw, 2.8rem);
+    font-weight: 400; font-style: italic;
+    line-height: 1.05; letter-spacing: -.01em;
+    color: #2A3229;
+  }
+  .jrn-p4-body {
+    font-family: 'Satoshi', sans-serif;
+    font-size: .92rem; line-height: 1.85;
+    color: rgba(42,50,41,.58);
+    max-width: 40ch;
+  }
+  .jrn-p4-swatch-row {
+    display: flex; gap: .8rem; align-items: center; margin-top: .5rem;
+  }
+  .jrn-swatch {
+    width: 2rem; height: 2rem; border-radius: 50%;
+  }
+  .jrn-swatch-label {
+    font-family: 'Satoshi', sans-serif;
+    font-size: .5rem; letter-spacing: .2em; text-transform: uppercase;
+    color: rgba(42,50,41,.3);
+  }
+
+  /* ════════════════════════════════════════════════════════════════
+     PANEL 5 · COLLECTION / END
+  ════════════════════════════════════════════════════════════════ */
+  .jrn-p5 {
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 8vw;
+    gap: 4vh;
+  }
+  .jrn-p5-label {
+    font-family: 'Satoshi', sans-serif;
+    font-size: .58rem; letter-spacing: .32em; text-transform: uppercase;
+    color: rgba(42,50,41,.28);
+  }
+  .jrn-p5-title {
+    font-family: 'Boska', serif;
+    font-size: clamp(2.4rem, 5vw, 5rem);
+    font-weight: 400; font-style: italic;
+    line-height: .95; letter-spacing: -.02em;
+    color: #2A3229;
+  }
+  .jrn-p5-products {
+    display: flex; gap: 2.4rem; margin-top: 1rem;
+  }
+  .jrn-product {
+    text-decoration: none;
+    display: flex; flex-direction: column; gap: .9rem;
+    width: clamp(10rem, 16vw, 20rem);
+    transition: opacity .25s;
+  }
+  .jrn-product:hover { opacity: .7; }
+  .jrn-product-img {
+    width: 100%; aspect-ratio: 3/4;
+    object-fit: cover; display: block;
+    filter: saturate(.72);
+  }
+  .jrn-product-name {
+    font-family: 'Satoshi', sans-serif;
+    font-size: .74rem; font-weight: 600; letter-spacing: .04em;
+    color: #2A3229;
+  }
+  .jrn-product-sub {
+    font-family: 'Satoshi', sans-serif;
+    font-size: .52rem; letter-spacing: .2em; text-transform: uppercase;
+    color: rgba(42,50,41,.3);
+  }
+
+  /* ════════════════════════════════════════════════════════════════
+     SCROLL HINT (initial)
+  ════════════════════════════════════════════════════════════════ */
+  .jrn-hint {
+    position: fixed;
+    bottom: 2.8rem; left: 50%;
+    transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: .7rem;
+    z-index: 100; pointer-events: none;
+    transition: opacity .8s ease;
+  }
+  .jrn-hint.hidden { opacity: 0; }
+  .jrn-hint-label {
+    font-family: 'Satoshi', sans-serif;
+    font-size: .52rem; letter-spacing: .28em; text-transform: uppercase;
+    color: rgba(42,50,41,.32);
+  }
+  .jrn-hint-arrow {
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+    animation: hintBounce 1.6s ease-in-out infinite;
+  }
+  .jrn-hint-arrow span {
+    display: block; width: 1px;
+    background: rgba(42,50,41,.3);
+  }
+  .jrn-hint-arrow span:nth-child(1) { height: 6px; opacity: .25; }
+  .jrn-hint-arrow span:nth-child(2) { height: 10px; opacity: .45; }
+  .jrn-hint-arrow span:nth-child(3) { height: 14px; opacity: .65; }
+  @keyframes hintBounce {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(5px); }
+  }
+
+  /* ════════════════════════════════════════════════════════════════
+     MOBILE FALLBACK
+  ════════════════════════════════════════════════════════════════ */
+  @media (max-width: 768px) {
+    .jrn-wrapper { height: auto; }
+    .jrn-canvas {
+      position: static;
+      height: auto;
+      overflow: visible;
+    }
+    .jrn-panel {
+      position: static;
+      opacity: 1 !important;
+      transform: none !important;
+      pointer-events: auto;
+    }
+    .jrn-canvas { display: flex; flex-direction: column; }
+    .jrn-p1 { padding: 7rem 6vw 6vh; min-height: 80vh; }
+    .jrn-p2 { flex-direction: column; }
+    .jrn-p2-img-wrap { width: 100%; height: 56vw; }
+    .jrn-p2-text { padding: 3vh 6vw; }
+    .jrn-p3 { min-height: 60vh; }
+    .jrn-p4 { flex-direction: column; }
+    .jrn-p4-color { width: 100%; min-height: 30vh; }
+    .jrn-p4-text { padding: 3vh 6vw; }
+    .jrn-p5 { padding: 6vh 6vw; min-height: 80vh; }
+    .jrn-p5-products { flex-direction: column; }
+    .jrn-product { width: 60vw; }
+    .jrn-progress-track, .jrn-hint, .jrn-counter { display: none; }
+    .jrn-topbar { position: static; padding: 1.4rem 6vw 0; }
+  }
+---
+
+<!-- ── Progress bar ──────────────────────────────────────────────── -->
+<div class="jrn-progress-track">
+  <div class="jrn-progress-fill" id="jrnProgress"></div>
+</div>
+
+<!-- ── Top bar ───────────────────────────────────────────────────── -->
+<div class="jrn-topbar">
+  <a href="/cuaderno-de-viaje/" class="jrn-topbar-back">
+    <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
+      <path d="M13 8H3M7 4l-4 4 4 4" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+    </svg>
+    Archivo
+  </a>
+  <span class="jrn-topbar-tag">Mediterráneo · 2025</span>
+</div>
+
+<!-- ── Panel counter ─────────────────────────────────────────────── -->
+<span class="jrn-counter" id="jrnCounter">01 / 05</span>
+
+<!-- ── Scroll hint ───────────────────────────────────────────────── -->
+<div class="jrn-hint" id="jrnHint">
+  <span class="jrn-hint-label">Desplazar</span>
+  <div class="jrn-hint-arrow">
+    <span></span><span></span><span></span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     JOURNEY WRAPPER — height: 600vh gives the scroll room.
+     The canvas is sticky: top 0 and stays pinned while scrolling.
+════════════════════════════════════════════════════════════════════ -->
+<div class="jrn-wrapper" id="jrnWrapper">
+  <div class="jrn-canvas" id="jrnCanvas">
+
+    <!-- ── PANEL 1 · TITLE ─────────────────────────────────────────── -->
+    <div class="jrn-panel jrn-p1" id="jrnP1">
+      <span class="jrn-p1-eyebrow">Costa Mediterránea · España</span>
+      <h1 class="jrn-p1-title">Medite-<br>rráneo</h1>
+      <div class="jrn-p1-meta">
+        <span class="jrn-p1-coords">39°28′N · 0°22′W · Julio 2025</span>
+        <p class="jrn-p1-desc">
+          Cal, sal y piedra antigua. Un viaje a la orilla donde el territorio
+          cambia de registro y los materiales hablan otro idioma.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── PANEL 2 · IMAGE + TEXT ──────────────────────────────────── -->
+    <div class="jrn-panel jrn-p2" id="jrnP2">
+      <div class="jrn-p2-img-wrap">
+        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1000&q=80"
+             alt="Mar mediterráneo" loading="lazy" />
+        <span class="jrn-p2-note">Costa levantina<br>julio 2025</span>
+      </div>
+      <div class="jrn-p2-text">
+        <span class="jrn-p2-label">El territorio</span>
+        <p class="jrn-p2-body">
+          Llegamos en julio, cuando la luz ya no negocia. La costa levantina
+          tiene esa cualidad de aplastarte el paisaje hasta convertirlo en
+          geometría pura: el blanco de la cal, el azul sin matices del agua,
+          la línea horizontal donde los dos se encuentran.
+        </p>
+        <blockquote class="jrn-p2-quote">
+          No hay vegetación que suavice.<br>Es un territorio de certezas.
+        </blockquote>
+      </div>
+    </div>
+
+    <!-- ── PANEL 3 · PANORAMIC + STAT ─────────────────────────────── -->
+    <div class="jrn-panel jrn-p3" id="jrnP3">
+      <div class="jrn-p3-img-wrap">
+        <img src="https://images.unsplash.com/photo-1504701954957-2010ec3bcec1?w=1800&q=80"
+             alt="Horizonte mediterráneo" loading="lazy" />
+      </div>
+      <div class="jrn-p3-overlay"></div>
+      <div class="jrn-p3-content">
+        <span class="jrn-p3-stat">3.000<br>km</span>
+        <span class="jrn-p3-stat-label">De costa mediterránea española.<br>Un litoral que cambia de carácter cada cien kilómetros.</span>
+      </div>
+      <span class="jrn-p3-caption">Golfo de Valencia · julio 2025</span>
+    </div>
+
+    <!-- ── PANEL 4 · TEXT + COLOR ──────────────────────────────────── -->
+    <div class="jrn-panel jrn-p4" id="jrnP4">
+      <div class="jrn-p4-color">
+        <span class="jrn-p4-color-label">Paleta del viaje</span>
+        <p class="jrn-p4-color-quote">
+          «La sal no se fabrica.<br>Se recoge cuando<br>el mar la deja.»
+        </p>
+      </div>
+      <div class="jrn-p4-text">
+        <h2 class="jrn-p4-heading">Los colores que<br>volvieron con nosotros</h2>
+        <p class="jrn-p4-body">
+          Azul marino casi negro antes del amanecer. Terracota de las paredes
+          encaladas al sol de las doce. El verde grisáceo de la mata baja.
+          El blanco que no es blanco sino una docena de blancos distintos
+          según la hora. No los elegimos — los encontramos.
+        </p>
+        <div class="jrn-p4-swatch-row">
+          <span class="jrn-swatch" style="background:#1a3a4a;" title="Azul antes del amanecer"></span>
+          <span class="jrn-swatch" style="background:#c4956a;" title="Terracota mediodía"></span>
+          <span class="jrn-swatch" style="background:#7a9eb5;" title="Mar grisáceo"></span>
+          <span class="jrn-swatch" style="background:#e8dfd0;" title="Cal levantina"></span>
+          <span class="jrn-swatch-label">Paleta · Mediterráneo 2025</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PANEL 5 · COLLECTION ────────────────────────────────────── -->
+    <div class="jrn-panel jrn-p5" id="jrnP5">
+      <span class="jrn-p5-label">Colección Mediterráneo · 2025</span>
+      <h2 class="jrn-p5-title">Lo que trajo<br>el viaje.</h2>
+      <div class="jrn-p5-products">
+        <a href="/productos/sustrato-01/" class="jrn-product">
+          <img src="/assets/img/exfoliante.png"
+               alt="Sustrato 01" class="jrn-product-img" loading="lazy" />
+          <span class="jrn-product-name">Sustrato 01</span>
+          <span class="jrn-product-sub">Vitis Vinifera · Cuidado</span>
+        </a>
+        <a href="/productos/bloque-cero/" class="jrn-product">
+          <img src="/assets/img/vela.png"
+               alt="Bloque Cero" class="jrn-product-img" loading="lazy" />
+          <span class="jrn-product-name">Bloque Cero</span>
+          <span class="jrn-product-sub">Matriz Térmica · Cera</span>
+        </a>
+      </div>
+    </div>
+
+  </div><!-- /jrn-canvas -->
+</div><!-- /jrn-wrapper -->
+
+<!-- ══════════════════════════════════════════════════════════════════
+     GSAP ScrollTrigger engine
+════════════════════════════════════════════════════════════════════ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<script>
+(function () {
+  /* ── Mobile bail-out ──────────────────────────────────────────── */
+  if (window.innerWidth <= 768) return;
+
+  function init() {
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+      setTimeout(init, 60);
+      return;
+    }
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const wrapper  = document.getElementById('jrnWrapper');
+    const canvas   = document.getElementById('jrnCanvas');
+    const progress = document.getElementById('jrnProgress');
+    const hint     = document.getElementById('jrnHint');
+    const counter  = document.getElementById('jrnCounter');
+
+    if (!wrapper || !canvas) return;
+
+    const panels = [
+      document.getElementById('jrnP1'),
+      document.getElementById('jrnP2'),
+      document.getElementById('jrnP3'),
+      document.getElementById('jrnP4'),
+      document.getElementById('jrnP5'),
+    ];
+    const TOTAL = panels.length;
+
+    /* ── Per-panel entrance config ─────────────────────────────── */
+    const panelConfig = [
+      /* P1 title    */ { fromY: 28 },
+      /* P2 img+text */ { fromY: 22 },
+      /* P3 panorama */ { fromY: 18 },
+      /* P4 text+col */ { fromY: 22 },
+      /* P5 end      */ { fromY: 25 },
+    ];
+
+    /* ── GSAP state per panel ──────────────────────────────────── */
+    let currentPanel = -1;
+
+    function showPanel(index, direction) {
+      if (index === currentPanel) return;
+
+      const prev = currentPanel;
+      currentPanel = index;
+
+      /* Hide previous */
+      if (prev >= 0 && panels[prev]) {
+        const tl = gsap.timeline();
+        tl.to(panels[prev], {
+          opacity: 0,
+          y: direction > 0 ? -18 : 18,
+          duration: .55,
+          ease: 'power2.in',
+          onComplete: () => {
+            panels[prev].classList.remove('is-active');
+            gsap.set(panels[prev], { willChange: 'auto' });
+          }
+        });
+      }
+
+      /* Show current */
+      const cfg = panelConfig[index];
+      gsap.set(panels[index], { opacity: 0, y: cfg.fromY, willChange: 'transform, opacity' });
+      panels[index].classList.add('is-active');
+      gsap.to(panels[index], {
+        opacity: 1,
+        y: 0,
+        duration: .75,
+        ease: 'power3.out',
+        onComplete: () => {
+          gsap.set(panels[index], { willChange: 'auto' });
+        }
+      });
+
+      /* Counter */
+      if (counter) {
+        counter.textContent = String(index + 1).padStart(2, '0') + ' / ' + String(TOTAL).padStart(2, '0');
+      }
+
+      /* Progress bar */
+      if (progress) {
+        gsap.to(progress, {
+          width: ((index + 1) / TOTAL * 100) + '%',
+          duration: .4,
+          ease: 'power1.out',
+        });
+      }
+
+      /* Hint: hide after first advance */
+      if (index > 0 && hint && !hint.classList.contains('hidden')) {
+        hint.classList.add('hidden');
+      }
+    }
+
+    /* ── ScrollTrigger: map scroll progress to panels ──────────── */
+    ScrollTrigger.create({
+      trigger: wrapper,
+      start: 'top top',
+      end: 'bottom bottom',
+      scrub: false,
+      onUpdate: (self) => {
+        /* progress 0→1 across the full spacer height */
+        const raw   = self.progress;          /* 0 – 1 */
+        const index = Math.min(
+          Math.floor(raw * TOTAL),
+          TOTAL - 1
+        );
+        showPanel(index, self.direction);
+      },
+      onLeaveBack: () => {
+        /* scrolled back above the wrapper — show panel 0 */
+        showPanel(0, -1);
+      },
+    });
+
+    /* ── Show first panel immediately ─────────────────────────── */
+    showPanel(0, 1);
+
+    /* ── After the journey ends, unpin is automatic ──────────────
+       sticky positioning unpins itself when the spacer runs out.
+       No extra logic needed. */
+  }
+
+  document.addEventListener('DOMContentLoaded', init);
+  if (document.readyState !== 'loading') init();
+})();
+</script>

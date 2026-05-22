@@ -1,0 +1,238 @@
+---
+layout: layouts/article.njk
+title: "La cera de abeja y por qué no usamos otra cosa — Cuaderno de campo — Cavero Diego"
+description: "La cera de abeja no es un ingrediente. Es una decisión."
+section: campo
+langBtn: false
+articleDate: "2025-05-19"
+pageStyle: |
+  /* Nav background comes from global.css */
+
+  /* ─── Hero entrada ──────────────────────────────────────────── */
+  .entrada-hero {
+    min-height: 65vh;
+    background: #3d4a3c;
+    display: flex; align-items: flex-end;
+    padding: 0 8vw 7vh;
+    position: relative;
+    overflow: hidden;
+  }
+  .entrada-hero img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%; object-fit: cover;
+    display: block;
+  }
+  .entrada-hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(42,50,41,.7) 0%, rgba(42,50,41,.1) 60%);
+  }
+  .entrada-hero-content {
+    position: relative; z-index: 1;
+    max-width: 760px;
+  }
+  .entrada-hero-meta {
+    display: flex; align-items: center; gap: 1.4rem;
+    margin-bottom: 1.4rem;
+  }
+  .entrada-cat {
+    font-size: .58rem; letter-spacing: .28em;
+    text-transform: uppercase; color: var(--blue);
+  }
+  .entrada-fecha {
+    font-size: .58rem; letter-spacing: .18em;
+    text-transform: uppercase; color: rgba(232,229,220,.5);
+  }
+  .entrada-hero-titulo {
+    font-family: 'Boska', serif;
+    font-size: clamp(2rem, 5vw, 5rem);
+    font-weight: 400; line-height: 1.05; letter-spacing: -.02em;
+    color: var(--cream);
+  }
+
+  /* ─── Cuerpo del artículo ───────────────────────────────────── */
+  .entrada-layout {
+    display: grid;
+    grid-template-columns: 1fr min(680px, 60vw) 1fr;
+    padding: 10vh 0;
+  }
+  .entrada-content { grid-column: 2; }
+
+  .entrada-content p {
+    font-size: 1rem;
+    line-height: 1.9;
+    color: var(--ink);
+    margin-bottom: 1.8rem;
+  }
+  .entrada-content h2 {
+    font-family: 'Boska', serif;
+    font-size: clamp(1.4rem, 2.8vw, 2.2rem);
+    font-weight: 400; line-height: 1.1; letter-spacing: -.01em;
+    margin: 3.6rem 0 1.4rem;
+  }
+  .entrada-content blockquote {
+    margin: 3rem 0;
+    padding-left: 2rem;
+    border-left: 2px solid var(--ink-10);
+    font-family: 'Boska', serif;
+    font-size: clamp(1.1rem, 2.2vw, 1.6rem);
+    font-style: italic;
+    color: var(--stone);
+    line-height: 1.4;
+  }
+  .entrada-content .imagen-entrada {
+    width: 100%;
+    aspect-ratio: 3/2;
+    background: #4a5438;
+    border-radius: 2px;
+    margin: 3rem 0;
+    overflow: hidden;
+  }
+  .entrada-content .imagen-entrada img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+  .imagen-caption {
+    font-size: .68rem; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--stone);
+    margin-top: -.6rem; margin-bottom: 2rem;
+  }
+
+  /* ─── Nav entre entradas ────────────────────────────────────── */
+  .entrada-nav {
+    padding: 6vh 8vw;
+    border-top: 1px solid var(--ink-10);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .volver-link {
+    display: inline-flex; align-items: center; gap: .6rem;
+    font-size: .66rem; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--stone); text-decoration: none; transition: color .3s;
+  }
+  .volver-link svg { transition: transform .3s; }
+  .volver-link:hover { color: var(--ink); }
+  .volver-link:hover svg { transform: translateX(-4px); }
+
+  .siguiente-link {
+    display: flex; flex-direction: column; align-items: flex-end;
+    text-decoration: none; color: var(--ink); gap: .4rem;
+  }
+  .siguiente-label {
+    font-size: .58rem; letter-spacing: .22em;
+    text-transform: uppercase; color: var(--stone);
+  }
+  .siguiente-titulo {
+    font-family: 'Boska', serif;
+    font-size: clamp(1rem, 1.8vw, 1.4rem);
+    font-weight: 400; line-height: 1.2;
+    text-align: right; max-width: 28ch;
+  }
+
+  /* ─── Responsive ────────────────────────────────────────────── */
+  @media (max-width: 900px) {
+    .entrada-layout { grid-template-columns: 1fr; padding: 8vh 8vw; }
+    .entrada-content { grid-column: 1; }
+  }
+  @media (max-width: 560px) {
+    .entrada-nav { flex-direction: column; align-items: flex-start; gap: 2.4rem; }
+    .siguiente-link { align-items: flex-start; }
+    .siguiente-titulo { text-align: left; }
+  }
+---
+
+<!-- ─── HERO ─────────────────────────────────────────────────────── -->
+<div class="entrada-hero">
+  <div class="entrada-hero-overlay"></div>
+  <div class="entrada-hero-content">
+    <div class="entrada-hero-meta">
+      <span class="entrada-cat">Proceso</span>
+      <span class="entrada-fecha">19 Mayo 2025</span>
+    </div>
+    <h1 class="entrada-hero-titulo">
+      La cera de abeja<br>y por qué no usamos<br>otra cosa
+    </h1>
+  </div>
+</div>
+
+<!-- ─── CONTENIDO ────────────────────────────────────────────────── -->
+<article class="entrada-layout">
+  <div class="entrada-content">
+
+    <p>
+      Cuando empezamos a formular las velas, lo primero que hicimos fue una lista de opciones.
+      Cera de soja, cera de coco, parafina, mezclas sintéticas.
+      Cada una tenía argumentos a su favor: precio, disponibilidad, consistencia en la producción.
+      La cera de abeja era la más cara, la más difícil de conseguir en cantidad y
+      la que menos margen dejaba. La elegimos igualmente.
+    </p>
+
+    <p>
+      No fue una decisión romántica. Fue una decisión de criterio.
+    </p>
+
+    <h2>Qué tiene de especial</h2>
+
+    <p>
+      La cera de abeja es el único material natural que arde de forma completa,
+      sin dejar residuos tóxicos en el aire. Tiene un punto de fusión alto —
+      entre 62 y 65 grados — lo que significa que la vela dura más y se
+      consume de forma uniforme. No necesita aditivos para solidificar ni
+      fragancia añadida para oler: su aroma natural a miel es suave, limpio,
+      honesto.
+    </p>
+
+    <blockquote>
+      La cera de abeja no imita nada. Es exactamente lo que parece.
+      Eso es exactamente lo que buscamos en cada pieza.
+    </blockquote>
+
+    <div class="imagen-entrada">
+      <!-- Placeholder — sustituir por imagen real -->
+    </div>
+    <p class="imagen-caption">Cera de abeja en bruto, antes del proceso de filtrado</p>
+
+    <h2>El problema de la escala</h2>
+
+    <p>
+      La cera de abeja tiene un problema: no se puede producir de forma industrial
+      sin comprometer su calidad. Los apicultores que trabajan con cera de primera
+      calidad producen cantidades limitadas. Eso significa que nuestra producción
+      también es limitada. No es un argumento de marketing. Es una consecuencia
+      lógica de la materia prima que elegimos.
+    </p>
+
+    <p>
+      Preferimos hacer menos y hacerlo bien que escalar y perder lo que lo hace
+      diferente. Es el mismo razonamiento que aplicamos a todo lo demás en Cavero Diego.
+    </p>
+
+    <h2>De dónde viene la nuestra</h2>
+
+    <p>
+      Trabajamos con un apicultor de Castilla y León. Sus colmenas están en
+      zona de encinar — el mismo paisaje que da forma a nuestra paleta visual,
+      al olor que queremos en los espacios donde viven nuestras velas.
+      No es casualidad. Es coherencia.
+    </p>
+
+    <p>
+      Cada partida es ligeramente distinta: el color varía del amarillo pálido
+      al ámbar intenso según la época del año y las floraciones. Esas variaciones
+      no son defectos. Son el registro de un lugar concreto en un momento concreto.
+      Igual que el territorio que nos define.
+    </p>
+
+  </div>
+</article>
+
+<!-- ─── NAV ENTRE ENTRADAS ───────────────────────────────────────── -->
+<div class="entrada-nav">
+  <a href="/cuaderno/" class="volver-link">
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+      <path d="M13 8H3M7 4l-4 4 4 4" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+    </svg>
+    Cuaderno de campo
+  </a>
+  <a href="/cuaderno/por-que-hacemos-esto-aqui/" class="siguiente-link">
+    <span class="siguiente-label">Siguiente entrada</span>
+    <span class="siguiente-titulo">Por qué hacemos esto aquí</span>
+  </a>
+</div>

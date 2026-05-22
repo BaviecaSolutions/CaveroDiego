@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ title }}</title>
+  {% if description %}<meta name="description" content="{{ description }}" />{% endif %}
+  {% if ogTitle %}<meta property="og:title" content="{{ ogTitle }}" />{% endif %}
+  {% if ogDescription %}<meta property="og:description" content="{{ ogDescription }}" />{% endif %}
+  {% if ogImage %}<meta property="og:image" content="{{ ogImage }}" />{% endif %}
+  {% if canonical %}<link rel="canonical" href="{{ canonical }}" />{% endif %}
+  {% if articleDate %}<meta property="article:published_time" content="{{ articleDate }}" />{% endif %}
+
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link href="https://api.fontshare.com/v2/css?f[]=boska@400,500,700&f[]=satoshi@400,500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/global.css" />
+  {% if pageStyle %}<style>{{ pageStyle | safe }}</style>{% endif %}
+</head>
+<body>
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  {% include "partials/nav.njk" %}
+
+  {{ content | safe }}
+
+  {% if not noCC %}{% include "partials/cc-panel.njk" %}{% endif %}
+
+  <script src="/assets/js/global.js" defer></script>
+  {% if pageScript %}<script>{{ pageScript | safe }}</script>{% endif %}
+</body>
+</html>

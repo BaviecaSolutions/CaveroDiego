@@ -1,0 +1,561 @@
+---
+layout: layouts/base.njk
+title: "Pago — Cavero Diego"
+noCC: true
+pageStyle: |
+  .checkout-wrap {
+    min-height: 100svh;
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 0;
+  }
+
+  /* ─── Left: form ─────────────────────────────────────────── */
+  .checkout-form-col {
+    padding: 8vh 6vw 8vh 8vw;
+    display: flex;
+    flex-direction: column;
+    gap: 3.2rem;
+  }
+  .checkout-back {
+    display: inline-flex; align-items: center; gap: .6rem;
+    font-size: .72rem; letter-spacing: .15em; text-transform: uppercase;
+    color: var(--stone); text-decoration: none;
+    transition: color .2s;
+  }
+  .checkout-back:hover { color: var(--ink); }
+  .checkout-back svg { transition: transform .2s; }
+  .checkout-back:hover svg { transform: translateX(-3px); }
+
+  .checkout-logo {
+    font-family: 'Boska', serif;
+    font-size: 1.1rem; font-weight: 400; letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  .checkout-section-title {
+    font-size: .64rem; letter-spacing: .25em; text-transform: uppercase;
+    color: var(--stone); margin-bottom: 1.6rem;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .form-row.full { grid-template-columns: 1fr; }
+
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+  }
+  .form-field label {
+    font-size: .7rem; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--stone);
+  }
+  .form-field input,
+  .form-field select {
+    background: none;
+    border: none;
+    border-bottom: 1px solid var(--ink-10);
+    padding: .7rem 0;
+    font-family: 'Satoshi', sans-serif;
+    font-size: .9rem;
+    color: var(--ink);
+    outline: none;
+    transition: border-color .2s;
+    -webkit-appearance: none;
+  }
+  .form-field input:focus,
+  .form-field select:focus { border-bottom-color: var(--ink); }
+  .form-field select { cursor: none; }
+
+  /* ─── Payment methods ────────────────────────────────────── */
+  .payment-methods {
+    display: flex;
+    flex-direction: column;
+    gap: .8rem;
+  }
+  .payment-method {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.2rem;
+    border: 1px solid var(--ink-10);
+    border-radius: 4px;
+    cursor: none;
+    transition: border-color .2s;
+  }
+  .payment-method:hover { border-color: rgba(42,50,41,.3); }
+  .payment-method.selected { border-color: var(--ink); }
+  .payment-method input[type="radio"] { display: none; }
+  .payment-method-icon {
+    width: 36px; height: 24px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .payment-method-label {
+    font-size: .85rem;
+    flex: 1;
+  }
+  .payment-method-desc {
+    font-size: .72rem;
+    color: var(--stone);
+  }
+
+  /* Card fields (shown when card selected) */
+  .card-fields {
+    display: none;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.6rem 1.2rem;
+    border: 1px solid var(--ink-10);
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    margin-top: -.8rem;
+  }
+  .card-fields.visible { display: flex; }
+
+  /* ─── Discount ───────────────────────────────────────────── */
+  .discount-row {
+    display: flex;
+    gap: .8rem;
+    align-items: flex-end;
+  }
+  .discount-row .form-field { flex: 1; }
+  .discount-apply {
+    background: none; border: 1px solid var(--ink-10);
+    padding: .65rem 1.2rem;
+    font-family: 'Satoshi', sans-serif;
+    font-size: .78rem; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--ink); cursor: none;
+    border-radius: 2px;
+    transition: border-color .2s, background .2s;
+    white-space: nowrap;
+    margin-bottom: 1px;
+  }
+  .discount-apply:hover { border-color: var(--ink); background: var(--ink-4); }
+  .discount-msg {
+    font-size: .75rem; margin-top: .4rem;
+    min-height: 1.2em;
+  }
+  .discount-msg.ok  { color: var(--blue); }
+  .discount-msg.err { color: var(--stone); }
+
+  /* ─── Submit ──────────────────────────────────────────────── */
+  .checkout-submit {
+    width: 100%;
+    background: var(--ink);
+    color: var(--cream);
+    border: none;
+    padding: 1.1rem 2rem;
+    font-family: 'Satoshi', sans-serif;
+    font-size: .8rem; letter-spacing: .2em; text-transform: uppercase;
+    cursor: none;
+    display: flex; align-items: center; justify-content: center; gap: .8rem;
+    transition: opacity .2s;
+    border-radius: 2px;
+  }
+  .checkout-submit:hover { opacity: .85; }
+  .checkout-submit:disabled { opacity: .4; }
+
+  .checkout-legal {
+    font-size: .7rem; color: var(--stone); text-align: center;
+    line-height: 1.5;
+  }
+  .checkout-legal a { color: var(--stone); }
+
+  /* ─── Right: order summary ───────────────────────────────── */
+  .checkout-summary-col {
+    background: var(--ink-4);
+    padding: 8vh 4vw 8vh 4vw;
+    display: flex;
+    flex-direction: column;
+    gap: 2.4rem;
+    border-left: 1px solid var(--ink-10);
+  }
+  .summary-title {
+    font-size: .64rem; letter-spacing: .25em; text-transform: uppercase;
+    color: var(--stone);
+  }
+  .summary-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    flex: 1;
+  }
+  .summary-item {
+    display: grid;
+    grid-template-columns: 48px 1fr auto;
+    gap: 1rem;
+    align-items: center;
+  }
+  .summary-item-img {
+    width: 48px; height: 48px;
+    border-radius: 2px;
+    background: var(--ink-10);
+    position: relative;
+  }
+  .summary-item-badge {
+    position: absolute;
+    top: -6px; right: -6px;
+    width: 18px; height: 18px;
+    background: var(--stone);
+    color: var(--cream);
+    border-radius: 50%;
+    font-size: .6rem;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .summary-item-name {
+    font-size: .85rem;
+    line-height: 1.3;
+  }
+  .summary-item-variant {
+    font-size: .72rem;
+    color: var(--stone);
+  }
+  .summary-item-price {
+    font-size: .85rem;
+    white-space: nowrap;
+  }
+
+  .summary-divider {
+    border: none;
+    border-top: 1px solid var(--ink-10);
+  }
+
+  .summary-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: .82rem;
+  }
+  .summary-line.total {
+    font-size: .95rem;
+    font-weight: 500;
+  }
+  .summary-line .label { color: var(--stone); }
+  .summary-line.total .label { color: var(--ink); }
+  .summary-discount-val { color: var(--blue); }
+
+  /* ─── Responsive ──────────────────────────────────────────── */
+  @media (max-width: 860px) {
+    .checkout-wrap {
+      grid-template-columns: 1fr;
+    }
+    .checkout-summary-col {
+      border-left: none;
+      border-top: 1px solid var(--ink-10);
+      padding: 4vh 6vw;
+    }
+    .checkout-form-col {
+      padding: 6vh 6vw;
+    }
+  }
+pageScript: |
+  /* ── Descuentos válidos ──────────────────────────────────────── */
+  const DISCOUNT_CODES = {
+    'CAVERO10':  { type: 'percent', value: 10,  label: '-10%' },
+    'CAMPO15':   { type: 'percent', value: 15,  label: '-15%' },
+    'BIENVENIDA':{ type: 'fixed',   value: 5,   label: '-5 €' },
+  };
+
+  let appliedDiscount = null;
+
+  /* ── Renderizar resumen desde carrito ────────────────────────── */
+  function renderSummary() {
+    const items = Cart.items();
+    const container = document.getElementById('summaryItems');
+
+    if (!items.length) {
+      container.innerHTML = '<p style="font-size:.82rem;color:var(--stone);">El carrito está vacío.</p>';
+      return;
+    }
+
+    container.innerHTML = items.map(item => `
+      <div class="summary-item">
+        <div class="summary-item-img" style="background:${item.color || 'var(--ink-4)'}">
+          <span class="summary-item-badge">${item.qty}</span>
+        </div>
+        <div>
+          <div class="summary-item-name">${item.name}</div>
+          ${item.variant ? `<div class="summary-item-variant">${item.variant}</div>` : ''}
+        </div>
+        <span class="summary-item-price">${(item.price * item.qty).toFixed(2).replace('.', ',')} €</span>
+      </div>
+    `).join('');
+
+    updateTotals();
+  }
+
+  function updateTotals() {
+    const subtotal = Cart.total();
+    let discount = 0;
+
+    if (appliedDiscount) {
+      if (appliedDiscount.type === 'percent') {
+        discount = subtotal * appliedDiscount.value / 100;
+      } else {
+        discount = Math.min(appliedDiscount.value, subtotal);
+      }
+    }
+
+    const total = subtotal - discount;
+
+    document.getElementById('summarySubtotal').textContent =
+      subtotal.toFixed(2).replace('.', ',') + ' €';
+    document.getElementById('summaryTotal').textContent =
+      total.toFixed(2).replace('.', ',') + ' €';
+
+    const discountLine = document.getElementById('discountLine');
+    if (discount > 0) {
+      discountLine.style.display = 'flex';
+      document.getElementById('discountLineVal').textContent =
+        '-' + discount.toFixed(2).replace('.', ',') + ' €';
+    } else {
+      discountLine.style.display = 'none';
+    }
+  }
+
+  /* ── Método de pago ──────────────────────────────────────────── */
+  document.querySelectorAll('.payment-method').forEach(method => {
+    method.addEventListener('click', () => {
+      document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
+      method.classList.add('selected');
+      method.querySelector('input[type="radio"]').checked = true;
+      const isCard = method.querySelector('input').value === 'card';
+      document.getElementById('cardFields').classList.toggle('visible', isCard);
+    });
+  });
+
+  /* ── Código descuento ────────────────────────────────────────── */
+  document.getElementById('discountApplyBtn').addEventListener('click', () => {
+    const code = document.getElementById('discountCode').value.trim().toUpperCase();
+    const msg  = document.getElementById('discountMsg');
+
+    if (DISCOUNT_CODES[code]) {
+      appliedDiscount = DISCOUNT_CODES[code];
+      msg.className = 'discount-msg ok';
+      msg.textContent = 'Código aplicado: ' + appliedDiscount.label;
+      updateTotals();
+    } else {
+      appliedDiscount = null;
+      msg.className = 'discount-msg err';
+      msg.textContent = code ? 'Código no válido.' : 'Introduce un código.';
+      updateTotals();
+    }
+  });
+
+  /* ── Submit ──────────────────────────────────────────────────── */
+  document.getElementById('checkoutForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const btn = document.getElementById('checkoutSubmitBtn');
+    const label = document.getElementById('checkoutBtnLabel');
+    btn.disabled = true;
+    label.textContent = 'Procesando…';
+
+    /* Aquí irá la llamada a Stripe cuando se integre el backend */
+    setTimeout(() => {
+      label.textContent = 'Confirmar pedido';
+      btn.disabled = false;
+      alert('Integración con Stripe pendiente de configurar. El pedido se ha recibido.');
+    }, 1200);
+  });
+
+  /* ── Init cuando el carrito esté disponible ──────────────────── */
+  document.addEventListener('DOMContentLoaded', () => {
+    if (typeof Cart !== 'undefined') {
+      Cart.subscribe(renderSummary);
+    }
+  });
+---
+
+<div class="checkout-wrap">
+
+  <!-- ─── FORM ──────────────────────────────────────────────────── -->
+  <div class="checkout-form-col">
+
+    <div style="display:flex; align-items:center; justify-content:space-between;">
+      <a href="/" class="checkout-back">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+          <path d="M13 8H3M7 4l-4 4 4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+        Volver
+      </a>
+      <span class="checkout-logo">Cavero Diego</span>
+    </div>
+
+    <form id="checkoutForm" novalidate>
+
+      <!-- Envío -->
+      <div>
+        <p class="checkout-section-title">Datos de envío</p>
+        <div style="display:flex; flex-direction:column; gap:1rem;">
+          <div class="form-row">
+            <div class="form-field">
+              <label for="firstName">Nombre</label>
+              <input type="text" id="firstName" name="firstName" autocomplete="given-name" required />
+            </div>
+            <div class="form-field">
+              <label for="lastName">Apellidos</label>
+              <input type="text" id="lastName" name="lastName" autocomplete="family-name" required />
+            </div>
+          </div>
+          <div class="form-row full">
+            <div class="form-field">
+              <label for="email">Correo electrónico</label>
+              <input type="email" id="email" name="email" autocomplete="email" required />
+            </div>
+          </div>
+          <div class="form-row full">
+            <div class="form-field">
+              <label for="address">Dirección</label>
+              <input type="text" id="address" name="address" autocomplete="street-address" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-field">
+              <label for="city">Ciudad</label>
+              <input type="text" id="city" name="city" autocomplete="address-level2" required />
+            </div>
+            <div class="form-field">
+              <label for="postal">Código postal</label>
+              <input type="text" id="postal" name="postal" autocomplete="postal-code" required />
+            </div>
+          </div>
+          <div class="form-row full">
+            <div class="form-field">
+              <label for="country">País</label>
+              <select id="country" name="country" autocomplete="country" required>
+                <option value="">Seleccionar</option>
+                <option value="ES" selected>España</option>
+                <option value="PT">Portugal</option>
+                <option value="FR">Francia</option>
+                <option value="DE">Alemania</option>
+                <option value="IT">Italia</option>
+                <option value="GB">Reino Unido</option>
+                <option value="US">Estados Unidos</option>
+                <option value="other">Otro</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Método de pago -->
+      <div>
+        <p class="checkout-section-title">Método de pago</p>
+        <div class="payment-methods">
+
+          <label class="payment-method selected" id="methodCard">
+            <input type="radio" name="payment" value="card" checked />
+            <div class="payment-method-icon">
+              <svg width="28" height="20" viewBox="0 0 28 20" fill="none">
+                <rect width="28" height="20" rx="3" fill="var(--ink-4)" stroke="var(--ink-10)"/>
+                <rect y="4" width="28" height="5" fill="var(--ink-10)"/>
+                <rect x="3" y="13" width="8" height="3" rx="1" fill="var(--stone)" opacity=".4"/>
+              </svg>
+            </div>
+            <div>
+              <div class="payment-method-label">Tarjeta</div>
+              <div class="payment-method-desc">Visa, Mastercard, Amex</div>
+            </div>
+          </label>
+
+          <div class="card-fields visible" id="cardFields">
+            <div class="form-field">
+              <label>Número de tarjeta</label>
+              <!-- Stripe Elements se montará aquí -->
+              <div id="stripeCardNumber" style="padding:.7rem 0; border-bottom:1px solid var(--ink-10);"></div>
+            </div>
+            <div class="form-row">
+              <div class="form-field">
+                <label>Caducidad</label>
+                <div id="stripeCardExpiry" style="padding:.7rem 0; border-bottom:1px solid var(--ink-10);"></div>
+              </div>
+              <div class="form-field">
+                <label>CVC</label>
+                <div id="stripeCardCvc" style="padding:.7rem 0; border-bottom:1px solid var(--ink-10);"></div>
+              </div>
+            </div>
+          </div>
+
+          <label class="payment-method" id="methodTransfer">
+            <input type="radio" name="payment" value="transfer" />
+            <div class="payment-method-icon">
+              <svg width="24" height="20" viewBox="0 0 24 20" fill="none">
+                <rect width="24" height="14" rx="2" stroke="var(--ink)" stroke-width="1.2" opacity=".4"/>
+                <path d="M3 5h4M3 9h7" stroke="var(--ink)" stroke-width="1.2" stroke-linecap="round" opacity=".4"/>
+                <path d="M15 16l3 3 3-3M18 19v-5" stroke="var(--ink)" stroke-width="1.2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div>
+              <div class="payment-method-label">Transferencia bancaria</div>
+              <div class="payment-method-desc">Recibirás los datos por email</div>
+            </div>
+          </label>
+
+        </div>
+      </div>
+
+      <!-- Código descuento -->
+      <div>
+        <p class="checkout-section-title">Código de descuento</p>
+        <div class="discount-row">
+          <div class="form-field">
+            <label for="discountCode">Código</label>
+            <input type="text" id="discountCode" name="discountCode" placeholder="CAVERO10" style="text-transform:uppercase;" />
+          </div>
+          <button type="button" class="discount-apply" id="discountApplyBtn">Aplicar</button>
+        </div>
+        <p class="discount-msg" id="discountMsg"></p>
+      </div>
+
+      <!-- Submit -->
+      <div style="display:flex; flex-direction:column; gap:1rem;">
+        <button type="submit" class="checkout-submit" id="checkoutSubmitBtn">
+          <span id="checkoutBtnLabel">Confirmar pedido</span>
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <p class="checkout-legal">
+          Al confirmar aceptas los <a href="#">Términos de venta</a> y la <a href="#">Política de privacidad</a>.
+          Pago procesado de forma segura.
+        </p>
+      </div>
+
+    </form>
+  </div>
+
+  <!-- ─── SUMMARY ───────────────────────────────────────────────── -->
+  <div class="checkout-summary-col">
+    <p class="summary-title">Resumen del pedido</p>
+    <div class="summary-items" id="summaryItems">
+      <!-- Renderizado por JS -->
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:1rem;">
+      <hr class="summary-divider" />
+      <div class="summary-line">
+        <span class="label">Subtotal</span>
+        <span id="summarySubtotal">—</span>
+      </div>
+      <div class="summary-line" id="discountLine" style="display:none;">
+        <span class="label">Descuento</span>
+        <span class="summary-discount-val" id="discountLineVal"></span>
+      </div>
+      <div class="summary-line">
+        <span class="label">Envío</span>
+        <span id="summaryShipping">Calculado al confirmar</span>
+      </div>
+      <hr class="summary-divider" />
+      <div class="summary-line total">
+        <span class="label">Total</span>
+        <span id="summaryTotal">—</span>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,519 @@
+---
+layout: layouts/empresas.njk
+title: "Empresas — Cavero Diego"
+description: "Pedidos mayoristas y acuerdos comerciales con Cavero Diego."
+section: empresas
+langBtn: true
+pageStyle: |
+  /* ─── Tema verde oscuro ──────────────────────────────────── */
+  :root {
+    --emp-bg:      #2a3229;
+    --emp-cream:   #e8e5dc;
+    --emp-muted:   rgba(232,229,220,.35);
+    --emp-border:  rgba(232,229,220,.08);
+    --emp-green:   #98d624;
+  }
+
+  body { background: var(--emp-bg); color: var(--emp-cream); }
+
+  /* Nav sobre fondo oscuro */
+  nav { background: var(--emp-bg); }
+  .nav-links a { color: var(--emp-cream); }
+  .nav-links a.nav-empresas {
+    color: var(--emp-cream);
+    border-color: rgba(232,229,220,.2);
+  }
+  .nav-links a.nav-empresas:hover {
+    border-color: var(--emp-cream);
+    background: rgba(232,229,220,.06);
+  }
+  .nav-lang-btn { color: var(--emp-cream); }
+  .nav-cart-btn { color: var(--emp-cream); }
+  .nav-logo-btn { filter: invert(1) brightness(1.5); }
+
+  /* ─── Hero ───────────────────────────────────────────────── */
+  .emp-hero {
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 6rem 8vw 5rem;
+  }
+  .emp-hero-eyebrow {
+    font-size: .64rem; letter-spacing: .3em; text-transform: uppercase;
+    color: var(--emp-muted); margin-bottom: 1.4rem; display: block;
+  }
+  .emp-hero-title {
+    font-family: 'Boska', serif;
+    font-size: clamp(2.8rem, 6vw, 6rem);
+    font-weight: 400; line-height: .95;
+    letter-spacing: -.02em;
+    max-width: 14ch;
+  }
+  .emp-hero-title em { font-style: italic; color: var(--emp-green); }
+  .emp-hero-desc {
+    margin-top: 2.4rem;
+    max-width: 48ch;
+    font-size: .9rem;
+    line-height: 1.7;
+    color: var(--emp-muted);
+  }
+
+  /* ─── Usos ───────────────────────────────────────────────── */
+  .emp-usos {
+    padding: 6rem 8vw;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    border-bottom: 1px solid var(--emp-border);
+  }
+  .emp-uso {
+    padding: 3rem 2.4rem;
+    border-right: 1px solid var(--emp-border);
+  }
+  .emp-uso:last-child { border-right: none; }
+  .emp-uso-icon {
+    width: 36px; height: 36px;
+    margin-bottom: 1.6rem;
+    color: var(--emp-green);
+  }
+  .emp-uso-title {
+    font-family: 'Boska', serif;
+    font-size: 1.3rem; font-weight: 400;
+    letter-spacing: -.01em;
+    margin-bottom: .8rem;
+  }
+  .emp-uso-desc {
+    font-size: .82rem; color: var(--emp-muted);
+    line-height: 1.65;
+  }
+
+  /* ─── Ventajas ───────────────────────────────────────────── */
+  .emp-ventajas {
+    padding: 6rem 8vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5vw;
+    align-items: center;
+    border-bottom: 1px solid var(--emp-border);
+  }
+  .emp-ventajas-left .section-label {
+    font-size: .64rem; letter-spacing: .25em; text-transform: uppercase;
+    color: var(--emp-muted); display: block; margin-bottom: 1.6rem;
+  }
+  .emp-ventajas-title {
+    font-family: 'Boska', serif;
+    font-size: clamp(2rem, 3.5vw, 3.2rem);
+    font-weight: 400; line-height: 1.05;
+    letter-spacing: -.02em;
+  }
+  .emp-ventajas-title em { font-style: italic; color: var(--emp-green); }
+  .emp-ventajas-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+  .emp-ventajas-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    font-size: .85rem;
+    line-height: 1.6;
+    color: rgba(232,229,220,.75);
+  }
+  .emp-ventajas-list li::before {
+    content: '';
+    width: 5px; height: 5px;
+    background: var(--emp-green);
+    border-radius: 50%;
+    margin-top: .55em;
+    flex-shrink: 0;
+  }
+
+  /* ─── Proceso ────────────────────────────────────────────── */
+  .emp-proceso {
+    padding: 6rem 8vw;
+    border-bottom: 1px solid var(--emp-border);
+  }
+  .emp-proceso-header { margin-bottom: 3.2rem; }
+  .emp-proceso-header .section-label {
+    font-size: .64rem; letter-spacing: .25em; text-transform: uppercase;
+    color: var(--emp-muted); display: block; margin-bottom: 1rem;
+  }
+  .emp-proceso-header h2 {
+    font-family: 'Boska', serif;
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    font-weight: 400; letter-spacing: -.02em;
+  }
+  .emp-pasos {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+  }
+  .emp-paso {
+    padding: 2.4rem 2rem;
+    border-right: 1px solid var(--emp-border);
+  }
+  .emp-paso:last-child { border-right: none; }
+  .emp-paso-num {
+    font-size: .64rem; letter-spacing: .2em;
+    color: var(--emp-green); margin-bottom: 1.2rem;
+  }
+  .emp-paso-title {
+    font-size: .95rem; font-weight: 500;
+    margin-bottom: .6rem;
+  }
+  .emp-paso-desc {
+    font-size: .78rem; color: var(--emp-muted); line-height: 1.6;
+  }
+
+  /* ─── Formulario ──────────────────────────────────────────── */
+  .emp-form-section {
+    padding: 6rem 8vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8vw;
+    background: rgba(255,255,255,.10);
+    border-top: 1px solid var(--emp-border);
+  }
+  .emp-form-left .section-label {
+    font-size: .64rem; letter-spacing: .25em; text-transform: uppercase;
+    color: var(--emp-muted); display: block; margin-bottom: 1.6rem;
+  }
+  .emp-form-left h2 {
+    font-family: 'Boska', serif;
+    font-size: clamp(2rem, 3vw, 3rem);
+    font-weight: 400; letter-spacing: -.02em;
+    line-height: 1.05; margin-bottom: 1.6rem;
+  }
+  .emp-form-left p {
+    font-size: .85rem; color: var(--emp-muted);
+    line-height: 1.7; max-width: 40ch;
+  }
+  .emp-form-left .emp-contact-direct {
+    margin-top: 2.4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--emp-border);
+  }
+  .emp-form-left .emp-contact-direct p {
+    font-size: .75rem; color: var(--emp-muted); margin-bottom: .4rem;
+  }
+  .emp-form-left .emp-contact-direct a {
+    font-size: .88rem; color: var(--emp-cream);
+    text-decoration: none;
+  }
+  .emp-form-left .emp-contact-direct a:hover { color: var(--emp-green); }
+
+  .emp-form-wrap {
+    background: rgba(255,255,255,.10);
+    border: 1px solid var(--emp-border);
+    border-radius: 4px;
+    padding: 2.4rem;
+  }
+  .emp-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+  }
+  .emp-form .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+  }
+  .emp-form .form-field label {
+    font-size: .68rem; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--emp-muted);
+  }
+  .emp-form .form-field input,
+  .emp-form .form-field select,
+  .emp-form .form-field textarea {
+    background: none;
+    border: none;
+    border-bottom: 1px solid var(--emp-border);
+    padding: .7rem 0;
+    font-family: 'Satoshi', sans-serif;
+    font-size: .9rem;
+    color: var(--emp-cream);
+    outline: none;
+    resize: none;
+    transition: border-color .2s;
+    -webkit-appearance: none;
+  }
+  .emp-form .form-field input::placeholder,
+  .emp-form .form-field textarea::placeholder { color: var(--emp-muted); }
+  .emp-form .form-field select option { background: var(--emp-bg); color: var(--emp-cream); }
+  .emp-form .form-field input:focus,
+  .emp-form .form-field select:focus,
+  .emp-form .form-field textarea:focus { border-bottom-color: rgba(232,229,220,.5); }
+
+  .emp-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .emp-form-submit {
+    margin-top: .8rem;
+    background: var(--emp-green);
+    color: var(--emp-bg);
+    border: none;
+    padding: 1.1rem 2rem;
+    font-family: 'Satoshi', sans-serif;
+    font-size: .78rem; letter-spacing: .2em; text-transform: uppercase;
+    font-weight: 500;
+    cursor: none;
+    display: flex; align-items: center; gap: .8rem;
+    transition: opacity .2s;
+    border-radius: 2px;
+    width: 100%;
+    justify-content: center;
+  }
+  .emp-form-submit:hover { opacity: .85; }
+
+  .emp-form-legal {
+    font-size: .68rem; color: var(--emp-muted); text-align: center;
+  }
+
+  .emp-form-success {
+    display: none;
+    padding: 3rem 2rem;
+    text-align: center;
+    border: 1px solid var(--emp-border);
+    border-radius: 4px;
+  }
+  .emp-form-success.visible { display: block; }
+  .emp-form-success h3 {
+    font-family: 'Boska', serif;
+    font-size: 1.6rem; font-weight: 400;
+    margin-bottom: .8rem;
+  }
+  .emp-form-success p {
+    font-size: .82rem; color: var(--emp-muted);
+  }
+
+  /* ─── Footer ─────────────────────────────────────────────── */
+  .emp-footer {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 6vw;
+    padding: 2rem 8vw 2.4rem;
+    border-top: 1px solid var(--emp-border);
+  }
+  .emp-footer-left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.6rem;
+  }
+  .emp-footer-left img {
+    width: 38px;
+    opacity: .5;
+    filter: brightness(10);
+  }
+  .emp-footer-social {
+    display: flex;
+    gap: 1.2rem;
+    align-items: center;
+  }
+  .emp-footer-social a {
+    color: var(--emp-cream);
+    opacity: .3;
+    transition: opacity .2s;
+  }
+  .emp-footer-social a svg { width: 24px; height: 24px; }
+  .emp-footer-social a:hover { opacity: .8; }
+  .emp-footer-name {
+    font-family: 'Boska', serif;
+    font-size: clamp(4rem, 10vw, 11rem);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -.03em;
+    text-transform: uppercase;
+    color: var(--emp-cream);
+    opacity: .12;
+    white-space: nowrap;
+    align-self: center;
+    justify-self: end;
+  }
+  @media (max-width: 700px) {
+    .emp-footer {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+    .emp-footer-name { font-size: clamp(3rem, 14vw, 6rem); justify-self: start; }
+  }
+
+  /* ─── Responsive ──────────────────────────────────────────── */
+  @media (max-width: 900px) {
+    .emp-usos { grid-template-columns: 1fr; }
+    .emp-uso { border-right: none; border-bottom: 1px solid var(--emp-border); }
+    .emp-uso:last-child { border-bottom: none; }
+    .emp-ventajas { grid-template-columns: 1fr; }
+    .emp-pasos { grid-template-columns: 1fr 1fr; }
+    .emp-form-section { grid-template-columns: 1fr; gap: 4rem; }
+  }
+  @media (max-width: 540px) {
+    .emp-pasos { grid-template-columns: 1fr; }
+    .emp-paso { border-right: none; border-bottom: 1px solid var(--emp-border); }
+    .emp-form-row { grid-template-columns: 1fr; }
+  }
+pageScript: |
+  document.getElementById('empForm').addEventListener('submit', e => {
+    e.preventDefault();
+    document.getElementById('empForm').style.display = 'none';
+    document.getElementById('empSuccess').classList.add('visible');
+  });
+---
+
+<!-- ─── HERO ──────────────────────────────────────────────────── -->
+<section class="emp-hero">
+  <span class="emp-hero-eyebrow">Colaboraciones &amp; Pedidos comerciales</span>
+  <h1 class="emp-hero-title">Para quienes <em>eligen con criterio.</em></h1>
+  <p class="emp-hero-desc">Hoteles, restaurantes, espacios de hospitalidad y empresas que quieren ofrecer a sus clientes algo distinto. Trabajamos con volúmenes desde 10 unidades y cerramos acuerdos comerciales a medida.</p>
+</section>
+
+<!-- ─── USOS ──────────────────────────────────────────────────── -->
+<section class="emp-usos">
+  <div class="emp-uso reveal">
+    <svg class="emp-uso-icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.2">
+      <rect x="4" y="10" width="28" height="20" rx="2"/>
+      <path d="M12 10V7a6 6 0 0 1 12 0v3"/>
+      <circle cx="18" cy="20" r="2"/>
+    </svg>
+    <h3 class="emp-uso-title">Hoteles &amp; Alojamientos</h3>
+    <p class="emp-uso-desc">Amenities de habitación, detalles de bienvenida y productos de uso diario que refuerzan la identidad de tu espacio.</p>
+  </div>
+  <div class="emp-uso reveal" style="transition-delay:.08s">
+    <svg class="emp-uso-icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.2">
+      <path d="M4 28h28M8 28V16l10-8 10 8v12"/>
+      <rect x="14" y="20" width="8" height="8"/>
+    </svg>
+    <h3 class="emp-uso-title">Restaurantes &amp; Gastronomía</h3>
+    <p class="emp-uso-desc">Velas de mesa, ambientadores y objetos que completan la experiencia sensorial del espacio gastronómico.</p>
+  </div>
+  <div class="emp-uso reveal" style="transition-delay:.16s">
+    <svg class="emp-uso-icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.2">
+      <rect x="4" y="8" width="28" height="20" rx="2"/>
+      <path d="M4 14h28M12 14v14"/>
+    </svg>
+    <h3 class="emp-uso-title">Empresas &amp; Regalos corporativos</h3>
+    <p class="emp-uso-desc">Detalles para clientes, kits de bienvenida para empleados y obsequios de empresa con identidad propia.</p>
+  </div>
+</section>
+
+<!-- ─── VENTAJAS ──────────────────────────────────────────────── -->
+<section class="emp-ventajas">
+  <div class="emp-ventajas-left reveal">
+    <span class="section-label">Por qué Cavero Diego</span>
+    <h2 class="emp-ventajas-title">Producto de<br><em>origen trazable.</em></h2>
+  </div>
+  <ul class="emp-ventajas-list reveal" style="transition-delay:.1s">
+    <li>Fabricación artesanal en Castilla, sin externalización del proceso.</li>
+    <li>Materia prima de origen natural y documentado.</li>
+    <li>Posibilidad de personalización discreta: packaging, fragancia o grabado.</li>
+    <li>Precios escalonados según volumen, sin mínimos abusivos.</li>
+    <li>Entrega en plazos acordados con margen suficiente para planificación.</li>
+    <li>Interlocutor único durante todo el proceso.</li>
+  </ul>
+</section>
+
+<!-- ─── PROCESO ───────────────────────────────────────────────── -->
+<section class="emp-proceso">
+  <div class="emp-proceso-header reveal">
+    <span class="section-label">Cómo trabajamos</span>
+    <h2>Del primer contacto<br>al pedido entregado.</h2>
+  </div>
+  <div class="emp-pasos">
+    <div class="emp-paso reveal">
+      <p class="emp-paso-num">01</p>
+      <p class="emp-paso-title">Consulta inicial</p>
+      <p class="emp-paso-desc">Nos cuentas qué necesitas, para qué espacio y en qué plazos. Sin compromiso.</p>
+    </div>
+    <div class="emp-paso reveal" style="transition-delay:.08s">
+      <p class="emp-paso-num">02</p>
+      <p class="emp-paso-title">Propuesta a medida</p>
+      <p class="emp-paso-desc">Te enviamos selección de productos, precios por volumen y opciones de personalización.</p>
+    </div>
+    <div class="emp-paso reveal" style="transition-delay:.16s">
+      <p class="emp-paso-num">03</p>
+      <p class="emp-paso-title">Muestra previa</p>
+      <p class="emp-paso-desc">Antes de confirmar el pedido, puedes recibir una muestra del producto final.</p>
+    </div>
+    <div class="emp-paso reveal" style="transition-delay:.24s">
+      <p class="emp-paso-num">04</p>
+      <p class="emp-paso-title">Producción &amp; entrega</p>
+      <p class="emp-paso-desc">Producimos y enviamos en el plazo acordado. Seguimiento directo en todo momento.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FORMULARIO ────────────────────────────────────────────── -->
+<section class="emp-form-section" id="contacto">
+  <div class="emp-form-left reveal">
+    <span class="section-label">Contacto</span>
+    <h2>Cuéntanos<br>qué necesitas.</h2>
+    <p>Respondemos en menos de 48 horas. Si el proyecto encaja, concertamos una llamada para afinar los detalles.</p>
+    <div class="emp-contact-direct">
+      <p>O escríbenos directamente a</p>
+      <a href="mailto:empresas@caverodiego.com">empresas@caverodiego.com</a>
+    </div>
+  </div>
+
+  <div class="reveal emp-form-wrap" style="transition-delay:.1s">
+    <form class="emp-form" id="empForm">
+      <div class="emp-form-row">
+        <div class="form-field">
+          <label for="empNombre">Nombre</label>
+          <input type="text" id="empNombre" required />
+        </div>
+        <div class="form-field">
+          <label for="empEmpresa">Empresa</label>
+          <input type="text" id="empEmpresa" required />
+        </div>
+      </div>
+      <div class="form-field">
+        <label for="empEmail">Correo electrónico</label>
+        <input type="email" id="empEmail" required />
+      </div>
+      <div class="form-field">
+        <label for="empTipo">Tipo de negocio</label>
+        <select id="empTipo" required>
+          <option value="">Seleccionar</option>
+          <option value="hotel">Hotel / Alojamiento</option>
+          <option value="restaurante">Restaurante / Gastronomía</option>
+          <option value="retail">Tienda / Retail</option>
+          <option value="corporativo">Regalo corporativo</option>
+          <option value="otro">Otro</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label for="empVolumen">Volumen estimado</label>
+        <select id="empVolumen">
+          <option value="">Seleccionar</option>
+          <option value="10-50">10 – 50 unidades</option>
+          <option value="50-200">50 – 200 unidades</option>
+          <option value="200-500">200 – 500 unidades</option>
+          <option value="500+">Más de 500 unidades</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label for="empMensaje">¿Qué tienes en mente?</label>
+        <textarea id="empMensaje" rows="4" placeholder="Cuéntanos el contexto, el producto que te interesa o cualquier detalle relevante."></textarea>
+      </div>
+      <button type="submit" class="emp-form-submit">
+        Enviar consulta
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <p class="emp-form-legal">Tus datos se usan únicamente para responder a tu consulta.</p>
+    </form>
+
+    <div class="emp-form-success" id="empSuccess">
+      <h3>Recibido.</h3>
+      <p>Te respondemos en menos de 48 horas.<br>Gracias por confiar en Cavero Diego.</p>
+    </div>
+  </div>
+</section>

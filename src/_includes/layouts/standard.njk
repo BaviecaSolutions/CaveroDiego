@@ -1,0 +1,41 @@
+---
+layout: layouts/base.njk
+---
+{{ content | safe }}
+
+{% if footerOmit != 'all' %}
+<footer>
+  <div class="footer-main">
+    {% if footerOmit != 'campo' %}
+    <div class="footer-col">
+      <span class="footer-col-label">Cuaderno de campo</span>
+      <a href="/cuaderno/" class="footer-post-item">
+        <div class="footer-post-img" style="background:#2a3229;"></div>
+        <div class="footer-post-info">
+          <span class="footer-post-cat">Próximamente</span>
+          <span class="footer-post-title">Cuaderno de campo</span>
+          <span class="footer-post-excerpt">Notas de proceso, reflexiones de taller y referencias visuales.</span>
+        </div>
+      </a>
+    </div>
+    {% endif %}
+    {% if footerOmit != 'viaje' %}
+    <div class="footer-col">
+      <span class="footer-col-label">Cuaderno de viaje</span>
+      <a href="/cuaderno-de-viaje/" class="footer-post-item">
+        <div class="footer-post-img" style="background:#3d4a3c;"></div>
+        <div class="footer-post-info">
+          <span class="footer-post-cat">Próximamente</span>
+          <span class="footer-post-title">Cuaderno de viaje</span>
+          <span class="footer-post-excerpt">Lugares que nos forman, texturas que tomamos prestadas.</span>
+        </div>
+      </a>
+    </div>
+    {% endif %}
+    <div class="footer-main-right">
+      {% include "partials/footer-flipper.njk" %}
+    </div>
+  </div>
+  {% include "partials/footer-strip.njk" %}
+</footer>
+{% endif %}

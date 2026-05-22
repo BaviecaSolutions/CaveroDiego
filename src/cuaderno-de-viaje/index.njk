@@ -1,0 +1,78 @@
+---
+layout: layouts/standard.njk
+title: "Cuaderno de viaje — Cavero Diego"
+description: "Lugares que nos forman, texturas que tomamos prestadas."
+section: viaje
+footerOmit: viaje
+langBtn: false
+pageStyle: |
+  /* ─── Base ───────────────────────────────────────────────────── */
+  body { background: #E8E5DC; }
+
+  /* ─── Archive header ─────────────────────────────────────────── */
+  .viaje-archive-header {
+    padding: 22vh 8vw 6vh;
+    border-bottom: 1px solid rgba(42,50,41,.08);
+  }
+  .viaje-archive-eyebrow {
+    display: block;
+    font-family: 'Satoshi', sans-serif;
+    font-size: .58rem;
+    letter-spacing: .32em;
+    text-transform: uppercase;
+    color: rgba(42,50,41,.35);
+    margin-bottom: 2.4rem;
+  }
+  .viaje-archive-title {
+    font-family: 'Satoshi', sans-serif;
+    font-size: clamp(2.6rem, 5vw, 4.8rem);
+    font-weight: 700;
+    letter-spacing: -.03em;
+    line-height: .95;
+    color: #2A3229;
+  }
+
+  /* ─── Empty state ────────────────────────────────────────────── */
+  .viaje-archive-empty {
+    padding: 16vh 8vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.8rem;
+  }
+  .viaje-archive-empty-label {
+    font-family: 'Satoshi', sans-serif;
+    font-size: .58rem;
+    letter-spacing: .32em;
+    text-transform: uppercase;
+    color: rgba(42,50,41,.28);
+  }
+  .viaje-archive-empty-text {
+    font-family: 'Boska', serif;
+    font-size: clamp(1.6rem, 3.5vw, 3rem);
+    font-weight: 400;
+    font-style: italic;
+    color: rgba(42,50,41,.35);
+    max-width: 28ch;
+    line-height: 1.15;
+  }
+
+  /* ─── Responsive ─────────────────────────────────────────────── */
+  @media (max-width: 640px) {
+    .viaje-archive-header { padding: 18vh 6vw 5vh; }
+  }
+---
+
+<header class="viaje-archive-header">
+  <span class="viaje-archive-eyebrow">Cavero Diego · Cuaderno de viaje</span>
+  <h1 class="viaje-archive-title">Archivo<br>de viajes</h1>
+</header>
+
+<main class="viaje-archive-empty">
+  <span class="viaje-archive-empty-label">Próximamente</span>
+  <p class="viaje-archive-empty-text">
+    El primer viaje está por escribirse.<br>
+    Lugares que nos forman, texturas que tomamos prestadas.
+  </p>
+</main>

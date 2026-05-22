@@ -1,0 +1,103 @@
+---
+layout: layouts/standard.njk
+title: "Cuaderno de campo — Cavero Diego"
+description: "Notas de proceso, reflexiones de taller y referencias visuales del proyecto Cavero Diego."
+section: campo
+footerOmit: campo
+pageStyle: |
+  /* Nav background comes from global.css */
+
+  /* ─── Header ────────────────────────────────────────────────── */
+  .cuaderno-header {
+    padding: 18vh 8vw 8vh;
+    border-bottom: 1px solid var(--ink-10);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 4vw;
+  }
+  .cuaderno-eyebrow {
+    font-size: .64rem; letter-spacing: .3em;
+    text-transform: uppercase; color: var(--stone);
+    display: block; margin-bottom: 1.4rem;
+  }
+  .cuaderno-title {
+    font-family: 'Boska', serif;
+    font-size: clamp(3rem, 7vw, 7rem);
+    font-weight: 400;
+    font-style: italic;
+    line-height: .95;
+    letter-spacing: -.02em;
+  }
+  .cuaderno-header-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2rem;
+    padding-bottom: .4rem;
+  }
+  .cuaderno-header-desc {
+    max-width: 34ch;
+    font-size: .86rem;
+    color: var(--stone);
+    line-height: 1.85;
+    text-align: right;
+  }
+
+  /* ─── Empty state ────────────────────────────────────────────── */
+  .cuaderno-empty {
+    padding: 16vh 8vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.8rem;
+  }
+  .cuaderno-empty-label {
+    font-size: .58rem;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: var(--stone);
+    opacity: .5;
+  }
+  .cuaderno-empty-text {
+    font-family: 'Boska', serif;
+    font-size: clamp(1.6rem, 3.5vw, 3rem);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--stone);
+    opacity: .35;
+    max-width: 28ch;
+    line-height: 1.15;
+  }
+
+  /* ─── Responsive ─────────────────────────────────────────────── */
+  @media (max-width: 900px) {
+    .cuaderno-header { flex-direction: column; align-items: flex-start; }
+    .cuaderno-header-right { align-items: flex-start; }
+    .cuaderno-header-desc { text-align: left; }
+  }
+---
+
+<!-- ─── HEADER ───────────────────────────────────────────────────── -->
+<header class="cuaderno-header">
+  <div class="cuaderno-header-left">
+    <span class="cuaderno-eyebrow">Cavero Diego</span>
+    <h1 class="cuaderno-title">Cuaderno<br>de campo</h1>
+  </div>
+  <div class="cuaderno-header-right">
+    <p class="cuaderno-header-desc">
+      Anotaciones sobre el territorio, el proceso y los materiales.
+      Lo que vemos, lo que aprendemos y lo que nos inspira mientras construimos la marca.
+    </p>
+  </div>
+</header>
+
+<!-- ─── EMPTY STATE ──────────────────────────────────────────────── -->
+<main class="cuaderno-empty">
+  <span class="cuaderno-empty-label">Próximamente</span>
+  <p class="cuaderno-empty-text">
+    La primera entrada está en camino.<br>
+    Mientras tanto, el trabajo continúa en el taller.
+  </p>
+</main>

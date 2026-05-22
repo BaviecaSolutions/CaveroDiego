@@ -1,0 +1,246 @@
+---
+layout: layouts/standard.njk
+title: "SUSTRATO 01 — VITIS VINIFERA — Cavero Diego"
+description: "Exfoliante corporal de pepita de uva. Producto de origen trazable."
+section: productos
+langBtn: false
+pageStyle: |
+  /* Nav background comes from global.css */
+
+  /* ─── Hero ──────────────────────────────────────────────────── */
+  .product-hero {
+    background: var(--ink);
+    min-height: 100svh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .hero-image-wrap {
+    background: #5c6b47 url('/assets/img/exfoliante.png') center/cover no-repeat;
+    min-height: 100svh;
+  }
+
+  .hero-text-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 8vw 10vh 6vw;
+  }
+
+  .hero-eyebrow {
+    font-size: .6rem;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: var(--stone);
+    margin-bottom: 1.4rem;
+  }
+
+  .hero-h1 {
+    font-family: 'Boska', serif;
+    font-weight: 700;
+    font-size: clamp(3rem, 7vw, 9rem);
+    line-height: .92;
+    letter-spacing: -.03em;
+    color: var(--cream);
+    text-transform: uppercase;
+  }
+
+  .hero-subtitle {
+    font-family: 'Boska', serif;
+    font-weight: 400;
+    font-size: clamp(1rem, 2.2vw, 2.2rem);
+    line-height: 1.1;
+    letter-spacing: -.01em;
+    color: var(--stone);
+    margin-top: .6rem;
+  }
+
+  /* ─── Content area ──────────────────────────────────────────── */
+  .product-content {
+    background: var(--cream);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12vh 8vw 16vh;
+  }
+
+  .content-inner {
+    width: 100%;
+    max-width: 680px;
+  }
+
+  .intro-text {
+    font-family: 'Satoshi', sans-serif;
+    font-size: .9rem;
+    line-height: 1.9;
+    color: var(--stone);
+    margin-bottom: 5vh;
+  }
+
+  /* ─── Specs ─────────────────────────────────────────────────── */
+  .specs-list {
+    width: 100%;
+    border-top: 1px solid var(--ink-10);
+    margin-bottom: 5vh;
+  }
+
+  .spec-row {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 1.5rem;
+    padding: 1.1rem 0;
+    border-bottom: 1px solid var(--ink-10);
+    align-items: baseline;
+  }
+
+  .spec-key {
+    font-size: .62rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--stone);
+    line-height: 1.5;
+  }
+
+  .spec-val {
+    font-family: 'Satoshi', sans-serif;
+    font-size: .82rem;
+    line-height: 1.7;
+    color: var(--ink);
+  }
+
+  /* ─── CTA button ─────────────────────────────────────────────── */
+  .btn-brutalist {
+    display: inline-block;
+    border: 1px solid var(--ink);
+    background: transparent;
+    color: var(--ink);
+    font-family: 'Satoshi', sans-serif;
+    font-size: .7rem;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    padding: 1rem 2rem;
+    text-decoration: none;
+    transition: background .3s, color .3s;
+    cursor: none;
+  }
+  .btn-brutalist:hover {
+    background: var(--ink);
+    color: var(--cream);
+  }
+
+  /* ─── Availability notice ────────────────────────────────────── */
+  .availability-notice {
+    margin-top: 4vh;
+    padding: 2.4rem 2rem;
+    border: 1px solid var(--ink-10);
+    background: rgba(42,50,41,.02);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    align-items: center;
+  }
+  .availability-label {
+    font-size: .58rem;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: var(--stone);
+    opacity: .6;
+  }
+  .availability-text {
+    font-family: 'Boska', serif;
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    font-style: italic;
+    line-height: 1.4;
+    color: var(--ink);
+    max-width: 32ch;
+  }
+  .availability-cta {
+    margin-top: .5rem;
+    font-size: .68rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--stone);
+    opacity: .5;
+  }
+  .availability-cta a {
+    color: var(--ink);
+    text-decoration: underline;
+    transition: opacity .25s;
+  }
+  .availability-cta a:hover { opacity: .6; }
+
+  /* ─── Responsive ─────────────────────────────────────────────── */
+  @media (max-width: 900px) {
+    .nav-links { gap: 1.6rem; }
+    .product-hero { grid-template-columns: 1fr; }
+    .hero-image-wrap { min-height: 55vw; }
+    .hero-text-block { padding: 6vh 6vw 8vh; }
+    .spec-row { grid-template-columns: 1fr; gap: .4rem; }
+  }
+  @media (max-width: 560px) {
+    .hero-h1 { font-size: clamp(2.8rem, 12vw, 5rem); }
+    .hero-image-wrap { min-height: 70vw; }
+  }
+---
+
+<!-- ─── HERO ─────────────────────────────────────────────────────── -->
+<section class="product-hero">
+  <div class="hero-image-wrap" aria-hidden="true"></div>
+  <div class="hero-text-block">
+    <p class="hero-eyebrow">Cuidado · Territorio</p>
+    <h1 class="hero-h1">SUSTRATO<br>01</h1>
+    <p class="hero-subtitle">VITIS VINIFERA</p>
+  </div>
+</section>
+
+<!-- ─── PRODUCT CONTENT ──────────────────────────────────────────── -->
+<section class="product-content">
+  <div class="content-inner">
+
+    <p class="intro-text reveal">
+      Extracción mecánica del paisaje. Un compuesto seco que recupera la materia prima fundamental de la vid, formulado para la exfoliación mineral sin intervención de agua ni estabilizantes sintéticos. El terruño llevado al tacto a través del cálculo de proporciones y la ausencia química.
+    </p>
+
+    <span class="section-label reveal" style="transition-delay:.08s">Especificaciones Técnicas</span>
+
+    <div class="specs-list reveal" style="transition-delay:.15s">
+      <div class="spec-row">
+        <span class="spec-key">Contenedor</span>
+        <span class="spec-val">Vidrio oscuro de grado farmacéutico. Aislamiento lumínico total.</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-key">Materia Base</span>
+        <span class="spec-val">Polvo micronizado de semilla de Vitis Vinifera y sal mineral cristalizada.</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-key">Vehículo Conductor</span>
+        <span class="spec-val">Aceite puro de pepita de uva de primera presión. Alta capacidad de absorción y retención celular.</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-key">Frecuencia Olfativa</span>
+        <span class="spec-val">Ecosistema de secano [Cedro, Romero salvaje].</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-key">Volumen</span>
+        <span class="spec-val">200 ml.</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-key">Origen</span>
+        <span class="spec-val">Castilla-La Mancha, Submeseta Sur.</span>
+      </div>
+    </div>
+
+    <div class="availability-notice reveal" style="transition-delay:.22s">
+      <span class="availability-label">Disponibilidad</span>
+      <p class="availability-text">
+        Sustrato 01 estará disponible próximamente.<br>
+        Los productos se están formulando en el taller.
+      </p>
+      <p class="availability-cta">
+        Suscríbete al <a href="/#footer">Círculo Cavero</a> para ser el primero en acceder.
+      </p>
+    </div>
+
+  </div>
+</section>

@@ -1,0 +1,336 @@
+/* ═══════════════════════════════════════════════════════════════
+   CAVERO DIEGO — global.js
+   Shared behaviour for all pages. Page-specific JS stays inline.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Cart state ─────────────────────────────────────────────────── */
+const Cart = (() => {
+  const STORAGE_KEY = 'cd_cart';
+
+  function load() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+    catch { return []; }
+  }
+  function save(items) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+  }
+
+  let items = load();
+  const listeners = [];
+
+  function notify() { listeners.forEach(fn => fn(items)); }
+
+  return {
+    subscribe(fn) { listeners.push(fn); fn(items); },
+    add(product) {
+      const existing = items.find(i => i.id === product.id);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        items.push({ ...product, qty: 1 });
+      }
+      save(items);
+      notify();
+    },
+    remove(id) {
+      items = items.filter(i => i.id !== id);
+      save(items);
+      notify();
+    },
+    total() {
+      return items.reduce((sum, i) => sum + i.price * i.qty, 0);
+    },
+    count() {
+      return items.reduce((sum, i) => sum + i.qty, 0);
+    },
+    items() { return items; },
+  };
+})();
+
+/* ── Cart panel DOM (injected once) ─────────────────────────────── */
+function injectCartPanel() {
+  const overlay = document.createElement('div');
+  overlay.className = 'cart-overlay';
+  overlay.id = 'cartOverlay';
+
+  const panel = document.createElement('div');
+  panel.className = 'cart-panel';
+  panel.id = 'cartPanel';
+  panel.innerHTML = `
+    <div class="cart-header">
+      <span class="cart-title">Selección</span>
+      <button class="cart-close" id="cartClose" aria-label="Cerrar carrito">[ Cerrar ]</button>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-footer" id="cartFooter" style="display:none">
+      <div class="cart-subtotal">
+        <span class="cart-subtotal-label">Total</span>
+        <span class="cart-subtotal-amount" id="cartTotal">0 €</span>
+      </div>
+      <a href="#" class="cart-checkout-btn" id="cartCheckoutBtn">
+        Proceder al pago
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+        </svg>
+      </a>
+      <span class="cart-checkout-note">Pago seguro con Stripe</span>
+    </div>
+  `;
+
+  document.body.appendChild(overlay);
+  document.body.appendChild(panel);
+
+  function openCart()  { overlay.classList.add('open'); panel.classList.add('open'); }
+  function closeCart() { overlay.classList.remove('open'); panel.classList.remove('open'); }
+
+  overlay.addEventListener('click', closeCart);
+  document.getElementById('cartClose').addEventListener('click', closeCart);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCart(); });
+
+  window._openCart = openCart;
+
+  /* Ruta relativa a checkout.html desde cualquier profundidad */
+  const _depth = (location.pathname.match(/\//g) || []).length - 1;
+  const _checkoutUrl = '../'.repeat(Math.max(0, _depth)) + 'checkout.html';
+  document.getElementById('cartCheckoutBtn').href = _checkoutUrl;
+
+  Cart.subscribe(renderCart);
+
+  function renderCart(items) {
+    const container = document.getElementById('cartItems');
+    const footer    = document.getElementById('cartFooter');
+    const totalEl   = document.getElementById('cartTotal');
+    const count     = Cart.count();
+
+    if (count === 0) {
+      container.innerHTML = `
+        <div class="cart-empty">
+          <span class="cart-empty-label">Carrito vacío</span>
+          <p class="cart-empty-hint">Todavía no has añadido ningún componente.</p>
+        </div>
+      `;
+      footer.style.display = 'none';
+    } else {
+      container.innerHTML = items.map(item => `
+        <div class="cart-item" data-id="${item.id}">
+          <div class="cart-item-img" style="background:${item.color || 'var(--ink-4)'}"></div>
+          <div class="cart-item-info">
+            <span class="cart-item-name">${item.name}</span>
+            <span class="cart-item-variant">${item.variant || ''}</span>
+          </div>
+          <span class="cart-item-price">${(item.price * item.qty).toFixed(2).replace('.', ',')} €</span>
+          <button class="cart-item-remove" data-remove="${item.id}" aria-label="Eliminar">✕</button>
+        </div>
+      `).join('');
+
+      container.querySelectorAll('[data-remove]').forEach(btn => {
+        btn.addEventListener('click', () => Cart.remove(btn.dataset.remove));
+      });
+
+      const t = Cart.total();
+      totalEl.textContent = t.toFixed(2).replace('.', ',') + ' €';
+      footer.style.display = 'flex';
+
+      /* Build Stripe checkout URL — single-product shortcut */
+      const checkoutBtn = document.getElementById('cartCheckoutBtn');
+      if (items.length === 1 && items[0].stripeUrl) {
+        checkoutBtn.href = items[0].stripeUrl + '?quantity=' + items[0].qty;
+      } else if (items[0] && items[0].stripeUrl) {
+        /* Multiple products: link to first item's payment link (Stripe limitation) */
+        checkoutBtn.href = items[0].stripeUrl;
+      } else {
+        checkoutBtn.removeAttribute('href');
+      }
+    }
+
+    /* Update nav badge */
+    const badge = document.getElementById('cartCountBadge');
+    if (badge) {
+      badge.textContent = count;
+      badge.classList.toggle('visible', count > 0);
+    }
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+
+  /* ── Inject cart panel ──────────────────────────────────────── */
+  injectCartPanel();
+
+  /* ── 1. Custom cursor (cursorLuminance) ─────────────────────── */
+  const cursor = document.getElementById('cursor');
+  const ring   = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  function cursorLuminance(x, y) {
+    const els = document.elementsFromPoint(x, y);
+    for (const el of els) {
+      if (el === cursor || el === ring) continue;
+      const bg = getComputedStyle(el).backgroundColor;
+      const m = bg.match(/[\d.]+/g);
+      if (!m) continue;
+      const a = m[3] !== undefined ? +m[3] : 1;
+      if (a < 0.05) continue;
+      return 0.2126 * (+m[0] / 255) + 0.7152 * (+m[1] / 255) + 0.0722 * (+m[2] / 255);
+    }
+    return 1;
+  }
+
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+
+  (function tick() {
+    rx += (mx - rx) * .14;
+    ry += (my - ry) * .14;
+    cursor.style.left = mx + 'px';
+    cursor.style.top  = my + 'px';
+    ring.style.left   = rx + 'px';
+    ring.style.top    = ry + 'px';
+    document.body.classList.toggle('dark-bg', cursorLuminance(mx, my) < 0.5);
+    requestAnimationFrame(tick);
+  })();
+
+  /* ── 2. Link hover — event delegation ──────────────────────── */
+  document.addEventListener('mouseover', e => {
+    if (e.target.closest('a, button, #footerStrip')) document.body.classList.add('link-hover');
+  });
+  document.addEventListener('mouseout', e => {
+    if (e.target.closest('a, button, #footerStrip')) document.body.classList.remove('link-hover');
+  });
+
+  /* ── 3. Nav scroll (hide/show with scrollingUp) ─────────────── */
+  const nav = document.getElementById('nav');
+  let lastY = 0;
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    const scrollingUp = y < lastY;
+    nav.classList.toggle('scrolled', y > 60);
+    nav.classList.toggle('nav-hidden', y > 80 && !scrollingUp);
+    lastY = y;
+  });
+
+  /* ── 4. Reveal on scroll ────────────────────────────────────── */
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(r => io.observe(r));
+
+  /* ── 5. Panel Círculo Cavero ────────────────────────────────── */
+  const ccOverlay = document.getElementById('ccOverlay');
+  const ccPanel   = document.getElementById('ccPanel');
+  const ccClose   = document.getElementById('ccClose');
+
+  function openCC()  { ccOverlay.classList.add('open'); ccPanel.classList.add('open'); }
+  function closeCC() { ccOverlay.classList.remove('open'); ccPanel.classList.remove('open'); }
+
+  const footerStrip     = document.getElementById('footerStrip');
+  const navLogoBtn      = document.getElementById('navLogoBtn');
+  const footerLogoBtn   = document.getElementById('footerLogoBtn');
+  const footerLogoInner = document.getElementById('footerLogoInner');
+
+  if (footerStrip) footerStrip.addEventListener('click', openCC);
+  if (navLogoBtn)  navLogoBtn.addEventListener('click', openCC);
+  if (footerLogoInner) {
+    const flip = () => footerLogoInner.classList.toggle('flipped');
+    if (footerLogoBtn) footerLogoBtn.addEventListener('click', flip);
+    const footerLogoBtnBack = document.getElementById('footerLogoBtnBack');
+    if (footerLogoBtnBack) footerLogoBtnBack.addEventListener('click', flip);
+  }
+
+  if (ccClose)   ccClose.addEventListener('click', closeCC);
+  if (ccOverlay) ccOverlay.addEventListener('click', closeCC);
+
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCC(); });
+
+  const ccForm = document.getElementById('ccForm');
+  if (ccForm) {
+    ccForm.addEventListener('submit', e => {
+      e.preventDefault();
+      ccPanel.innerHTML = '<div style="display:flex;flex-direction:column;justify-content:center;height:100%;gap:1.2rem;padding:4rem 3.2rem"><span class="cc-eyebrow">Círculo Cavero</span><h2 class="cc-titulo">Ya estás dentro.</h2><p class="cc-desc">Te avisaremos cuando haya algo que merezca la pena saber.</p></div>';
+    });
+  }
+
+  /* ── 6. Filtros (only activates if .filter-btn exists) ─────── */
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  if (filterBtns.length > 0) {
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const f = btn.dataset.filter;
+        document.querySelectorAll('.entrada-card').forEach(card => {
+          const show = f === 'all' || card.dataset.categoria === f;
+          card.style.display = show ? '' : 'none';
+        });
+      });
+    });
+  }
+
+  /* ── 7. Add to cart buttons ─────────────────────────────────── */
+  document.querySelectorAll('[data-add-to-cart]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const product = {
+        id:         btn.dataset.productId,
+        name:       btn.dataset.productName,
+        variant:    btn.dataset.productVariant || '',
+        price:      parseFloat(btn.dataset.productPrice),
+        color:      btn.dataset.productColor || 'var(--ink)',
+        stripeUrl:  btn.dataset.stripeUrl || '',
+      };
+      Cart.add(product);
+
+      /* Visual feedback */
+      const original = btn.textContent;
+      btn.textContent = '✓ Añadido';
+      btn.disabled = true;
+      setTimeout(() => {
+        btn.textContent = original;
+        btn.disabled = false;
+      }, 1800);
+
+      if (window._openCart) window._openCart();
+    });
+  });
+
+  /* ── 8. Cart button in nav ──────────────────────────────────── */
+  const cartNavBtn = document.getElementById('cartNavBtn');
+  if (cartNavBtn) {
+    cartNavBtn.addEventListener('click', () => {
+      if (window._openCart) window._openCart();
+    });
+  }
+
+  /* ── 9. Mobile hamburger menu ───────────────────────────────── */
+  const navHamburger = document.getElementById('navHamburger');
+  const navOverlay   = document.getElementById('navOverlay');
+  const navPanel     = document.getElementById('navPanel');
+
+  if (navHamburger && navOverlay && navPanel) {
+    function openMenu() {
+      navHamburger.classList.add('active');
+      navOverlay.classList.add('active');
+      navPanel.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMenu() {
+      navHamburger.classList.remove('active');
+      navOverlay.classList.remove('active');
+      navPanel.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    navHamburger.addEventListener('click', () => {
+      if (navPanel.classList.contains('active')) closeMenu();
+      else openMenu();
+    });
+
+    navOverlay.addEventListener('click', closeMenu);
+
+    /* Close menu on link click */
+    navPanel.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', closeMenu);
+    });
+  }
+
+});
