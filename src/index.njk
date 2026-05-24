@@ -194,7 +194,7 @@ pageStyle: |
     align-items: end;
   }
   .territorio-img {
-    aspect-ratio: 4/5;
+    aspect-ratio: 4/6;
     border-radius: 2px;
     position: relative;
     overflow: hidden;
@@ -203,7 +203,7 @@ pageStyle: |
     content: '';
     position: absolute;
     inset: 0;
-    background: url('/assets/img/monolito.png') center/cover no-repeat;
+    background: url('/assets/img/hero_mobile.png') center bottom 10%/cover no-repeat;
   }
   .territorio-img-overlay {
     position: absolute;
@@ -533,112 +533,68 @@ pageStyle: |
     .cuaderno-preview-grid { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 560px) {
-    /* Hide global nav — mobile hero has its own nav bar */
-    nav#nav { display: none !important; }
-
-    /* Mobile hero redesign */
+    /* Usar estructura desktop adaptada */
     #hero {
-      min-height: auto;
+      min-height: 105vh;
       padding: 0;
-      justify-content: flex-start;
     }
-    .hero-bg { display: none; } /* Hide desktop bg */
-    .hero-title { display: none; } /* Hide desktop title */
-    .hero-bottom { display: none; } /* Hide desktop bottom */
 
-    /* Mobile title at top — ENORME */
-    .hero-mobile-wordmark {
+    /* Usar hero-bg de desktop pero adaptado */
+    .hero-bg {
       display: block;
-      font-family: 'Boska', serif;
-      font-size: clamp(5.5rem, 18vw, 8rem);
-      font-weight: 400;
-      letter-spacing: -.04em;
-      line-height: .88;
-      color: var(--ink);
-      text-align: center;
-      padding: 4vh 2vw 2vh;
-      text-transform: uppercase;
-      word-wrap: break-word;
-      hyphens: manual;
-    }
-
-    /* Mobile nav bar (replica of nav but static) */
-    .hero-mobile-nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1.2rem 6vw;
-      border-bottom: 1px solid var(--ink-10);
-      background: var(--cream);
-    }
-    .hero-mobile-nav .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 1.2rem;
-    }
-
-    /* Mobile hero image — hidden */
-    .hero-mobile-image {
-      display: none;
-    }
-
-    /* Mobile intro text — hidden */
-    .hero-mobile-intro {
-      display: none;
-    }
-    .hero-mobile-intro p {
-      font-size: .82rem;
-      line-height: 1.75;
-      color: var(--stone);
-      max-width: 32ch;
-      margin: 0 auto;
-    }
-
-    /* Mobile 3D cube with logo */
-    .hero-mobile-cube {
-      display: block;
-      width: 100%;
-      height: 40vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      perspective: 1000px;
-      padding: 4vh 0;
-    }
-    .cube-container {
-      width: clamp(8rem, 28vw, 12rem);
-      height: clamp(8rem, 28vw, 12rem);
-      position: relative;
-      transform-style: preserve-3d;
-      transition: transform 0.1s ease-out;
-      cursor: grab;
-      touch-action: none;
-    }
-    .cube-container:active { cursor: grabbing; }
-    .cube-face {
       position: absolute;
+      inset: 0;
+      border-radius: 0;
+      overflow: visible;
+      z-index: 0;
+      background-color: var(--ink);
+    }
+    .hero-bg img {
       width: 100%;
       height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(42,50,41,.04);
-      border: 1px solid rgba(42,50,41,.12);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      border-radius: 0;
     }
-    .cube-face img {
-      width: 55%;
-      height: auto;
-      opacity: .75;
-      filter: grayscale(0.2);
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 0;
+      background: rgba(74, 84, 56, 0.45);
     }
-    .cube-face.front  { transform: rotateY(0deg) translateZ(calc(clamp(8rem, 28vw, 12rem) / 2)); }
-    .cube-face.back   { transform: rotateY(180deg) translateZ(calc(clamp(8rem, 28vw, 12rem) / 2)); }
-    .cube-face.right  { transform: rotateY(90deg) translateZ(calc(clamp(8rem, 28vw, 12rem) / 2)); }
-    .cube-face.left   { transform: rotateY(-90deg) translateZ(calc(clamp(8rem, 28vw, 12rem) / 2)); }
-    .cube-face.top    { transform: rotateX(90deg) translateZ(calc(clamp(8rem, 28vw, 12rem) / 2)); }
-    .cube-face.bottom { transform: rotateX(-90deg) translateZ(calc(clamp(8rem, 28vw, 12rem) / 2)); }
+
+    /* Usar hero-title de desktop pero adaptado */
+    .hero-title {
+      display: block;
+      position: absolute;
+      bottom: 50%;
+      right: 50%;
+      transform: translate(50%, 50%);
+      z-index: 2;
+      font-size: clamp(5.5rem, 18vw, 8rem);
+      text-align: center;
+    }
+    .hero-title .line {
+      display: block;
+      transform: translateY(0);
+      animation: none;
+    }
+
+    /* Ocultar bottom en mobile */
+    .hero-bottom {
+      display: none;
+    }
+
+    /* Ocultar elementos mobile específicos */
+    .hero-mobile-nav,
+    .hero-mobile-image,
+    .hero-mobile-wordmark,
+    .hero-mobile-intro,
+    .hero-mobile-cube {
+      display: none;
+    }
 
     .materiales-grid {
       grid-template-columns: 1fr 1fr;
@@ -688,25 +644,37 @@ pageStyle: |
       max-height: 30vh;
     }
 
-    /* Territorio mobile: keep desktop structure, reduce image */
+    /* Territorio mobile: imagen pequeña a la izquierda */
     .territorio-grid {
       display: flex;
-      flex-direction: column;
-      gap: 3vh;
+      flex-direction: row;
+      gap: 4vw;
+      align-items: flex-start;
     }
     .territorio-img {
-      aspect-ratio: 16/9;
-      order: 2;
-      max-height: 32vh;
+      width: 30%;
+      aspect-ratio: 4/9;
+      flex-shrink: 0;
+      order: 1;
+    }
+    .territorio-img::before {
+      background-size: cover !important;
+      background-position: center !important;
     }
     .territorio-aside {
-      order: 1;
+      order: 2;
+      flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 1.4rem;
+      gap: 1rem;
+      padding-bottom: 0;
     }
     .territorio-aside h2 {
-      font-size: clamp(1.8rem, 6vw, 2.6rem);
+      font-size: clamp(1.6rem, 5.5vw, 2.2rem);
+    }
+    .territorio-aside p {
+      font-size: .8rem;
+      line-height: 1.7;
     }
   }
 pageScript: |
@@ -921,60 +889,6 @@ pageScript: |
     </h1>
   </div>
 
-  <!-- Mobile hero -->
-  <!-- 1. Header first -->
-  <div class="hero-mobile-nav">
-    <button class="nav-hamburger" onclick="document.getElementById('navHamburger').click()" aria-label="Menú">
-      <span></span><span></span><span></span>
-    </button>
-    <div class="nav-right">
-      <button class="nav-cart-btn" onclick="if(window._openCart) window._openCart()" aria-label="Carrito">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
-          <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
-          <line x1="3" y1="6" x2="21" y2="6"/>
-          <path d="M16 10a4 4 0 0 1-8 0"/>
-        </svg>
-        <span class="nav-cart-count">0</span>
-      </button>
-      <button class="nav-lang-btn" id="heroLangBtn" aria-label="Cambiar idioma">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
-          <circle cx="12" cy="12" r="10"/>
-          <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-        </svg>
-        <span id="heroLangLabel">ES</span>
-      </button>
-      <button class="nav-logo-btn" onclick="document.getElementById('navLogoBtn').click()" aria-label="Cavero Diego">
-        <img src="/assets/img/cv_logo.png" alt="CD" />
-      </button>
-    </div>
-  </div>
-
-  <!-- 2. Wordmark second -->
-  <h1 class="hero-mobile-wordmark">CAVERO<br>DIEGO</h1>
-
-  <!-- 3. Cube third -->
-  <div class="hero-mobile-cube">
-    <div class="cube-container">
-      <div class="cube-face front"><img src="/assets/img/cv_logo.png" alt="CD"></div>
-      <div class="cube-face back"><img src="/assets/img/cv_logo.png" alt="CD"></div>
-      <div class="cube-face right"><img src="/assets/img/cv_logo.png" alt="CD"></div>
-      <div class="cube-face left"><img src="/assets/img/cv_logo.png" alt="CD"></div>
-      <div class="cube-face top"><img src="/assets/img/cv_logo.png" alt="CD"></div>
-      <div class="cube-face bottom"><img src="/assets/img/cv_logo.png" alt="CD"></div>
-    </div>
-  </div>
-
-  <!-- Mobile image (will be hidden) -->
-  <div class="hero-mobile-image">
-    <img src="/assets/img/hero2.png" alt="Cavero Diego">
-  </div>
-
-  <div class="hero-mobile-intro">
-    <p>
-      Artesanía castellana de materia vegetal.<br>
-      Productos formulados con criterio territorial.
-    </p>
-  </div>
 </section>
 
 <!-- ─── MARQUEE ──────────────────────────────────────────────────── -->

@@ -717,7 +717,20 @@ section { position: relative; }
 
 @media (max-width: 560px) {
   .nav-links { display: none; }
-  .nav-hamburger { display: flex; }
+  .nav-hamburger {
+    display: flex;
+    position: absolute;
+    left: 6vw;
+  }
+
+  /* Mover todos los botones al extremo derecho */
+  #nav {
+    justify-content: flex-end;
+    padding: 1.2rem 6vw;
+  }
+  #nav.scrolled {
+    padding: 0.8rem 6vw;
+  }
 
   /* Footer mobile restructure: solo card central */
   .footer-main {
