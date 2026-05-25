@@ -795,7 +795,8 @@ pageScript: |
     }
   };
 
-  let currentLang = 'es';
+  // Check localStorage for preferred language
+  let currentLang = localStorage.getItem('preferredLang') || 'es';
 
   function applyLang(lang) {
     const t = translations[lang];
@@ -817,6 +818,7 @@ pageScript: |
   /* Lang button (nav + mobile hero) */
   function toggleLang() {
     currentLang = currentLang === 'es' ? 'en' : 'es';
+    localStorage.setItem('preferredLang', currentLang);
     const label = currentLang.toUpperCase();
     const navLabel = document.getElementById('langLabel');
     const heroLabel = document.getElementById('heroLangLabel');
@@ -824,6 +826,15 @@ pageScript: |
     if (heroLabel) heroLabel.textContent = label;
     applyLang(currentLang);
   }
+
+  // Apply language on page load
+  applyLang(currentLang);
+
+  // Update button label on load
+  const navLabel = document.getElementById('langLabel');
+  const heroLabel = document.getElementById('heroLangLabel');
+  if (navLabel) navLabel.textContent = currentLang.toUpperCase();
+  if (heroLabel) heroLabel.textContent = currentLang.toUpperCase();
 
   const langBtn = document.getElementById('langBtn');
   const heroLangBtn = document.getElementById('heroLangBtn');

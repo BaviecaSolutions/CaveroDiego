@@ -9,7 +9,9 @@
       "Bash(git config:*)",
       "Bash(git push)",
       "Bash(git rm:*)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "Bash(dir:*)",
+      "Bash(cat:*)"
     ],
     "deny": [],
     "ask": []
