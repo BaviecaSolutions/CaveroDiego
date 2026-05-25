@@ -601,14 +601,16 @@ pageStyle: |
       gap: 3vh;
     }
     .mat-cell-label h3 {
-      font-size: clamp(1rem, 3.5vw, 1.4rem);
+      font-size: clamp(0.95rem, 3.2vw, 1.4rem);
+      line-height: 1.2;
     }
     .mat-cell-label p {
-      font-size: .72rem;
-      line-height: 1.5;
+      font-size: .7rem;
+      line-height: 1.4;
+      letter-spacing: -.01em;
     }
     .mat-cell-label span {
-      font-size: .52rem;
+      font-size: .5rem;
     }
     .mat-pronto {
       font-size: .52rem;
@@ -630,6 +632,11 @@ pageStyle: |
       background: linear-gradient(180deg, rgba(42,50,41,.12) 0%, rgba(42,50,41,.05) 50%, rgba(232,229,220,0) 100%);
       border-top: none !important;
       border-bottom: none !important;
+    }
+
+    /* Ocultar la línea superior del divider-quote en mobile */
+    .divider-quote::before {
+      display: none;
     }
 
     /* Reducir texto en móvil - versión corta */

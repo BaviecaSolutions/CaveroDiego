@@ -16,6 +16,12 @@ pageStyle: |
 
   body { background: var(--emp-bg); color: var(--emp-cream); }
 
+  /* Selección de texto con colores empresas */
+  ::selection {
+    background: var(--emp-green);
+    color: var(--emp-bg);
+  }
+
   /* Nav sobre fondo oscuro */
   nav { background: var(--emp-bg); }
   .nav-links a { color: var(--emp-cream); }
@@ -26,6 +32,13 @@ pageStyle: |
   .nav-links a.nav-empresas:hover {
     border-color: var(--emp-cream);
     background: rgba(232,229,220,.06);
+  }
+  /* Subrayado de nav en empresas con color verde */
+  .nav-links a::after {
+    background: var(--emp-green);
+  }
+  .nav-links a.active::after {
+    background: var(--emp-green);
   }
   .nav-lang-btn { color: var(--emp-cream); }
   .nav-cart-btn { color: var(--emp-cream); }
@@ -355,75 +368,75 @@ pageStyle: |
       display: block;
       width: clamp(16rem, 85vw, 22rem);
     }
-    /* Front of card - light cream with dark text */
+    /* Front of card - darker with bright accents (invertido) */
     .emp-footer .emp-card-front {
-      background: var(--emp-cream);
+      background: #3d4a3c;
       box-shadow: 0 4px 32px rgba(0,0,0,.3);
     }
     .emp-footer .emp-card-front::after {
       background: var(--emp-green);
     }
     .emp-footer .emp-card-front .footer-logo-front-logo img {
-      filter: none;
+      filter: brightness(10);
     }
     .emp-footer .emp-card-front .flb-email-label {
-      color: var(--emp-bg);
+      color: var(--emp-cream);
       opacity: .75;
     }
     .emp-footer .emp-card-front .flb-handle {
-      color: var(--emp-bg);
-      opacity: .65;
+      color: var(--emp-cream);
+      opacity: .85;
     }
     .emp-footer .emp-card-front .footer-logo-front-social a {
-      color: var(--emp-bg);
-      opacity: .65;
+      color: var(--emp-cream);
+      opacity: .75;
     }
     .emp-footer .emp-card-front .footer-logo-front-social a:hover {
+      color: var(--emp-green);
       opacity: 1;
     }
     .emp-footer .emp-card-front .footer-logo-front-social::before,
     .emp-footer .emp-card-front .footer-logo-front-social::after {
-      color: var(--emp-bg);
-      opacity: .35;
+      color: var(--emp-cream);
+      opacity: .4;
     }
     .emp-footer .emp-card-front .footer-logo-front-name {
-      color: var(--emp-bg);
-      opacity: .5;
+      color: var(--emp-cream);
+      opacity: .65;
     }
-    /* Back of card - darker with bright accents */
+    /* Back of card - light cream with dark text (invertido) */
     .emp-footer .emp-card-back {
-      background: #3d4a3c;
+      background: var(--emp-cream);
     }
     .emp-footer .emp-card-back::after {
       background: var(--emp-green);
     }
     .emp-footer .emp-card-back .flb-logo-btn img {
-      filter: brightness(10);
+      filter: none;
     }
     .emp-footer .emp-card-back .flb-email-label {
-      color: var(--emp-cream);
+      color: var(--emp-bg);
       opacity: .75;
     }
     .emp-footer .emp-card-back .flb-handle--back {
-      color: var(--emp-cream);
-      opacity: .85;
+      color: var(--emp-bg);
+      opacity: .65;
     }
     .emp-footer .emp-card-back .flb-social a {
-      color: var(--emp-cream);
-      opacity: .75;
+      color: var(--emp-bg);
+      opacity: .65;
     }
     .emp-footer .emp-card-back .flb-social a:hover {
-      color: var(--emp-green);
       opacity: 1;
     }
     .emp-footer .emp-card-back .flb-social::before,
     .emp-footer .emp-card-back .flb-social::after {
-      color: var(--emp-cream);
-      opacity: .4;
+      color: var(--emp-bg);
+      opacity: .35;
     }
     .emp-footer .emp-card-back .flb-origin {
-      color: var(--emp-cream);
-      opacity: .65;
+      color: var(--emp-bg);
+      opacity: .5;
     }
     .emp-footer-name {
       font-size: clamp(3rem, 14vw, 6rem);

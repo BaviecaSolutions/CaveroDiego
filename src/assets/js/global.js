@@ -250,6 +250,10 @@ document.addEventListener('DOMContentLoaded', () => {
   if (ccClose)   ccClose.addEventListener('click', closeCC);
   if (ccOverlay) ccOverlay.addEventListener('click', closeCC);
 
+  /* CTA button in articles */
+  const ccCtaBtn = document.getElementById('ccCtaBtn');
+  if (ccCtaBtn) ccCtaBtn.addEventListener('click', openCC);
+
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCC(); });
 
   const ccForm = document.getElementById('ccForm');

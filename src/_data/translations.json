@@ -1,0 +1,86 @@
+{
+  "es": {
+    "nav": {
+      "home": "Inicio",
+      "products": "Productos",
+      "campo": "Campo",
+      "viaje": "Viaje",
+      "empresas": "Empresas"
+    },
+    "footer": {
+      "email": "hola@caverodiego.com",
+      "handle": "@caverodiego",
+      "origin": "Castilla · España",
+      "name": "Cavero Diego"
+    },
+    "cc": {
+      "title": "Círculo Cavero",
+      "subtitle": "Noticias, relatos y miradas sobre lo que hacemos. Sin spam.",
+      "placeholder": "Tu correo",
+      "button": "Entrar",
+      "success": "Bienvenido al círculo.",
+      "error": "Algo salió mal. Inténtalo de nuevo."
+    },
+    "products": {
+      "title": "Productos",
+      "campo_link": "Cuaderno de Campo",
+      "viaje_link": "Cuaderno de Viaje",
+      "soon": "Próximamente"
+    },
+    "empresas": {
+      "eyebrow": "Colaboraciones & Pedidos comerciales",
+      "hero_title": "Para quienes <em>eligen con criterio.</em>",
+      "hero_desc": "Hoteles, restaurantes, espacios de hospitalidad y empresas que quieren ofrecer a sus clientes algo distinto. Trabajamos con volúmenes desde 10 unidades y cerramos acuerdos comerciales a medida.",
+      "form_name": "Nombre",
+      "form_email": "Email",
+      "form_empresa": "Empresa / Espacio",
+      "form_mensaje": "Cuéntanos qué necesitas",
+      "form_send": "Enviar consulta",
+      "form_legal": "Tus datos se usan únicamente para responder a tu consulta.",
+      "form_success_title": "Recibido.",
+      "form_success_desc": "Te respondemos en menos de 48 horas.<br>Gracias por confiar en Cavero Diego."
+    }
+  },
+  "en": {
+    "nav": {
+      "home": "Home",
+      "products": "Products",
+      "campo": "Field",
+      "viaje": "Travel",
+      "empresas": "Business"
+    },
+    "footer": {
+      "email": "hello@caverodiego.com",
+      "handle": "@caverodiego",
+      "origin": "Castile · Spain",
+      "name": "Cavero Diego"
+    },
+    "cc": {
+      "title": "Cavero Circle",
+      "subtitle": "News, stories and insights about what we do. No spam.",
+      "placeholder": "Your email",
+      "button": "Join",
+      "success": "Welcome to the circle.",
+      "error": "Something went wrong. Please try again."
+    },
+    "products": {
+      "title": "Products",
+      "campo_link": "Field Notebook",
+      "viaje_link": "Travel Notebook",
+      "soon": "Coming soon"
+    },
+    "empresas": {
+      "eyebrow": "Collaborations & Commercial Orders",
+      "hero_title": "For those who <em>choose with criteria.</em>",
+      "hero_desc": "Hotels, restaurants, hospitality spaces and companies that want to offer their customers something different. We work with volumes from 10 units and close custom commercial agreements.",
+      "form_name": "Name",
+      "form_email": "Email",
+      "form_empresa": "Company / Space",
+      "form_mensaje": "Tell us what you need",
+      "form_send": "Send inquiry",
+      "form_legal": "Your data is used only to respond to your inquiry.",
+      "form_success_title": "Received.",
+      "form_success_desc": "We'll respond within 48 hours.<br>Thank you for trusting Cavero Diego."
+    }
+  }
+}

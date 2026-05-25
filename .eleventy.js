@@ -3,8 +3,24 @@ const htmlmin = require('html-minifier-terser');
 module.exports = function (eleventyConfig) {
   // Passthrough assets
   eleventyConfig.addPassthroughCopy("src/assets");
+  eleventyConfig.addPassthroughCopy("src/robots.txt");
+  eleventyConfig.addPassthroughCopy("src/_headers");
 
-  // HTML Minification
+  // Global data: current language (default ES)
+  eleventyConfig.addGlobalData("lang", "es");
+
+  // Filter for translations
+  eleventyConfig.addFilter("t", function(key, lang = "es") {
+    const translations = require('./src/_data/translations.json');
+    const keys = key.split('.');
+    let value = translations[lang];
+    for (const k of keys) {
+      value = value?.[k];
+    }
+    return value || key;
+  });
+
+  // HTML Minification (with enhanced options)
   eleventyConfig.addTransform("htmlmin", function(content, outputPath) {
     if( outputPath && outputPath.endsWith(".html") ) {
       return htmlmin.minify(content, {
@@ -12,7 +28,11 @@ module.exports = function (eleventyConfig) {
         removeComments: true,
         collapseWhitespace: true,
         minifyCSS: true,
-        minifyJS: true
+        minifyJS: true,
+        removeAttributeQuotes: true,
+        removeEmptyAttributes: true,
+        removeRedundantAttributes: true,
+        minifyURLs: true
       });
     }
     return content;
