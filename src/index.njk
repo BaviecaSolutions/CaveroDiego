@@ -616,16 +616,13 @@ pageStyle: |
     }
     #manifiesto { padding: 12vh 6vw; }
     .divider-quote { padding: 6vh 6vw; }
-    .divider-quote::before,
-    .divider-quote::after {
-      display: none;
-    }
     .cuaderno-preview-grid { grid-template-columns: 1fr; }
 
     /* ─── Colores de fondo contrastados para Territorio y Manifiesto ──── */
     #territorio {
       padding: 10vh 6vw;
       background: linear-gradient(180deg, var(--cream) 0%, rgba(42,50,41,.08) 100%);
+      border-bottom: none !important;
     }
 
     #manifiesto {
