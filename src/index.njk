@@ -597,8 +597,8 @@ pageStyle: |
     }
 
     .materiales-grid {
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5vw;
+      grid-template-columns: 1fr;
+      gap: 3vh;
     }
     .mat-cell-label h3 {
       font-size: clamp(1rem, 3.5vw, 1.4rem);
@@ -615,6 +615,7 @@ pageStyle: |
       margin-top: .5rem;
     }
     #manifiesto { padding: 12vh 6vw; }
+    .divider-quote { padding: 6vh 6vw; }
     .cuaderno-preview-grid { grid-template-columns: 1fr; }
 
     /* ─── Colores de fondo contrastados para Territorio y Manifiesto ──── */
@@ -918,13 +919,10 @@ pageScript: |
     <div class="territorio-aside reveal" style="transition-delay:.12s">
       <span class="section-label" data-i18n="territorio.label">El origen</span>
       <h2 data-i18n="territorio.titulo">La tierra como punto de partida</h2>
-      <p>
-        <span class="text-desktop-only" data-i18n="territorio.texto">Castilla no es un decorado. Es la razón por la que cada cosa
+      <p data-i18n="territorio.texto">Castilla no es un decorado. Es la razón por la que cada cosa
         que hacemos huele, pesa y se siente como se siente.
         Un territorio de luz dura y silencios largos que deja huella
-        en todo lo que nace de él.</span>
-        <span class="text-mobile-only">Un territorio de luz dura y silencios largos que deja huella en todo lo que nace de él.</span>
-      </p>
+        en todo lo que nace de él.</p>
     </div>
   </div>
 </section>
@@ -932,14 +930,11 @@ pageScript: |
 <!-- ─── MANIFIESTO ───────────────────────────────────────────────── -->
 <section id="manifiesto">
   <span class="section-label manifiesto-label reveal" data-i18n="manifiesto.label">Manifiesto</span>
-  <p class="manifiesto-body reveal" style="transition-delay:.1s">
-    <span class="text-desktop-only" data-i18n-html="manifiesto.texto">Cavero Diego representa una forma contemporánea de entender
+  <p class="manifiesto-body reveal" style="transition-delay:.1s" data-i18n-html="manifiesto.texto">Cavero Diego representa una forma contemporánea de entender
     lo nuestro desde la sobriedad, la cultura y la precisión.
     Es orgullo castellano reinterpretado sin nostalgia;
     una marca que nace de la raíz, pero se expresa
-    con <em>lenguaje internacional.</em></span>
-    <span class="text-mobile-only">Orgullo castellano reinterpretado sin nostalgia. Una marca que nace de la raíz, pero se expresa con <em>lenguaje internacional.</em></span>
-  </p>
+    con <em>lenguaje internacional.</em></p>
 </section>
 
 <!-- ─── FRASE ─────────────────────────────────────────────────────── -->

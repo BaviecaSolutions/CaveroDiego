@@ -284,7 +284,7 @@ footer { display: flex; flex-direction: column; }
 }
 .flb-handle {
   font-family: 'Satoshi', sans-serif;
-  font-size: clamp(.85rem, 1.2vw, 1.15rem);
+  font-size: clamp(.85rem, 1.4vw, 1.35rem);
   letter-spacing: .06em;
   color: var(--ink); opacity: .55;
 }
@@ -766,22 +766,22 @@ section { position: relative; }
   }
   .footer-logo-front-logo img,
   #footerLogoBtnBack img {
-    width: 22px;
+    width: 28px;
   }
-  .flb-email-label { font-size: .48rem; }
-  .flb-handle { font-size: .78rem; }
+  .flb-email-label { font-size: .65rem; }
+  .flb-handle { font-size: 1rem; }
   .footer-logo-front-social,
   .flb-social {
-    gap: 1rem;
+    gap: 1.2rem;
   }
   .footer-logo-front-social a svg,
   .flb-social a svg {
-    width: 15px;
-    height: 15px;
+    width: 20px;
+    height: 20px;
   }
   .footer-logo-front-name,
   .flb-origin {
-    font-size: clamp(1.1rem, 4vw, 1.6rem);
+    font-size: clamp(1.4rem, 5vw, 2rem);
     padding: 0 .5rem .35rem 0;
   }
 

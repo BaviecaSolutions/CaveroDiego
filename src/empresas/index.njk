@@ -30,6 +30,7 @@ pageStyle: |
   .nav-lang-btn { color: var(--emp-cream); }
   .nav-cart-btn { color: var(--emp-cream); }
   .nav-logo-btn { filter: invert(1) brightness(1.5); }
+  .nav-hamburger span { background: var(--emp-cream); }
 
   /* ─── Hero ───────────────────────────────────────────────── */
   .emp-hero {
@@ -301,29 +302,36 @@ pageStyle: |
     padding: 2rem 8vw 2.4rem;
     border-top: 1px solid var(--emp-border);
   }
-  .emp-footer-left {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 1.6rem;
+  .emp-footer .emp-flipper {
+    width: clamp(20rem, 28vw, 28rem);
   }
-  .emp-footer-left img {
-    width: 38px;
-    opacity: .5;
-    filter: brightness(10);
+  .emp-footer .emp-card-front {
+    background: var(--emp-cream);
+    box-shadow: 0 2px 24px rgba(232,229,220,.15);
   }
-  .emp-footer-social {
-    display: flex;
-    gap: 1.2rem;
-    align-items: center;
+  .emp-footer .emp-card-back {
+    background: rgba(232,229,220,.95);
   }
-  .emp-footer-social a {
-    color: var(--emp-cream);
-    opacity: .3;
-    transition: opacity .2s;
+  .emp-footer .emp-card-back .flb-handle--back,
+  .emp-footer .emp-card-back .flb-email-label {
+    color: var(--emp-bg);
   }
-  .emp-footer-social a svg { width: 24px; height: 24px; }
-  .emp-footer-social a:hover { opacity: .8; }
+  .emp-footer .emp-card-back .flb-social a {
+    color: var(--emp-bg);
+    opacity: .75;
+  }
+  .emp-footer .emp-card-back .flb-social::before,
+  .emp-footer .emp-card-back .flb-social::after {
+    color: var(--emp-bg);
+    opacity: .4;
+  }
+  .emp-footer .emp-card-back .flb-origin {
+    color: var(--emp-bg);
+    opacity: .65;
+  }
+  .emp-footer .emp-card-back .flb-logo-btn img {
+    filter: brightness(0.3);
+  }
   .emp-footer-name {
     font-family: 'Boska', serif;
     font-size: clamp(4rem, 10vw, 11rem);
@@ -341,6 +349,9 @@ pageStyle: |
     .emp-footer {
       grid-template-columns: 1fr;
       gap: 3rem;
+    }
+    .emp-footer .emp-flipper {
+      width: clamp(16rem, 85vw, 22rem);
     }
     .emp-footer-name { font-size: clamp(3rem, 14vw, 6rem); justify-self: start; }
   }
@@ -365,6 +376,20 @@ pageScript: |
     document.getElementById('empForm').style.display = 'none';
     document.getElementById('empSuccess').classList.add('visible');
   });
+
+  // Flip card functionality
+  const footerLogoInnerEmp = document.getElementById('footerLogoInnerEmp');
+  const footerLogoBtnEmp = document.getElementById('footerLogoBtnEmp');
+  const footerLogoBtnBackEmp = document.getElementById('footerLogoBtnBackEmp');
+
+  if (footerLogoBtnEmp && footerLogoBtnBackEmp && footerLogoInnerEmp) {
+    footerLogoBtnEmp.addEventListener('click', () => {
+      footerLogoInnerEmp.classList.add('flipped');
+    });
+    footerLogoBtnBackEmp.addEventListener('click', () => {
+      footerLogoInnerEmp.classList.remove('flipped');
+    });
+  }
 ---
 
 <!-- ─── HERO ──────────────────────────────────────────────────── -->
