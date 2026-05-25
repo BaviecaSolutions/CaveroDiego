@@ -302,35 +302,32 @@ pageStyle: |
     padding: 2rem 8vw 2.4rem;
     border-top: 1px solid var(--emp-border);
   }
+  /* Desktop: show logo+icons, hide card */
+  .emp-footer-left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.6rem;
+  }
+  .emp-footer-left img {
+    width: 38px;
+    opacity: .5;
+    filter: brightness(10);
+  }
+  .emp-footer-social {
+    display: flex;
+    gap: 1.2rem;
+    align-items: center;
+  }
+  .emp-footer-social a {
+    color: var(--emp-cream);
+    opacity: .3;
+    transition: opacity .2s;
+  }
+  .emp-footer-social a svg { width: 24px; height: 24px; }
+  .emp-footer-social a:hover { opacity: .8; }
   .emp-footer .emp-flipper {
-    width: clamp(20rem, 28vw, 28rem);
-  }
-  .emp-footer .emp-card-front {
-    background: var(--emp-cream);
-    box-shadow: 0 2px 24px rgba(232,229,220,.15);
-  }
-  .emp-footer .emp-card-back {
-    background: rgba(232,229,220,.95);
-  }
-  .emp-footer .emp-card-back .flb-handle--back,
-  .emp-footer .emp-card-back .flb-email-label {
-    color: var(--emp-bg);
-  }
-  .emp-footer .emp-card-back .flb-social a {
-    color: var(--emp-bg);
-    opacity: .75;
-  }
-  .emp-footer .emp-card-back .flb-social::before,
-  .emp-footer .emp-card-back .flb-social::after {
-    color: var(--emp-bg);
-    opacity: .4;
-  }
-  .emp-footer .emp-card-back .flb-origin {
-    color: var(--emp-bg);
-    opacity: .65;
-  }
-  .emp-footer .emp-card-back .flb-logo-btn img {
-    filter: brightness(0.3);
+    display: none;
   }
   .emp-footer-name {
     font-family: 'Boska', serif;
@@ -350,10 +347,89 @@ pageStyle: |
       grid-template-columns: 1fr;
       gap: 3rem;
     }
+    /* Mobile: hide logo+icons, show card */
+    .emp-footer-left {
+      display: none;
+    }
     .emp-footer .emp-flipper {
+      display: block;
       width: clamp(16rem, 85vw, 22rem);
     }
-    .emp-footer-name { font-size: clamp(3rem, 14vw, 6rem); justify-self: start; }
+    /* Front of card - light cream with dark text */
+    .emp-footer .emp-card-front {
+      background: var(--emp-cream);
+      box-shadow: 0 4px 32px rgba(0,0,0,.3);
+    }
+    .emp-footer .emp-card-front::after {
+      background: var(--emp-green);
+    }
+    .emp-footer .emp-card-front .footer-logo-front-logo img {
+      filter: none;
+    }
+    .emp-footer .emp-card-front .flb-email-label {
+      color: var(--emp-bg);
+      opacity: .75;
+    }
+    .emp-footer .emp-card-front .flb-handle {
+      color: var(--emp-bg);
+      opacity: .65;
+    }
+    .emp-footer .emp-card-front .footer-logo-front-social a {
+      color: var(--emp-bg);
+      opacity: .65;
+    }
+    .emp-footer .emp-card-front .footer-logo-front-social a:hover {
+      opacity: 1;
+    }
+    .emp-footer .emp-card-front .footer-logo-front-social::before,
+    .emp-footer .emp-card-front .footer-logo-front-social::after {
+      color: var(--emp-bg);
+      opacity: .35;
+    }
+    .emp-footer .emp-card-front .footer-logo-front-name {
+      color: var(--emp-bg);
+      opacity: .5;
+    }
+    /* Back of card - darker with bright accents */
+    .emp-footer .emp-card-back {
+      background: #3d4a3c;
+    }
+    .emp-footer .emp-card-back::after {
+      background: var(--emp-green);
+    }
+    .emp-footer .emp-card-back .flb-logo-btn img {
+      filter: brightness(10);
+    }
+    .emp-footer .emp-card-back .flb-email-label {
+      color: var(--emp-cream);
+      opacity: .75;
+    }
+    .emp-footer .emp-card-back .flb-handle--back {
+      color: var(--emp-cream);
+      opacity: .85;
+    }
+    .emp-footer .emp-card-back .flb-social a {
+      color: var(--emp-cream);
+      opacity: .75;
+    }
+    .emp-footer .emp-card-back .flb-social a:hover {
+      color: var(--emp-green);
+      opacity: 1;
+    }
+    .emp-footer .emp-card-back .flb-social::before,
+    .emp-footer .emp-card-back .flb-social::after {
+      color: var(--emp-cream);
+      opacity: .4;
+    }
+    .emp-footer .emp-card-back .flb-origin {
+      color: var(--emp-cream);
+      opacity: .65;
+    }
+    .emp-footer-name {
+      font-size: clamp(3rem, 14vw, 6rem);
+      justify-self: center;
+      text-align: center;
+    }
   }
 
   /* ─── Responsive ──────────────────────────────────────────── */

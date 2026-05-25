@@ -760,29 +760,37 @@ section { position: relative; }
     aspect-ratio: 85.6 / 54;
   }
   .footer-logo-front-logo,
-  #footerLogoBtnBack {
-    top: .6rem;
-    left: .8rem;
+  #footerLogoBtnBack,
+  .flb-logo-btn {
+    top: .8rem;
+    left: 1rem;
   }
   .footer-logo-front-logo img,
-  #footerLogoBtnBack img {
-    width: 28px;
+  #footerLogoBtnBack img,
+  .flb-logo-btn img {
+    width: 36px;
   }
-  .flb-email-label { font-size: .65rem; }
-  .flb-handle { font-size: 1rem; }
+  .flb-email-label { font-size: .82rem; }
+  .flb-handle { font-size: 1.15rem; }
   .footer-logo-front-social,
   .flb-social {
-    gap: 1.2rem;
+    gap: 1.4rem;
   }
   .footer-logo-front-social a svg,
   .flb-social a svg {
-    width: 20px;
-    height: 20px;
+    width: 26px;
+    height: 26px;
+  }
+  .footer-logo-front-social::before,
+  .footer-logo-front-social::after,
+  .flb-social::before,
+  .flb-social::after {
+    font-size: 1.3rem;
   }
   .footer-logo-front-name,
   .flb-origin {
-    font-size: clamp(1.4rem, 5vw, 2rem);
-    padding: 0 .5rem .35rem 0;
+    font-size: clamp(1.6rem, 6vw, 2.4rem);
+    padding: 0 .6rem .5rem 0;
   }
 
   /* Section 3: strip (already at bottom) */

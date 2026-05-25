@@ -221,8 +221,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const ccPanel   = document.getElementById('ccPanel');
   const ccClose   = document.getElementById('ccClose');
 
-  function openCC()  { ccOverlay.classList.add('open'); ccPanel.classList.add('open'); }
-  function closeCC() { ccOverlay.classList.remove('open'); ccPanel.classList.remove('open'); }
+  function openCC()  {
+    ccOverlay.classList.add('open');
+    ccPanel.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeCC() {
+    ccOverlay.classList.remove('open');
+    ccPanel.classList.remove('open');
+    document.body.style.overflow = '';
+    document.body.style.background = '';
+  }
 
   const footerStrip     = document.getElementById('footerStrip');
   const navLogoBtn      = document.getElementById('navLogoBtn');
