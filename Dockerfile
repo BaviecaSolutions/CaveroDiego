@@ -12,9 +12,9 @@ WORKDIR /app
 # Copy package files for dependency installation
 COPY package*.json ./
 
-# Install dependencies with production optimization
-# Using --omit=dev is not needed here since we need devDependencies for build
-RUN npm ci --prefer-offline --no-audit
+# Install dependencies
+# Using npm install instead of npm ci to generate package-lock.json if missing
+RUN npm install --prefer-offline --no-audit
 
 # Copy all source files
 COPY . .
