@@ -35,23 +35,15 @@ COPY --from=builder /app/nginx.conf /etc/nginx/conf.d/default.conf
 # Copy built static files from builder stage
 COPY --from=builder /app/_site /usr/share/nginx/html
 
-# Create a non-root user for nginx
-RUN chown -R nginx:nginx /usr/share/nginx/html && \
-    chmod -R 755 /usr/share/nginx/html && \
-    chown -R nginx:nginx /var/cache/nginx && \
-    chown -R nginx:nginx /var/log/nginx && \
-    touch /var/run/nginx.pid && \
-    chown -R nginx:nginx /var/run/nginx.pid
+# Ensure proper permissions for static files
+RUN chmod -R 755 /usr/share/nginx/html
 
-# Switch to non-root user
-USER nginx
-
-# Expose port (EasyPanel will use the PORT environment variable)
-EXPOSE 8080
+# Expose standard HTTP port
+EXPOSE 80
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD curl -f http://localhost:8080/ || exit 1
+  CMD curl -f http://localhost/ || exit 1
 
 # Start nginx
 CMD ["nginx", "-g", "daemon off;"]
