@@ -1,10 +1,10 @@
 <nav id="nav">
   <ul class="nav-links">
-    <li><a href="{% if lang == 'en' %}/en/{% else %}/{% endif %}" class="{{ 'active' if section == 'home' }}">{{ 'nav.home' | t(lang) }}</a></li>
-    <li><a href="{% if lang == 'en' %}/en/{% else %}/{% endif %}#materiales" class="{{ 'active' if section == 'productos' }}">{{ 'nav.products' | t(lang) }}</a></li>
-    <li><a href="{% if lang == 'en' %}/en{% endif %}/cuaderno/" class="{{ 'active' if section == 'campo' }}">{{ 'nav.campo' | t(lang) }}</a></li>
-    <li><a href="{% if lang == 'en' %}/en{% endif %}/cuaderno-de-viaje/" class="{{ 'active' if section == 'viaje' }}">{{ 'nav.viaje' | t(lang) }}</a></li>
-    <li><a href="{% if lang == 'en' %}/en{% endif %}/empresas/" class="nav-empresas{{ ' active' if section == 'empresas' }}">{{ 'nav.empresas' | t(lang) }}</a></li>
+    <li><a href="{% if lang == 'en' %}/en/{% else %}/{% endif %}" class="{{ 'active' if section == 'home' }}"{% if bodyClass == 'home-page' %} data-i18n="nav.origen"{% endif %}>{{ 'nav.home' | t(lang) }}</a></li>
+    <li><a href="{% if lang == 'en' %}/en/{% else %}/{% endif %}#materiales" class="{{ 'active' if section == 'productos' }}"{% if bodyClass == 'home-page' %} data-i18n="nav.productos"{% endif %}>{{ 'nav.products' | t(lang) }}</a></li>
+    <li><a href="{% if lang == 'en' %}/en{% endif %}/cuaderno/" class="{{ 'active' if section == 'campo' }}"{% if bodyClass == 'home-page' %} data-i18n="nav.cuaderno"{% endif %}>{{ 'nav.campo' | t(lang) }}</a></li>
+    <li><a href="{% if lang == 'en' %}/en{% endif %}/cuaderno-de-viaje/" class="{{ 'active' if section == 'viaje' }}"{% if bodyClass == 'home-page' %} data-i18n="nav.viajes"{% endif %}>{{ 'nav.viaje' | t(lang) }}</a></li>
+    <li><a href="{% if lang == 'en' %}/en{% endif %}/empresas/" class="nav-empresas{{ ' active' if section == 'empresas' }}"{% if bodyClass == 'home-page' %} data-i18n="nav.empresas"{% endif %}>{{ 'nav.empresas' | t(lang) }}</a></li>
   </ul>
   <div class="nav-right">
     <button class="nav-hamburger" id="navHamburger" aria-label="Menú">
@@ -37,10 +37,10 @@
 <div class="nav-overlay" id="navOverlay"></div>
 <div class="nav-panel" id="navPanel">
   <ul class="nav-panel-links">
-    <li><a href="{% if lang == 'en' %}/en/{% else %}/{% endif %}" class="{{ 'active' if section == 'home' }}">{{ 'nav.home' | t(lang) }}</a></li>
-    <li><a href="{% if lang == 'en' %}/en/{% else %}/{% endif %}#materiales" class="{{ 'active' if section == 'productos' }}">{{ 'nav.products' | t(lang) }}</a></li>
-    <li><a href="{% if lang == 'en' %}/en{% endif %}/cuaderno/" class="{{ 'active' if section == 'campo' }}">{{ 'nav.campo' | t(lang) }}</a></li>
-    <li><a href="{% if lang == 'en' %}/en{% endif %}/cuaderno-de-viaje/" class="{{ 'active' if section == 'viaje' }}">{{ 'nav.viaje' | t(lang) }}</a></li>
-    <li><a href="{% if lang == 'en' %}/en{% endif %}/empresas/" class="{{ 'active' if section == 'empresas' }}">{{ 'nav.empresas' | t(lang) }}</a></li>
+    <li><a href="{% if lang == 'en' %}/en/{% else %}/{% endif %}" class="{{ 'active' if section == 'home' }}"{% if bodyClass == 'home-page' %} data-i18n="nav.origen"{% endif %}>{{ 'nav.home' | t(lang) }}</a></li>
+    <li><a href="{% if lang == 'en' %}/en/{% else %}/{% endif %}#materiales" class="{{ 'active' if section == 'productos' }}"{% if bodyClass == 'home-page' %} data-i18n="nav.productos"{% endif %}>{{ 'nav.products' | t(lang) }}</a></li>
+    <li><a href="{% if lang == 'en' %}/en{% endif %}/cuaderno/" class="{{ 'active' if section == 'campo' }}"{% if bodyClass == 'home-page' %} data-i18n="nav.cuaderno"{% endif %}>{{ 'nav.campo' | t(lang) }}</a></li>
+    <li><a href="{% if lang == 'en' %}/en{% endif %}/cuaderno-de-viaje/" class="{{ 'active' if section == 'viaje' }}"{% if bodyClass == 'home-page' %} data-i18n="nav.viajes"{% endif %}>{{ 'nav.viaje' | t(lang) }}</a></li>
+    <li><a href="{% if lang == 'en' %}/en{% endif %}/empresas/" class="{{ 'active' if section == 'empresas' }}"{% if bodyClass == 'home-page' %} data-i18n="nav.empresas"{% endif %}>{{ 'nav.empresas' | t(lang) }}</a></li>
   </ul>
 </div>
