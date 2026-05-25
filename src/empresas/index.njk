@@ -484,9 +484,9 @@ pageScript: |
 
 <!-- ─── HERO ──────────────────────────────────────────────────── -->
 <section class="emp-hero">
-  <span class="emp-hero-eyebrow">Colaboraciones &amp; Pedidos comerciales</span>
-  <h1 class="emp-hero-title">Para quienes <em>eligen con criterio.</em></h1>
-  <p class="emp-hero-desc">Hoteles, restaurantes, espacios de hospitalidad y empresas que quieren ofrecer a sus clientes algo distinto. Trabajamos con volúmenes desde 10 unidades y cerramos acuerdos comerciales a medida.</p>
+  <span class="emp-hero-eyebrow">{{ 'empresas.eyebrow' | t(lang) }}</span>
+  <h1 class="emp-hero-title">{{ 'empresas.hero_title' | t(lang) | safe }}</h1>
+  <p class="emp-hero-desc">{{ 'empresas.hero_desc' | t(lang) }}</p>
 </section>
 
 <!-- ─── USOS ──────────────────────────────────────────────────── -->
@@ -497,69 +497,69 @@ pageScript: |
       <path d="M12 10V7a6 6 0 0 1 12 0v3"/>
       <circle cx="18" cy="20" r="2"/>
     </svg>
-    <h3 class="emp-uso-title">Hoteles &amp; Alojamientos</h3>
-    <p class="emp-uso-desc">Amenities de habitación, detalles de bienvenida y productos de uso diario que refuerzan la identidad de tu espacio.</p>
+    <h3 class="emp-uso-title">{{ 'empresas.uso1_title' | t(lang) }}</h3>
+    <p class="emp-uso-desc">{{ 'empresas.uso1_desc' | t(lang) }}</p>
   </div>
   <div class="emp-uso reveal" style="transition-delay:.08s">
     <svg class="emp-uso-icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.2">
       <path d="M4 28h28M8 28V16l10-8 10 8v12"/>
       <rect x="14" y="20" width="8" height="8"/>
     </svg>
-    <h3 class="emp-uso-title">Restaurantes &amp; Gastronomía</h3>
-    <p class="emp-uso-desc">Velas de mesa, ambientadores y objetos que completan la experiencia sensorial del espacio gastronómico.</p>
+    <h3 class="emp-uso-title">{{ 'empresas.uso2_title' | t(lang) }}</h3>
+    <p class="emp-uso-desc">{{ 'empresas.uso2_desc' | t(lang) }}</p>
   </div>
   <div class="emp-uso reveal" style="transition-delay:.16s">
     <svg class="emp-uso-icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.2">
       <rect x="4" y="8" width="28" height="20" rx="2"/>
       <path d="M4 14h28M12 14v14"/>
     </svg>
-    <h3 class="emp-uso-title">Empresas &amp; Regalos corporativos</h3>
-    <p class="emp-uso-desc">Detalles para clientes, kits de bienvenida para empleados y obsequios de empresa con identidad propia.</p>
+    <h3 class="emp-uso-title">{{ 'empresas.uso3_title' | t(lang) }}</h3>
+    <p class="emp-uso-desc">{{ 'empresas.uso3_desc' | t(lang) }}</p>
   </div>
 </section>
 
 <!-- ─── VENTAJAS ──────────────────────────────────────────────── -->
 <section class="emp-ventajas">
   <div class="emp-ventajas-left reveal">
-    <span class="section-label">Por qué Cavero Diego</span>
-    <h2 class="emp-ventajas-title">Producto de<br><em>origen trazable.</em></h2>
+    <span class="section-label">{{ 'empresas.ventajas_label' | t(lang) }}</span>
+    <h2 class="emp-ventajas-title">{{ 'empresas.ventajas_title' | t(lang) | safe }}</h2>
   </div>
   <ul class="emp-ventajas-list reveal" style="transition-delay:.1s">
-    <li>Fabricación artesanal en Castilla, sin externalización del proceso.</li>
-    <li>Materia prima de origen natural y documentado.</li>
-    <li>Posibilidad de personalización discreta: packaging, fragancia o grabado.</li>
-    <li>Precios escalonados según volumen, sin mínimos abusivos.</li>
-    <li>Entrega en plazos acordados con margen suficiente para planificación.</li>
-    <li>Interlocutor único durante todo el proceso.</li>
+    <li>{{ 'empresas.ventaja1' | t(lang) }}</li>
+    <li>{{ 'empresas.ventaja2' | t(lang) }}</li>
+    <li>{{ 'empresas.ventaja3' | t(lang) }}</li>
+    <li>{{ 'empresas.ventaja4' | t(lang) }}</li>
+    <li>{{ 'empresas.ventaja5' | t(lang) }}</li>
+    <li>{{ 'empresas.ventaja6' | t(lang) }}</li>
   </ul>
 </section>
 
 <!-- ─── PROCESO ───────────────────────────────────────────────── -->
 <section class="emp-proceso">
   <div class="emp-proceso-header reveal">
-    <span class="section-label">Cómo trabajamos</span>
-    <h2>Del primer contacto<br>al pedido entregado.</h2>
+    <span class="section-label">{{ 'empresas.proceso_label' | t(lang) }}</span>
+    <h2>{{ 'empresas.proceso_title' | t(lang) | safe }}</h2>
   </div>
   <div class="emp-pasos">
     <div class="emp-paso reveal">
       <p class="emp-paso-num">01</p>
-      <p class="emp-paso-title">Consulta inicial</p>
-      <p class="emp-paso-desc">Nos cuentas qué necesitas, para qué espacio y en qué plazos. Sin compromiso.</p>
+      <p class="emp-paso-title">{{ 'empresas.paso1_title' | t(lang) }}</p>
+      <p class="emp-paso-desc">{{ 'empresas.paso1_desc' | t(lang) }}</p>
     </div>
     <div class="emp-paso reveal" style="transition-delay:.08s">
       <p class="emp-paso-num">02</p>
-      <p class="emp-paso-title">Propuesta a medida</p>
-      <p class="emp-paso-desc">Te enviamos selección de productos, precios por volumen y opciones de personalización.</p>
+      <p class="emp-paso-title">{{ 'empresas.paso2_title' | t(lang) }}</p>
+      <p class="emp-paso-desc">{{ 'empresas.paso2_desc' | t(lang) }}</p>
     </div>
     <div class="emp-paso reveal" style="transition-delay:.16s">
       <p class="emp-paso-num">03</p>
-      <p class="emp-paso-title">Muestra previa</p>
-      <p class="emp-paso-desc">Antes de confirmar el pedido, puedes recibir una muestra del producto final.</p>
+      <p class="emp-paso-title">{{ 'empresas.paso3_title' | t(lang) }}</p>
+      <p class="emp-paso-desc">{{ 'empresas.paso3_desc' | t(lang) }}</p>
     </div>
     <div class="emp-paso reveal" style="transition-delay:.24s">
       <p class="emp-paso-num">04</p>
-      <p class="emp-paso-title">Producción &amp; entrega</p>
-      <p class="emp-paso-desc">Producimos y enviamos en el plazo acordado. Seguimiento directo en todo momento.</p>
+      <p class="emp-paso-title">{{ 'empresas.paso4_title' | t(lang) }}</p>
+      <p class="emp-paso-desc">{{ 'empresas.paso4_desc' | t(lang) }}</p>
     </div>
   </div>
 </section>
@@ -567,11 +567,11 @@ pageScript: |
 <!-- ─── FORMULARIO ────────────────────────────────────────────── -->
 <section class="emp-form-section" id="contacto">
   <div class="emp-form-left reveal">
-    <span class="section-label">Contacto</span>
-    <h2>Cuéntanos<br>qué necesitas.</h2>
-    <p>Respondemos en menos de 48 horas. Si el proyecto encaja, concertamos una llamada para afinar los detalles.</p>
+    <span class="section-label">{{ 'empresas.contacto_label' | t(lang) }}</span>
+    <h2>{{ 'empresas.contacto_title' | t(lang) | safe }}</h2>
+    <p>{{ 'empresas.contacto_desc' | t(lang) }}</p>
     <div class="emp-contact-direct">
-      <p>O escríbenos directamente a</p>
+      <p>{{ 'empresas.contacto_direct' | t(lang) }}</p>
       <a href="mailto:empresas@caverodiego.com">empresas@caverodiego.com</a>
     </div>
   </div>
@@ -580,55 +580,55 @@ pageScript: |
     <form class="emp-form" id="empForm">
       <div class="emp-form-row">
         <div class="form-field">
-          <label for="empNombre">Nombre</label>
+          <label for="empNombre">{{ 'empresas.form_nombre' | t(lang) }}</label>
           <input type="text" id="empNombre" required />
         </div>
         <div class="form-field">
-          <label for="empEmpresa">Empresa</label>
+          <label for="empEmpresa">{{ 'empresas.form_empresa' | t(lang) }}</label>
           <input type="text" id="empEmpresa" required />
         </div>
       </div>
       <div class="form-field">
-        <label for="empEmail">Correo electrónico</label>
+        <label for="empEmail">{{ 'empresas.form_email' | t(lang) }}</label>
         <input type="email" id="empEmail" required />
       </div>
       <div class="form-field">
-        <label for="empTipo">Tipo de negocio</label>
+        <label for="empTipo">{{ 'empresas.form_tipo' | t(lang) }}</label>
         <select id="empTipo" required>
-          <option value="">Seleccionar</option>
-          <option value="hotel">Hotel / Alojamiento</option>
-          <option value="restaurante">Restaurante / Gastronomía</option>
-          <option value="retail">Tienda / Retail</option>
-          <option value="corporativo">Regalo corporativo</option>
-          <option value="otro">Otro</option>
+          <option value="">{{ 'empresas.form_tipo_select' | t(lang) }}</option>
+          <option value="hotel">{{ 'empresas.form_tipo_hotel' | t(lang) }}</option>
+          <option value="restaurante">{{ 'empresas.form_tipo_restaurante' | t(lang) }}</option>
+          <option value="retail">{{ 'empresas.form_tipo_retail' | t(lang) }}</option>
+          <option value="corporativo">{{ 'empresas.form_tipo_corporativo' | t(lang) }}</option>
+          <option value="otro">{{ 'empresas.form_tipo_otro' | t(lang) }}</option>
         </select>
       </div>
       <div class="form-field">
-        <label for="empVolumen">Volumen estimado</label>
+        <label for="empVolumen">{{ 'empresas.form_volumen' | t(lang) }}</label>
         <select id="empVolumen">
-          <option value="">Seleccionar</option>
-          <option value="10-50">10 – 50 unidades</option>
-          <option value="50-200">50 – 200 unidades</option>
-          <option value="200-500">200 – 500 unidades</option>
-          <option value="500+">Más de 500 unidades</option>
+          <option value="">{{ 'empresas.form_tipo_select' | t(lang) }}</option>
+          <option value="10-50">{{ 'empresas.form_volumen_10' | t(lang) }}</option>
+          <option value="50-200">{{ 'empresas.form_volumen_50' | t(lang) }}</option>
+          <option value="200-500">{{ 'empresas.form_volumen_200' | t(lang) }}</option>
+          <option value="500+">{{ 'empresas.form_volumen_500' | t(lang) }}</option>
         </select>
       </div>
       <div class="form-field">
-        <label for="empMensaje">¿Qué tienes en mente?</label>
-        <textarea id="empMensaje" rows="4" placeholder="Cuéntanos el contexto, el producto que te interesa o cualquier detalle relevante."></textarea>
+        <label for="empMensaje">{{ 'empresas.form_mensaje' | t(lang) }}</label>
+        <textarea id="empMensaje" rows="4" placeholder="{{ 'empresas.form_mensaje_placeholder' | t(lang) }}"></textarea>
       </div>
       <button type="submit" class="emp-form-submit">
-        Enviar consulta
+        {{ 'empresas.form_send' | t(lang) }}
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
           <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
         </svg>
       </button>
-      <p class="emp-form-legal">Tus datos se usan únicamente para responder a tu consulta.</p>
+      <p class="emp-form-legal">{{ 'empresas.form_legal' | t(lang) }}</p>
     </form>
 
     <div class="emp-form-success" id="empSuccess">
-      <h3>Recibido.</h3>
-      <p>Te respondemos en menos de 48 horas.<br>Gracias por confiar en Cavero Diego.</p>
+      <h3>{{ 'empresas.form_success_title' | t(lang) }}</h3>
+      <p>{{ 'empresas.form_success_desc' | t(lang) | safe }}</p>
     </div>
   </div>
 </section>

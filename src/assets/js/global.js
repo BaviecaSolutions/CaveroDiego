@@ -315,6 +315,20 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ── 9. Language switcher ───────────────────────────────────── */
+  // Check localStorage and redirect on page load if needed
+  const currentPath = window.location.pathname;
+  const isCurrentlyEnglish = currentPath.startsWith('/en');
+  const preferredLang = localStorage.getItem('preferredLang');
+
+  // Auto-redirect based on stored preference (only if different from current)
+  if (preferredLang === 'en' && !isCurrentlyEnglish && currentPath !== '/') {
+    const newPath = '/en' + currentPath;
+    window.location.href = newPath;
+  } else if (preferredLang === 'es' && isCurrentlyEnglish) {
+    const newPath = currentPath.replace(/^\/en/, '') || '/';
+    window.location.href = newPath;
+  }
+
   const langBtn = document.getElementById('langBtn');
   if (langBtn) {
     langBtn.addEventListener('click', () => {
@@ -322,22 +336,22 @@ document.addEventListener('DOMContentLoaded', () => {
       const isEnglish = currentPath.startsWith('/en');
 
       if (isEnglish) {
-        // Switch to Spanish: remove /en prefix
+        // Switch to Spanish: remove /en prefix and save preference
+        localStorage.setItem('preferredLang', 'es');
         const newPath = currentPath.replace(/^\/en/, '') || '/';
         window.location.href = newPath;
       } else {
-        // Switch to English: add /en prefix
+        // Switch to English: add /en prefix and save preference
+        localStorage.setItem('preferredLang', 'en');
         const newPath = '/en' + currentPath;
         window.location.href = newPath;
       }
     });
 
     // Update button label based on current language
-    const currentPath = window.location.pathname;
-    const isEnglish = currentPath.startsWith('/en');
     const langLabel = document.getElementById('langLabel');
     if (langLabel) {
-      langLabel.textContent = isEnglish ? 'EN' : 'ES';
+      langLabel.textContent = isCurrentlyEnglish ? 'EN' : 'ES';
     }
   }
 
