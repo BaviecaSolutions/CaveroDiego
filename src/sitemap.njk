@@ -2,11 +2,11 @@
 permalink: /sitemap.xml
 eleventyExcludeFromCollections: true
 ---
-<?xml version="1.0" encoding="UTF-8"?>
+{%- set xmlVersion = '<?xml version="1.0" encoding="UTF-8"?>' -%}
+{{ xmlVersion }}
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://caverodiego.com/</loc>
-    <lastmod>{{ page.date | date: "%Y-%m-%d" }}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -25,20 +25,18 @@ eleventyExcludeFromCollections: true
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
-  {% for post in collections.campo %}
+  {%- for post in collections.campo %}
   <url>
     <loc>https://caverodiego.com{{ post.url }}</loc>
-    <lastmod>{{ post.date | date: "%Y-%m-%d" }}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-  {% endfor %}
-  {% for post in collections.viaje %}
+  {%- endfor %}
+  {%- for post in collections.viaje %}
   <url>
     <loc>https://caverodiego.com{{ post.url }}</loc>
-    <lastmod>{{ post.date | date: "%Y-%m-%d" }}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-  {% endfor %}
+  {%- endfor %}
 </urlset>
