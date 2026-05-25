@@ -1,6 +1,22 @@
+const htmlmin = require('html-minifier-terser');
+
 module.exports = function (eleventyConfig) {
   // Passthrough assets
   eleventyConfig.addPassthroughCopy("src/assets");
+
+  // HTML Minification
+  eleventyConfig.addTransform("htmlmin", function(content, outputPath) {
+    if( outputPath && outputPath.endsWith(".html") ) {
+      return htmlmin.minify(content, {
+        useShortDoctype: true,
+        removeComments: true,
+        collapseWhitespace: true,
+        minifyCSS: true,
+        minifyJS: true
+      });
+    }
+    return content;
+  });
 
   // Collections
   eleventyConfig.addCollection("campo", col =>

@@ -210,6 +210,7 @@ footer { display: flex; flex-direction: column; }
   position: relative;
   transform-style: preserve-3d;
   transition: transform .7s cubic-bezier(.4,0,.2,1);
+  will-change: transform;
 }
 .footer-logo-inner.flipped { transform: rotateY(180deg); }
 #footerLogoBtn { background: none; border: none; padding: 0; cursor: none; }
@@ -218,8 +219,11 @@ footer { display: flex; flex-direction: column; }
   position: absolute; inset: 0;
   display: flex; align-items: center;
   backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
   border-radius: 6px;
   overflow: hidden;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 }
 .footer-logo-front::after,
 .footer-logo-back::after {
@@ -758,6 +762,10 @@ section { position: relative; }
   .footer-logo-flipper {
     width: clamp(16rem, 85vw, 22rem);
     aspect-ratio: 85.6 / 54;
+  }
+  /* Faster animation on mobile */
+  .footer-logo-inner {
+    transition: transform .5s cubic-bezier(.4,0,.2,1);
   }
   .footer-logo-front-logo,
   #footerLogoBtnBack,
