@@ -100,5 +100,16 @@
     "form_legal": "Your data is used only to respond to your inquiry.",
     "form_success_title": "Received.",
     "form_success_desc": "We'll respond within 48 hours.<br>Thank you for trusting Cavero Diego."
+  },
+  "cart": {
+    "title": "Selection",
+    "close": "Close",
+    "empty_label": "Empty cart",
+    "empty_hint": "You haven't added any components yet.",
+    "total_label": "Total",
+    "checkout_btn": "Proceed to checkout",
+    "checkout_note": "Secure payment with Stripe",
+    "item_remove": "Remove",
+    "item_added": "✓ Added"
   }
 }

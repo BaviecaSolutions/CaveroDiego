@@ -100,5 +100,16 @@
     "form_legal": "Tus datos se usan únicamente para responder a tu consulta.",
     "form_success_title": "Recibido.",
     "form_success_desc": "Te respondemos en menos de 48 horas.<br>Gracias por confiar en Cavero Diego."
+  },
+  "cart": {
+    "title": "Selección",
+    "close": "Cerrar",
+    "empty_label": "Carrito vacío",
+    "empty_hint": "Todavía no has añadido ningún componente.",
+    "total_label": "Total",
+    "checkout_btn": "Proceder al pago",
+    "checkout_note": "Pago seguro con Stripe",
+    "item_remove": "Eliminar",
+    "item_added": "✓ Añadido"
   }
 }

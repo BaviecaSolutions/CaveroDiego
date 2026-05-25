@@ -1,18 +1,20 @@
 <div class="cc-overlay" id="ccOverlay"></div>
 <aside class="cc-panel" id="ccPanel">
-  <button class="cc-close" id="ccClose">✕ Cerrar</button>
-  <p class="cc-eyebrow">Círculo Cavero</p>
-  <h2 class="cc-titulo">En primera<br>fila.</h2>
-  <p class="cc-desc">Sin ruido, sin prisa. Cuando haya algo que contar — un lanzamiento, una pieza, un momento — tú serás el primero.</p>
-  <form class="cc-form" id="ccForm">
-    <input class="cc-input" type="text" placeholder="Tu nombre" required />
-    <input class="cc-input" type="email" placeholder="Correo electrónico" required />
+  <button class="cc-close" id="ccClose">✕ {{ 'cc.button' | t(lang) | replace('Entrar al círculo', 'Cerrar') | replace('Join the circle', 'Close') }}</button>
+  <p class="cc-eyebrow">{{ 'cc.eyebrow' | t(lang) }}</p>
+  <h2 class="cc-titulo">{{ 'cc.title' | t(lang) | safe }}</h2>
+  <p class="cc-desc">{{ 'cc.desc' | t(lang) }}</p>
+  <form class="cc-form" id="ccForm"
+    data-success-title="{{ 'cc.success_title' | t(lang) }}"
+    data-success-desc="{{ 'cc.success_desc' | t(lang) }}">
+    <input class="cc-input" type="text" placeholder="{{ 'cc.name_placeholder' | t(lang) }}" required />
+    <input class="cc-input" type="email" placeholder="{{ 'cc.email_placeholder' | t(lang) }}" required />
     <button class="cc-submit" type="submit">
-      Entrar al círculo
+      {{ 'cc.button' | t(lang) }}
       <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
         <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
       </svg>
     </button>
   </form>
-  <p class="cc-legal">Sin spam. Puedes darte de baja cuando quieras.<br>© 2025 Cavero Diego</p>
+  <p class="cc-legal">{{ 'cc.legal' | t(lang) }}<br>© 2025 Cavero Diego</p>
 </aside>

@@ -49,6 +49,25 @@ const Cart = (() => {
 
 /* ── Cart panel DOM (injected once) ─────────────────────────────── */
 function injectCartPanel() {
+  // Detect language from URL or html lang attribute
+  const isEnglish = window.location.pathname.startsWith('/en') || document.documentElement.lang === 'en';
+
+  // Translation strings
+  const t = {
+    title: isEnglish ? 'Selection' : 'Selección',
+    close: isEnglish ? 'Close' : 'Cerrar',
+    emptyLabel: isEnglish ? 'Empty cart' : 'Carrito vacío',
+    emptyHint: isEnglish ? "You haven't added any components yet." : 'Todavía no has añadido ningún componente.',
+    totalLabel: isEnglish ? 'Total' : 'Total',
+    checkoutBtn: isEnglish ? 'Proceed to checkout' : 'Proceder al pago',
+    checkoutNote: isEnglish ? 'Secure payment with Stripe' : 'Pago seguro con Stripe',
+    itemRemove: isEnglish ? 'Remove' : 'Eliminar',
+    itemAdded: isEnglish ? '✓ Added' : '✓ Añadido'
+  };
+
+  // Store translations globally for use in other functions
+  window._cartTranslations = t;
+
   const overlay = document.createElement('div');
   overlay.className = 'cart-overlay';
   overlay.id = 'cartOverlay';
@@ -58,22 +77,22 @@ function injectCartPanel() {
   panel.id = 'cartPanel';
   panel.innerHTML = `
     <div class="cart-header">
-      <span class="cart-title">Selección</span>
-      <button class="cart-close" id="cartClose" aria-label="Cerrar carrito">[ Cerrar ]</button>
+      <span class="cart-title">${t.title}</span>
+      <button class="cart-close" id="cartClose" aria-label="${t.close}">[ ${t.close} ]</button>
     </div>
     <div class="cart-items" id="cartItems"></div>
     <div class="cart-footer" id="cartFooter" style="display:none">
       <div class="cart-subtotal">
-        <span class="cart-subtotal-label">Total</span>
+        <span class="cart-subtotal-label">${t.totalLabel}</span>
         <span class="cart-subtotal-amount" id="cartTotal">0 €</span>
       </div>
       <a href="#" class="cart-checkout-btn" id="cartCheckoutBtn">
-        Proceder al pago
+        ${t.checkoutBtn}
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
           <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
         </svg>
       </a>
-      <span class="cart-checkout-note">Pago seguro con Stripe</span>
+      <span class="cart-checkout-note">${t.checkoutNote}</span>
     </div>
   `;
 
@@ -101,12 +120,13 @@ function injectCartPanel() {
     const footer    = document.getElementById('cartFooter');
     const totalEl   = document.getElementById('cartTotal');
     const count     = Cart.count();
+    const t         = window._cartTranslations || {};
 
     if (count === 0) {
       container.innerHTML = `
         <div class="cart-empty">
-          <span class="cart-empty-label">Carrito vacío</span>
-          <p class="cart-empty-hint">Todavía no has añadido ningún componente.</p>
+          <span class="cart-empty-label">${t.emptyLabel || 'Carrito vacío'}</span>
+          <p class="cart-empty-hint">${t.emptyHint || 'Todavía no has añadido ningún componente.'}</p>
         </div>
       `;
       footer.style.display = 'none';
@@ -119,7 +139,7 @@ function injectCartPanel() {
             <span class="cart-item-variant">${item.variant || ''}</span>
           </div>
           <span class="cart-item-price">${(item.price * item.qty).toFixed(2).replace('.', ',')} €</span>
-          <button class="cart-item-remove" data-remove="${item.id}" aria-label="Eliminar">✕</button>
+          <button class="cart-item-remove" data-remove="${item.id}" aria-label="${t.itemRemove || 'Eliminar'}">✕</button>
         </div>
       `).join('');
 
@@ -260,7 +280,11 @@ document.addEventListener('DOMContentLoaded', () => {
   if (ccForm) {
     ccForm.addEventListener('submit', e => {
       e.preventDefault();
-      ccPanel.innerHTML = '<div style="display:flex;flex-direction:column;justify-content:center;height:100%;gap:1.2rem;padding:4rem 3.2rem"><span class="cc-eyebrow">Círculo Cavero</span><h2 class="cc-titulo">Ya estás dentro.</h2><p class="cc-desc">Te avisaremos cuando haya algo que merezca la pena saber.</p></div>';
+      const isEnglish = window.location.pathname.startsWith('/en') || document.documentElement.lang === 'en';
+      const eyebrow = isEnglish ? 'Cavero Circle' : 'Círculo Cavero';
+      const successTitle = ccForm.dataset.successTitle || (isEnglish ? "You're in." : 'Ya estás dentro.');
+      const successDesc = ccForm.dataset.successDesc || (isEnglish ? "We'll let you know when there's something worth knowing." : 'Te avisaremos cuando haya algo que merezca la pena saber.');
+      ccPanel.innerHTML = `<div style="display:flex;flex-direction:column;justify-content:center;height:100%;gap:1.2rem;padding:4rem 3.2rem"><span class="cc-eyebrow">${eyebrow}</span><h2 class="cc-titulo">${successTitle}</h2><p class="cc-desc">${successDesc}</p></div>`;
     });
   }
 
@@ -294,8 +318,9 @@ document.addEventListener('DOMContentLoaded', () => {
       Cart.add(product);
 
       /* Visual feedback */
+      const t = window._cartTranslations || {};
       const original = btn.textContent;
-      btn.textContent = '✓ Añadido';
+      btn.textContent = t.itemAdded || '✓ Añadido';
       btn.disabled = true;
       setTimeout(() => {
         btn.textContent = original;
