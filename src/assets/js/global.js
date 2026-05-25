@@ -321,7 +321,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const preferredLang = localStorage.getItem('preferredLang');
 
   // Auto-redirect based on stored preference (only if different from current)
-  if (preferredLang === 'en' && !isCurrentlyEnglish && currentPath !== '/') {
+  if (preferredLang === 'en' && !isCurrentlyEnglish) {
     const newPath = '/en' + currentPath;
     window.location.href = newPath;
   } else if (preferredLang === 'es' && isCurrentlyEnglish) {
