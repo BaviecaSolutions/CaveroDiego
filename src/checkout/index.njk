@@ -254,7 +254,12 @@ pageStyle: |
     }
   }
 pageScript: |
-  /* ── Descuentos válidos ──────────────────────────────────────── */
+  /* ── Descuentos válidos ──────────────────────────────────────────
+     NOTA: Códigos de descuento funcionales. Para agregar nuevos:
+     1. Añadir código aquí con type ('percent' o 'fixed')
+     2. value: porcentaje (sin %) o cantidad fija en €
+     3. label: texto a mostrar cuando se aplica
+     ────────────────────────────────────────────────────────────── */
   const DISCOUNT_CODES = {
     'CAVERO10':  { type: 'percent', value: 10,  label: '-10%' },
     'CAMPO15':   { type: 'percent', value: 15,  label: '-15%' },

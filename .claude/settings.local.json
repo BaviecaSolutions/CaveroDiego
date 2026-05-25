@@ -11,7 +11,9 @@
       "Bash(git rm:*)",
       "Bash(npm install:*)",
       "Bash(dir:*)",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "Bash(find:*)",
+      "Bash(gzip:*)"
     ],
     "deny": [],
     "ask": []

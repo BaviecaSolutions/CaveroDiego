@@ -6,11 +6,11 @@ layout: layouts/base.njk
 <!-- CTA Círculo Cavero -->
 <div class="cc-cta">
   <div class="cc-cta-content">
-    <span class="cc-cta-eyebrow">Círculo Cavero</span>
-    <h3 class="cc-cta-title">Sigue la conversación</h3>
-    <p class="cc-cta-desc">Relatos, procesos y lanzamientos. Sin ruido.</p>
+    <span class="cc-cta-eyebrow">{{ 'cc.eyebrow' | t(lang) }}</span>
+    <h3 class="cc-cta-title">{{ 'cc.cta_title' | t(lang) }}</h3>
+    <p class="cc-cta-desc">{{ 'cc.cta_desc' | t(lang) }}</p>
     <button class="cc-cta-btn" id="ccCtaBtn">
-      Unirme al círculo
+      {{ 'cc.cta_button' | t(lang) }}
       <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
         <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
       </svg>
@@ -19,21 +19,5 @@ layout: layouts/base.njk
 </div>
 
 <footer>
-  <div class="footer-top">
-    <span class="footer-wordmark">Cavero Diego</span>
-    <ul class="footer-nav">
-      <li><a href="/">Inicio</a></li>
-      <li><a href="/#materiales">Productos</a></li>
-      <li><a href="/cuaderno/">Campo</a></li>
-      <li><a href="/cuaderno-de-viaje/">Viaje</a></li>
-    </ul>
-    <img src="/assets/img/cv_logo.png" alt="CD" class="footer-logo" loading="lazy" />
-  </div>
-  <div class="footer-bottom">
-    <span class="footer-copy">© 2025 Cavero Diego — Todos los derechos reservados</span>
-    <ul class="footer-social-links">
-      <li><a href="https://www.instagram.com/caverodiego" target="_blank" rel="noopener">Instagram</a></li>
-      <li><a href="https://www.tiktok.com/@caverodiego" target="_blank" rel="noopener">TikTok</a></li>
-    </ul>
-  </div>
+  {% include "partials/footer-flipper.njk" %}
 </footer>

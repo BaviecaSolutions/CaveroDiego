@@ -1,0 +1,38 @@
+{
+  "es": {
+    "cart": {
+      "title": "Selección",
+      "close": "Cerrar",
+      "emptyLabel": "Carrito vacío",
+      "emptyHint": "Todavía no has añadido ningún componente.",
+      "totalLabel": "Total",
+      "checkoutBtn": "Proceder al pago",
+      "checkoutNote": "Pago seguro con Stripe",
+      "itemRemove": "Eliminar",
+      "itemAdded": "✓ Añadido"
+    },
+    "cc": {
+      "eyebrow": "Círculo Cavero",
+      "successTitle": "Ya estás dentro.",
+      "successDesc": "Te avisaremos cuando haya algo que merezca la pena saber."
+    }
+  },
+  "en": {
+    "cart": {
+      "title": "Selection",
+      "close": "Close",
+      "emptyLabel": "Empty cart",
+      "emptyHint": "You haven't added any components yet.",
+      "totalLabel": "Total",
+      "checkoutBtn": "Proceed to checkout",
+      "checkoutNote": "Secure payment with Stripe",
+      "itemRemove": "Remove",
+      "itemAdded": "✓ Added"
+    },
+    "cc": {
+      "eyebrow": "Cavero Circle",
+      "successTitle": "You're in.",
+      "successDesc": "We'll let you know when there's something worth knowing."
+    }
+  }
+}

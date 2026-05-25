@@ -18,7 +18,11 @@
 }
 
 /* ─── 3. html & body base ───────────────────────────────────────── */
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  width: 100%;
+}
 
 body {
   background: var(--cream);
@@ -27,6 +31,9 @@ body {
   font-size: 15px;
   line-height: 1.6;
   overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
+  position: relative;
   cursor: none;
 }
 
@@ -203,6 +210,7 @@ footer { display: flex; flex-direction: column; }
   position: relative;
   transform-style: preserve-3d;
   transition: transform .7s cubic-bezier(.4,0,.2,1);
+  will-change: transform;
 }
 .footer-logo-inner.flipped { transform: rotateY(180deg); }
 #footerLogoBtn { background: none; border: none; padding: 0; cursor: none; }
@@ -211,8 +219,11 @@ footer { display: flex; flex-direction: column; }
   position: absolute; inset: 0;
   display: flex; align-items: center;
   backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
   border-radius: 6px;
   overflow: hidden;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 }
 .footer-logo-front::after,
 .footer-logo-back::after {
@@ -277,10 +288,12 @@ footer { display: flex; flex-direction: column; }
 }
 .flb-handle {
   font-family: 'Satoshi', sans-serif;
-  font-size: clamp(.65rem, .9vw, .88rem);
+  font-size: clamp(.85rem, 1.4vw, 1.35rem);
   letter-spacing: .06em;
   color: var(--ink); opacity: .55;
 }
+.flb-handle::before { content: ''; }
+.flb-handle::after  { content: ''; }
 .flb-handle--back { color: rgba(232,229,220,.65); opacity: 1; }
 .footer-logo-front-social,
 .flb-social {
@@ -614,10 +627,275 @@ section { position: relative; }
 }
 
 /* ─── Shared responsive nav ─────────────────────────────────────── */
+/* ─── Mobile hamburger menu ─────────────────────────────────────── */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: none;
+  z-index: 501;
+}
+.nav-hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--ink);
+  transition: transform .3s, opacity .3s;
+}
+.nav-hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
+.nav-hamburger.active span:nth-child(2) { opacity: 0; }
+.nav-hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(6px, -6px); }
+
+.nav-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(42,50,41,.92);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 499;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .35s ease, visibility .35s ease;
+}
+.nav-overlay.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: all;
+}
+
+.nav-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(18rem, 80vw);
+  background: var(--cream);
+  z-index: 500;
+  padding: 6rem 2.4rem 2rem;
+  transform: translateX(100%);
+  transition: transform .35s cubic-bezier(.4,0,.2,1);
+  overflow-y: auto;
+}
+.nav-panel.active { transform: translateX(0); }
+
+.nav-panel-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.nav-panel-links a {
+  font-size: .84rem;
+  font-weight: 500;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+  transition: opacity .25s, transform .2s;
+  display: block;
+  padding: .6rem 0;
+}
+.nav-panel-links a:hover {
+  opacity: .65;
+  transform: translateX(4px);
+}
+.nav-panel-links a.active {
+  border-left: 2px solid var(--ink);
+  padding-left: .8rem;
+  font-weight: 600;
+}
+
+/* Mobile empresas link styling */
+.nav-panel-links a[href*="empresas"] {
+  display: inline-block;
+  border: 1px solid var(--ink-10);
+  padding: .6rem 1rem;
+  border-radius: 2px;
+  transition: border-color .25s, background .25s;
+}
+.nav-panel-links a[href*="empresas"]:hover {
+  border-color: var(--ink);
+  background: var(--ink-4);
+  opacity: 1;
+  transform: translateX(0);
+}
+.nav-panel-links a[href*="empresas"].active {
+  border-color: var(--ink);
+  border-left-width: 1px;
+  padding-left: 1rem;
+  font-weight: 500;
+}
+
 @media (max-width: 900px) {
   nav { padding: 1.8rem 5vw; }
   .nav-links { gap: 1.6rem; }
 }
+@media (max-width: 768px) {
+  /* Disable custom cursor on mobile/tablet */
+  body, *, *::before, *::after { cursor: auto !important; }
+  .cursor, .cursor-ring { display: none !important; }
+}
+
 @media (max-width: 560px) {
   .nav-links { display: none; }
+  .nav-hamburger {
+    display: flex;
+    position: absolute;
+    left: 6vw;
+  }
+
+  /* Mover todos los botones al extremo derecho */
+  #nav {
+    justify-content: flex-end;
+    padding: 1.2rem 6vw;
+  }
+  #nav.scrolled {
+    padding: 0.8rem 6vw;
+  }
+
+  /* Footer mobile restructure: solo card central */
+  .footer-main {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    border: none;
+  }
+
+  /* Section 1: ocultar completamente cuadernos en móvil */
+  .footer-main > .footer-col {
+    display: none;
+  }
+
+  /* Section 2: card centrada */
+  .footer-main-right {
+    display: flex;
+    justify-content: center;
+    padding: 6vh 6vw;
+    border-top: 1px solid var(--ink-10);
+    border-bottom: 1px solid var(--ink-10);
+  }
+
+  /* Footer flipper card — smaller on mobile */
+  .footer-logo-flipper {
+    width: clamp(16rem, 85vw, 22rem);
+    aspect-ratio: 85.6 / 54;
+  }
+  /* Faster animation on mobile */
+  .footer-logo-inner {
+    transition: transform .5s cubic-bezier(.4,0,.2,1);
+  }
+  .footer-logo-front-logo,
+  #footerLogoBtnBack,
+  .flb-logo-btn {
+    top: .8rem;
+    left: 1rem;
+  }
+  .footer-logo-front-logo img,
+  #footerLogoBtnBack img,
+  .flb-logo-btn img {
+    width: 36px;
+  }
+  .flb-email-label { font-size: .82rem; }
+  .flb-handle { font-size: 1.15rem; }
+  .footer-logo-front-social,
+  .flb-social {
+    gap: 1.4rem;
+  }
+  .footer-logo-front-social a svg,
+  .flb-social a svg {
+    width: 26px;
+    height: 26px;
+  }
+  .footer-logo-front-social::before,
+  .footer-logo-front-social::after,
+  .flb-social::before,
+  .flb-social::after {
+    font-size: 1.3rem;
+  }
+  .footer-logo-front-name,
+  .flb-origin {
+    font-size: clamp(1.6rem, 6vw, 2.4rem);
+    padding: 0 .6rem .5rem 0;
+  }
+
+  /* Section 3: strip (already at bottom) */
+  .footer-strip {
+    order: 3;
+  }
+}
+
+/* ─── CTA Círculo Cavero (artículos) ───────────────────────────── */
+.cc-cta {
+  padding: 10vh 8vw;
+  border-top: 1px solid var(--ink-10);
+  background: linear-gradient(180deg, rgba(42,50,41,.02) 0%, rgba(42,50,41,.06) 100%);
+}
+.cc-cta-content {
+  max-width: 560px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+}
+.cc-cta-eyebrow {
+  font-size: .58rem;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: var(--stone);
+}
+.cc-cta-title {
+  font-family: 'Boska', serif;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--ink);
+}
+.cc-cta-desc {
+  font-size: .95rem;
+  color: var(--stone);
+  line-height: 1.6;
+  max-width: 42ch;
+}
+.cc-cta-btn {
+  margin-top: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: .8rem;
+  padding: 1rem 2rem;
+  font-size: .72rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--cream);
+  background: var(--ink);
+  border: none;
+  border-radius: 2px;
+  transition: background .3s, transform .2s;
+}
+.cc-cta-btn:hover {
+  background: #3d4a3c;
+  transform: translateY(-2px);
+}
+.cc-cta-btn svg {
+  transition: transform .3s;
+}
+.cc-cta-btn:hover svg {
+  transform: translateX(4px);
+}
+@media (max-width: 560px) {
+  .cc-cta {
+    padding: 8vh 6vw;
+  }
+  .cc-cta-title {
+    font-size: clamp(1.6rem, 6vw, 2.4rem);
+  }
+  .cc-cta-btn {
+    font-size: .68rem;
+    padding: .9rem 1.6rem;
+  }
 }

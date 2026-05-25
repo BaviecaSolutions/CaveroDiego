@@ -3,6 +3,46 @@
    Shared behaviour for all pages. Page-specific JS stays inline.
    ═══════════════════════════════════════════════════════════════ */
 
+/* ── Translations loader ────────────────────────────────────────── */
+let translationsData = null;
+let translationsPromise = null;
+
+async function loadTranslations() {
+  if (translationsData) return translationsData;
+  if (translationsPromise) return translationsPromise;
+
+  translationsPromise = fetch('/assets/data/translations.json')
+    .then(res => res.json())
+    .then(data => {
+      translationsData = data;
+      return data;
+    })
+    .catch(() => {
+      // Fallback if fetch fails
+      translationsData = {
+        es: { cart: {}, cc: {} },
+        en: { cart: {}, cc: {} }
+      };
+      return translationsData;
+    });
+
+  return translationsPromise;
+}
+
+function getCurrentLanguage() {
+  return window.location.pathname.startsWith('/en') || document.documentElement.lang === 'en' ? 'en' : 'es';
+}
+
+function getTranslation(key, lang) {
+  if (!translationsData) return '';
+  const keys = key.split('.');
+  let value = translationsData[lang];
+  for (const k of keys) {
+    value = value?.[k];
+  }
+  return value || '';
+}
+
 /* ── Cart state ─────────────────────────────────────────────────── */
 const Cart = (() => {
   const STORAGE_KEY = 'cd_cart';
@@ -48,21 +88,23 @@ const Cart = (() => {
 })();
 
 /* ── Cart panel DOM (injected once) ─────────────────────────────── */
-function injectCartPanel() {
-  // Detect language from URL or html lang attribute
-  const isEnglish = window.location.pathname.startsWith('/en') || document.documentElement.lang === 'en';
+async function injectCartPanel() {
+  // Load translations first
+  await loadTranslations();
 
-  // Translation strings
+  const lang = getCurrentLanguage();
+
+  // Get translations from loaded data
   const t = {
-    title: isEnglish ? 'Selection' : 'Selección',
-    close: isEnglish ? 'Close' : 'Cerrar',
-    emptyLabel: isEnglish ? 'Empty cart' : 'Carrito vacío',
-    emptyHint: isEnglish ? "You haven't added any components yet." : 'Todavía no has añadido ningún componente.',
-    totalLabel: isEnglish ? 'Total' : 'Total',
-    checkoutBtn: isEnglish ? 'Proceed to checkout' : 'Proceder al pago',
-    checkoutNote: isEnglish ? 'Secure payment with Stripe' : 'Pago seguro con Stripe',
-    itemRemove: isEnglish ? 'Remove' : 'Eliminar',
-    itemAdded: isEnglish ? '✓ Added' : '✓ Añadido'
+    title: getTranslation('cart.title', lang),
+    close: getTranslation('cart.close', lang),
+    emptyLabel: getTranslation('cart.emptyLabel', lang),
+    emptyHint: getTranslation('cart.emptyHint', lang),
+    totalLabel: getTranslation('cart.totalLabel', lang),
+    checkoutBtn: getTranslation('cart.checkoutBtn', lang),
+    checkoutNote: getTranslation('cart.checkoutNote', lang),
+    itemRemove: getTranslation('cart.itemRemove', lang),
+    itemAdded: getTranslation('cart.itemAdded', lang)
   };
 
   // Store translations globally for use in other functions
@@ -278,12 +320,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const ccForm = document.getElementById('ccForm');
   if (ccForm) {
-    ccForm.addEventListener('submit', e => {
+    ccForm.addEventListener('submit', async e => {
       e.preventDefault();
-      const isEnglish = window.location.pathname.startsWith('/en') || document.documentElement.lang === 'en';
-      const eyebrow = isEnglish ? 'Cavero Circle' : 'Círculo Cavero';
-      const successTitle = ccForm.dataset.successTitle || (isEnglish ? "You're in." : 'Ya estás dentro.');
-      const successDesc = ccForm.dataset.successDesc || (isEnglish ? "We'll let you know when there's something worth knowing." : 'Te avisaremos cuando haya algo que merezca la pena saber.');
+      await loadTranslations();
+      const lang = getCurrentLanguage();
+      const eyebrow = getTranslation('cc.eyebrow', lang);
+      const successTitle = ccForm.dataset.successTitle || getTranslation('cc.successTitle', lang);
+      const successDesc = ccForm.dataset.successDesc || getTranslation('cc.successDesc', lang);
       ccPanel.innerHTML = `<div style="display:flex;flex-direction:column;justify-content:center;height:100%;gap:1.2rem;padding:4rem 3.2rem"><span class="cc-eyebrow">${eyebrow}</span><h2 class="cc-titulo">${successTitle}</h2><p class="cc-desc">${successDesc}</p></div>`;
     });
   }

@@ -709,6 +709,27 @@ section { position: relative; }
   font-weight: 600;
 }
 
+/* Mobile empresas link styling */
+.nav-panel-links a[href*="empresas"] {
+  display: inline-block;
+  border: 1px solid var(--ink-10);
+  padding: .6rem 1rem;
+  border-radius: 2px;
+  transition: border-color .25s, background .25s;
+}
+.nav-panel-links a[href*="empresas"]:hover {
+  border-color: var(--ink);
+  background: var(--ink-4);
+  opacity: 1;
+  transform: translateX(0);
+}
+.nav-panel-links a[href*="empresas"].active {
+  border-color: var(--ink);
+  border-left-width: 1px;
+  padding-left: 1rem;
+  font-weight: 500;
+}
+
 @media (max-width: 900px) {
   nav { padding: 1.8rem 5vw; }
   .nav-links { gap: 1.6rem; }
