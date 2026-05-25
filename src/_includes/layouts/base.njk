@@ -77,7 +77,7 @@
   <link rel="stylesheet" href="/assets/css/global.css" />
   {% if pageStyle %}<style>{{ pageStyle | safe }}</style>{% endif %}
 </head>
-<body>
+<body{% if bodyClass %} class="{{ bodyClass }}"{% endif %}>
   <div class="cursor" id="cursor"></div>
   <div class="cursor-ring" id="cursorRing"></div>
 

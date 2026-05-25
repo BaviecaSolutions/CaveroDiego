@@ -315,40 +315,53 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ── 9. Language switcher ───────────────────────────────────── */
-  // Check localStorage and redirect on page load if needed
-  const currentPath = window.location.pathname;
-  const isCurrentlyEnglish = currentPath.startsWith('/en');
-  const preferredLang = localStorage.getItem('preferredLang');
+  // Skip language switcher logic on home page (it has its own inline handler)
+  const isHomePage = document.body.classList.contains('home-page');
 
-  // Auto-redirect based on stored preference (only if different from current)
-  if (preferredLang === 'en' && !isCurrentlyEnglish) {
-    const newPath = '/en' + currentPath;
-    window.location.href = newPath;
-  } else if (preferredLang === 'es' && isCurrentlyEnglish) {
-    const newPath = currentPath.replace(/^\/en/, '') || '/';
-    window.location.href = newPath;
-  }
+  if (!isHomePage) {
+    // Check localStorage and redirect on page load if needed
+    const currentPath = window.location.pathname;
+    const isCurrentlyEnglish = currentPath.startsWith('/en');
+    const preferredLang = localStorage.getItem('preferredLang');
 
-  const langBtn = document.getElementById('langBtn');
-  if (langBtn) {
-    langBtn.addEventListener('click', () => {
-      const currentPath = window.location.pathname;
-      const isEnglish = currentPath.startsWith('/en');
+    // Auto-redirect based on stored preference (only if different from current)
+    if (preferredLang === 'en' && !isCurrentlyEnglish) {
+      const newPath = '/en' + currentPath;
+      window.location.href = newPath;
+    } else if (preferredLang === 'es' && isCurrentlyEnglish) {
+      const newPath = currentPath.replace(/^\/en/, '') || '/';
+      window.location.href = newPath;
+    }
 
-      if (isEnglish) {
-        // Switch to Spanish: remove /en prefix and save preference
-        localStorage.setItem('preferredLang', 'es');
-        const newPath = currentPath.replace(/^\/en/, '') || '/';
-        window.location.href = newPath;
-      } else {
-        // Switch to English: add /en prefix and save preference
-        localStorage.setItem('preferredLang', 'en');
-        const newPath = '/en' + currentPath;
-        window.location.href = newPath;
+    const langBtn = document.getElementById('langBtn');
+    if (langBtn) {
+      langBtn.addEventListener('click', () => {
+        const currentPath = window.location.pathname;
+        const isEnglish = currentPath.startsWith('/en');
+
+        if (isEnglish) {
+          // Switch to Spanish: remove /en prefix and save preference
+          localStorage.setItem('preferredLang', 'es');
+          const newPath = currentPath.replace(/^\/en/, '') || '/';
+          window.location.href = newPath;
+        } else {
+          // Switch to English: add /en prefix and save preference
+          localStorage.setItem('preferredLang', 'en');
+          const newPath = '/en' + currentPath;
+          window.location.href = newPath;
+        }
+      });
+
+      // Update button label based on current language
+      const langLabel = document.getElementById('langLabel');
+      if (langLabel) {
+        langLabel.textContent = isCurrentlyEnglish ? 'EN' : 'ES';
       }
-    });
-
-    // Update button label based on current language
+    }
+  } else {
+    // On home page, just update the button label (translation is handled inline)
+    const currentPath = window.location.pathname;
+    const isCurrentlyEnglish = currentPath.startsWith('/en');
     const langLabel = document.getElementById('langLabel');
     if (langLabel) {
       langLabel.textContent = isCurrentlyEnglish ? 'EN' : 'ES';
