@@ -1,0 +1,63 @@
+{
+  "nav": {
+    "home": "Home",
+    "products": "Products",
+    "campo": "Field",
+    "viaje": "Travel",
+    "empresas": "Business"
+  },
+  "home": {
+    "hero": {
+      "title": "Cavero<br>Diego"
+    },
+    "territorio": {
+      "label": "Territory",
+      "title": "The origin",
+      "text": "Castile: land of contrasts and character. A landscape that shapes the way of seeing, creating and living. From here, Cavero Diego translates that spirit into objects and materials born from criteria, not trends."
+    },
+    "manifiesto": {
+      "label": "Manifesto",
+      "text": "Cavero Diego represents a contemporary way of understanding our heritage through sobriety, culture and precision. It's Castilian pride reinterpreted without nostalgia; a brand rooted in tradition, but expressed with <em>international language.</em>"
+    },
+    "materiales": {
+      "titulo": "What's born here",
+      "sub": "Material · Process · Object",
+      "campo_link": "Field Notebook",
+      "viaje_link": "Travel Notebook"
+    }
+  },
+  "footer": {
+    "email": "hello@caverodiego.com",
+    "handle": "@caverodiego",
+    "origin": "Castile · Spain",
+    "name": "Cavero Diego",
+    "rights": "All rights reserved"
+  },
+  "cc": {
+    "eyebrow": "Cavero Circle",
+    "title": "First<br>row.",
+    "desc": "No noise, no rush. When there's something to tell — a launch, a piece, a moment — you'll be the first to know.",
+    "name_placeholder": "Your name",
+    "email_placeholder": "Email address",
+    "button": "Join the circle",
+    "legal": "No spam. Unsubscribe anytime.",
+    "success_title": "You're in.",
+    "success_desc": "We'll let you know when there's something worth knowing.",
+    "cta_title": "Continue the conversation",
+    "cta_desc": "Stories, processes and launches. No noise.",
+    "cta_button": "Join the circle"
+  },
+  "empresas": {
+    "eyebrow": "Collaborations & Commercial Orders",
+    "hero_title": "For those who <em>choose with criteria.</em>",
+    "hero_desc": "Hotels, restaurants, hospitality spaces and companies that want to offer their customers something different. We work with volumes from 10 units and close custom commercial agreements.",
+    "form_name": "Name",
+    "form_email": "Email",
+    "form_empresa": "Company / Space",
+    "form_mensaje": "Tell us what you need",
+    "form_send": "Send inquiry",
+    "form_legal": "Your data is used only to respond to your inquiry.",
+    "form_success_title": "Received.",
+    "form_success_desc": "We'll respond within 48 hours.<br>Thank you for trusting Cavero Diego."
+  }
+}

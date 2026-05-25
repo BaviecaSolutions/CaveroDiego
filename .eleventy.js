@@ -1,17 +1,21 @@
 const htmlmin = require('html-minifier-terser');
+const { EleventyI18nPlugin } = require("@11ty/eleventy");
 
 module.exports = function (eleventyConfig) {
-  // Passthrough assets
-  eleventyConfig.addPassthroughCopy("src/assets");
-  eleventyConfig.addPassthroughCopy("src/robots.txt");
-  eleventyConfig.addPassthroughCopy("src/_headers");
+  // i18n Plugin
+  eleventyConfig.addPlugin(EleventyI18nPlugin, {
+    defaultLanguage: "es",
+    errorMode: "allow-fallback"
+  });
 
-  // Global data: current language (default ES)
-  eleventyConfig.addGlobalData("lang", "es");
+  // Translation filter
+  eleventyConfig.addFilter("t", function(key, locale) {
+    const lang = locale || this.ctx.lang || this.ctx.page?.lang || "es";
+    const translations = {
+      es: require('./src/_data/i18n/es.json'),
+      en: require('./src/_data/i18n/en.json')
+    };
 
-  // Filter for translations
-  eleventyConfig.addFilter("t", function(key, lang = "es") {
-    const translations = require('./src/_data/translations.json');
     const keys = key.split('.');
     let value = translations[lang];
     for (const k of keys) {
@@ -19,6 +23,11 @@ module.exports = function (eleventyConfig) {
     }
     return value || key;
   });
+
+  // Passthrough assets
+  eleventyConfig.addPassthroughCopy("src/assets");
+  eleventyConfig.addPassthroughCopy("src/robots.txt");
+  eleventyConfig.addPassthroughCopy("src/_headers");
 
   // HTML Minification (with enhanced options)
   eleventyConfig.addTransform("htmlmin", function(content, outputPath) {

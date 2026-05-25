@@ -314,7 +314,34 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* ── 9. Mobile hamburger menu ───────────────────────────────── */
+  /* ── 9. Language switcher ───────────────────────────────────── */
+  const langBtn = document.getElementById('langBtn');
+  if (langBtn) {
+    langBtn.addEventListener('click', () => {
+      const currentPath = window.location.pathname;
+      const isEnglish = currentPath.startsWith('/en');
+
+      if (isEnglish) {
+        // Switch to Spanish: remove /en prefix
+        const newPath = currentPath.replace(/^\/en/, '') || '/';
+        window.location.href = newPath;
+      } else {
+        // Switch to English: add /en prefix
+        const newPath = '/en' + currentPath;
+        window.location.href = newPath;
+      }
+    });
+
+    // Update button label based on current language
+    const currentPath = window.location.pathname;
+    const isEnglish = currentPath.startsWith('/en');
+    const langLabel = document.getElementById('langLabel');
+    if (langLabel) {
+      langLabel.textContent = isEnglish ? 'EN' : 'ES';
+    }
+  }
+
+  /* ── 10. Mobile hamburger menu ──────────────────────────────── */
   const navHamburger = document.getElementById('navHamburger');
   const navOverlay   = document.getElementById('navOverlay');
   const navPanel     = document.getElementById('navPanel');

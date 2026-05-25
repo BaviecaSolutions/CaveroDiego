@@ -1,0 +1,63 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "products": "Productos",
+    "campo": "Campo",
+    "viaje": "Viaje",
+    "empresas": "Empresas"
+  },
+  "home": {
+    "hero": {
+      "title": "Cavero<br>Diego"
+    },
+    "territorio": {
+      "label": "Territorio",
+      "title": "El origen",
+      "text": "Castilla: tierra de contrastes y carácter. Un paisaje que moldea la forma de ver, de crear y de habitar. Desde aquí, Cavero Diego traduce ese espíritu en objetos y materiales que nacen del criterio, no de la tendencia."
+    },
+    "manifiesto": {
+      "label": "Manifiesto",
+      "text": "Cavero Diego representa una forma contemporánea de entender lo nuestro desde la sobriedad, la cultura y la precisión. Es orgullo castellano reinterpretado sin nostalgia; una marca que nace de la raíz, pero se expresa con <em>lenguaje internacional.</em>"
+    },
+    "materiales": {
+      "titulo": "Lo que nace aquí",
+      "sub": "Materia · Proceso · Objeto",
+      "campo_link": "Cuaderno de Campo",
+      "viaje_link": "Cuaderno de Viaje"
+    }
+  },
+  "footer": {
+    "email": "hola@caverodiego.com",
+    "handle": "@caverodiego",
+    "origin": "Castilla · España",
+    "name": "Cavero Diego",
+    "rights": "Todos los derechos reservados"
+  },
+  "cc": {
+    "eyebrow": "Círculo Cavero",
+    "title": "En primera<br>fila.",
+    "desc": "Sin ruido, sin prisa. Cuando haya algo que contar — un lanzamiento, una pieza, un momento — tú serás el primero.",
+    "name_placeholder": "Tu nombre",
+    "email_placeholder": "Correo electrónico",
+    "button": "Entrar al círculo",
+    "legal": "Sin spam. Puedes darte de baja cuando quieras.",
+    "success_title": "Ya estás dentro.",
+    "success_desc": "Te avisaremos cuando haya algo que merezca la pena saber.",
+    "cta_title": "Sigue la conversación",
+    "cta_desc": "Relatos, procesos y lanzamientos. Sin ruido.",
+    "cta_button": "Unirme al círculo"
+  },
+  "empresas": {
+    "eyebrow": "Colaboraciones & Pedidos comerciales",
+    "hero_title": "Para quienes <em>eligen con criterio.</em>",
+    "hero_desc": "Hoteles, restaurantes, espacios de hospitalidad y empresas que quieren ofrecer a sus clientes algo distinto. Trabajamos con volúmenes desde 10 unidades y cerramos acuerdos comerciales a medida.",
+    "form_name": "Nombre",
+    "form_email": "Email",
+    "form_empresa": "Empresa / Espacio",
+    "form_mensaje": "Cuéntanos qué necesitas",
+    "form_send": "Enviar consulta",
+    "form_legal": "Tus datos se usan únicamente para responder a tu consulta.",
+    "form_success_title": "Recibido.",
+    "form_success_desc": "Te respondemos en menos de 48 horas.<br>Gracias por confiar en Cavero Diego."
+  }
+}
