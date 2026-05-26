@@ -427,12 +427,18 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   } else {
-    // On home page, just update the button label (translation is handled inline)
+    // On home page, update button label based on actual page language
     const currentPath = window.location.pathname;
     const isCurrentlyEnglish = currentPath.startsWith('/en');
     const langLabel = document.getElementById('langLabel');
     if (langLabel) {
       langLabel.textContent = isCurrentlyEnglish ? 'EN' : 'ES';
+    }
+
+    // Also update heroLangLabel if exists
+    const heroLabel = document.getElementById('heroLangLabel');
+    if (heroLabel) {
+      heroLabel.textContent = isCurrentlyEnglish ? 'EN' : 'ES';
     }
   }
 
