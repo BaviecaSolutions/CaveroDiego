@@ -419,12 +419,12 @@ document.addEventListener('DOMContentLoaded', () => {
           window.location.href = newPath;
         }
       });
+    }
 
-      // Update button label based on current language
-      const langLabel = document.getElementById('langLabel');
-      if (langLabel) {
-        langLabel.textContent = isCurrentlyEnglish ? 'EN' : 'ES';
-      }
+    // Update button label based on current language (show CURRENT language, not target)
+    const langLabel = document.getElementById('langLabel');
+    if (langLabel) {
+      langLabel.textContent = isCurrentlyEnglish ? 'EN' : 'ES';
     }
   } else {
     // On home page, update button label based on actual page language
