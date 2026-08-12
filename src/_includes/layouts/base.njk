@@ -65,15 +65,12 @@
   </script>
 
   <!-- Resource Hints -->
-  <link rel="dns-prefetch" href="https://api.fontshare.com" />
-  <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
-  <link rel="preload" href="https://api.fontshare.com/v2/css?f[]=boska@400,500,700&f[]=satoshi@400,500&display=swap" as="style" />
+  <link rel="preload" href="/assets/fonts/fonts.css" as="style" />
   <link rel="preload" href="/assets/css/global.css" as="style" />
   <link rel="preload" href="/assets/js/global.js" as="script" />
 
-  <!-- Stylesheets -->
-  <link href="https://api.fontshare.com/v2/css?f[]=boska@400,500,700&f[]=satoshi@400,500&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
-  <noscript><link href="https://api.fontshare.com/v2/css?f[]=boska@400,500,700&f[]=satoshi@400,500&display=swap" rel="stylesheet" /></noscript>
+  <!-- Stylesheets (Local fonts - GDPR compliant) -->
+  <link rel="stylesheet" href="/assets/fonts/fonts.css" />
   <link rel="stylesheet" href="/assets/css/global.css" />
   {% if pageStyle %}<style>{{ pageStyle | safe }}</style>{% endif %}
 </head>

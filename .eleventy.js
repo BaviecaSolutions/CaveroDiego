@@ -28,6 +28,7 @@ module.exports = function (eleventyConfig) {
 
   // Passthrough assets
   eleventyConfig.addPassthroughCopy("src/assets");
+  eleventyConfig.addPassthroughCopy({"public": "."});
   eleventyConfig.addPassthroughCopy("src/robots.txt");
   eleventyConfig.addPassthroughCopy("src/_headers");
   eleventyConfig.addPassthroughCopy({"src/assets/data": "assets/data"});
